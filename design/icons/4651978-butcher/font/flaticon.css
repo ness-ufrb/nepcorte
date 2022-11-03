@@ -1,0 +1,85 @@
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff2") format("woff2"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+.fimanager:before {
+      display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    display: block;
+}
+
+.flaticon-001-steak:before { content: "\f100"; }
+.flaticon-002-meat-slicer:before { content: "\f101"; }
+.flaticon-003-sausage:before { content: "\f102"; }
+.flaticon-004-tenderizer:before { content: "\f103"; }
+.flaticon-005-meat-grinder:before { content: "\f104"; }
+.flaticon-006-butcher:before { content: "\f105"; }
+.flaticon-007-sausages:before { content: "\f106"; }
+.flaticon-008-tenderizer:before { content: "\f107"; }
+.flaticon-009-cattle:before { content: "\f108"; }
+.flaticon-010-meat:before { content: "\f109"; }
+.flaticon-011-cutlets:before { content: "\f10a"; }
+.flaticon-012-butcher-knife:before { content: "\f10b"; }
+.flaticon-013-refrigerator:before { content: "\f10c"; }
+.flaticon-014-skewer:before { content: "\f10d"; }
+.flaticon-015-protective-mask:before { content: "\f10e"; }
+.flaticon-016-apron:before { content: "\f10f"; }
+.flaticon-017-electric-zapper:before { content: "\f110"; }
+.flaticon-018-meat:before { content: "\f111"; }
+.flaticon-019-ribs:before { content: "\f112"; }
+.flaticon-020-weight-scale:before { content: "\f113"; }
+.flaticon-021-cow:before { content: "\f114"; }
+.flaticon-022-meat:before { content: "\f115"; }
+.flaticon-023-certificate:before { content: "\f116"; }
+.flaticon-024-refrigerator:before { content: "\f117"; }
+.flaticon-025-saw:before { content: "\f118"; }
+.flaticon-026-cutting-board:before { content: "\f119"; }
+.flaticon-027-hen:before { content: "\f11a"; }
+.flaticon-028-mezzaluna:before { content: "\f11b"; }
+.flaticon-029-knife:before { content: "\f11c"; }
+.flaticon-030-knives:before { content: "\f11d"; }
+.flaticon-031-electrical-stunning:before { content: "\f11e"; }
+.flaticon-032-pig:before { content: "\f11f"; }
+.flaticon-033-meat:before { content: "\f120"; }
+.flaticon-034-bacon:before { content: "\f121"; }
+.flaticon-035-refrigerator:before { content: "\f122"; }
+.flaticon-036-cutting:before { content: "\f123"; }
+.flaticon-037-meat:before { content: "\f124"; }
+.flaticon-038-tongs:before { content: "\f125"; }
+.flaticon-039-hook:before { content: "\f126"; }
+.flaticon-040-sausage:before { content: "\f127"; }
+.flaticon-041-rotten:before { content: "\f128"; }
+.flaticon-042-minced-meat:before { content: "\f129"; }
+.flaticon-043-rabbit:before { content: "\f12a"; }
+.flaticon-044-bacteria:before { content: "\f12b"; }
+.flaticon-045-sausage:before { content: "\f12c"; }
+.flaticon-046-smokehouse:before { content: "\f12d"; }
+.flaticon-047-display:before { content: "\f12e"; }
+.flaticon-048-marinator:before { content: "\f12f"; }
+.flaticon-049-holder:before { content: "\f130"; }
+.flaticon-050-price-label:before { content: "\f131"; }
