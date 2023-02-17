@@ -1,14 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
+import { useFonts } from 'expo-font';
 
 const SplashScreen = () => {
+    const [fontsLoaded] = useFonts({
+        'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
+    });
+
     return (
         <View style={styles.container}>
             <Image
                 style={styles.image}
                 source={require('../assets/icons/021-cow.png')}
             />
-            <Text style={styles.title}>SplashScreen</Text>
+            <Image
+                style={styles.title}
+                source={require('../assets/icons/TopCarne.png')}
+            />
+            {/* <Text style={styles.title}>TopCarne</Text> */}
         </View>
     )
 };
@@ -22,14 +31,13 @@ SplashScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
     image: {
         tintColor: 'white',
-        width: '25%',
-        height: '12%'
+        width: "30%",
+        height: '15%'
     },
     title: {
         color: 'white',
-        fontSize: 36,
-        fontFamily: 'Inter-Bold',
-        fontStyle: 'normal' 
+        width: "50%",
+        height: '5%'
     },
     container: {
         height: '100%',
