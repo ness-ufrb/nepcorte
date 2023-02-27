@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { COLORS } from '../assets/colors/Colors';
+import { COLORS } from '../constant/colors';
 
 const BottomBarIcons = props => {
      return (

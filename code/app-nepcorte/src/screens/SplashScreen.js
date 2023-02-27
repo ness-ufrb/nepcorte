@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { useFonts } from 'expo-font';
+import { icons } from '../constant/icons';
 
 const SplashScreen = () => {
     const [fontsLoaded] = useFonts({
@@ -11,13 +12,12 @@ const SplashScreen = () => {
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require('../assets/icons/021-cow.png')}
+                source={icons.cow021}
             />
             <Image
                 style={styles.title}
-                source={require('../assets/icons/TopCarne.png')}
+                source={icons.TopCarne}
             />
-            {/* <Text style={styles.title}>TopCarne</Text> */}
         </View>
     )
 };

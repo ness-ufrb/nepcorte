@@ -6,9 +6,9 @@ import AnimalsScreen from './src/screens/AnimalsScreen';
 import AssessScreen from './src/screens/AssessScreen';
 import AssessmentsScreen from './src/screens/AssessmentsScreen';
 import AccountScreen from './src/screens/AccountScreen';
-import { COLORS } from './src/assets/colors/Colors';
+import { COLORS } from './src/constant/colors';
 import BottomBarIcons from './src/components/BottomBarIcons';
-import { icons } from './src/assets/icons/icons';
+import { icons } from './src/constant/icons';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -18,7 +18,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         shifting={false}
-        initialRouteName="Sorting"
+        initialRouteName="Triagem"
         barStyle={{ backgroundColor: COLORS.main }}
       >
         <Tab.Screen name="Triagem" component={SortingScreen}
