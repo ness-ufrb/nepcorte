@@ -1,17 +1,29 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import SortingScreen from './src/screens/SortingScreen';
 import AnimalsScreen from './src/screens/AnimalsScreen';
 import AssessScreen from './src/screens/AssessScreen';
 import AssessmentsScreen from './src/screens/AssessmentsScreen';
 import AccountScreen from './src/screens/AccountScreen';
+import IdentifyAnimalScreen from './src/screens/IdentifyAnimalScreen';
+import SituationAnimalScreen from './src/screens/SituationAnimalScreen';
 import { COLORS } from './src/constant/colors';
 import BottomBarIcons from './src/components/BottomBarIcons';
 import { icons } from './src/constant/icons';
 
+const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
+function SortingStackScreens() {
+  return (
+    <Stack.Navigator initialRouteName="IdentifyAnimal">
+      <Stack.Screen name="IdentifyAnimal" component={IdentifyAnimalScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="SituationAnimal" component={SituationAnimalScreen}/>
+    </Stack.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -21,7 +33,7 @@ export default function App() {
         initialRouteName="Triagem"
         barStyle={{ backgroundColor: COLORS.main }}
       >
-        <Tab.Screen name="Triagem" component={SortingScreen}
+        <Tab.Screen name="Triagem" component={SortingStackScreens}
           options={{
             tabBarIcon: ({ focused }) => (
               <BottomBarIcons imageSource={icons.truck054} focused={focused}/>
