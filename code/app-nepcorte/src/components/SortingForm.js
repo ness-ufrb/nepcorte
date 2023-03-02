@@ -4,9 +4,19 @@ import { Input } from '@rneui/themed';
 import { useFonts } from 'expo-font';
 import { Button } from '@rneui/themed';
 import { COLORS } from '../constant/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import { putCode } from "../context/codeSlice";
 
 const SortingForm = ({ navigation, route }) => {
     const [code, setCode] = useState('');
+
+    const dispatch = useDispatch();
+    const codeValue = useSelector((state) => state.code.value);
+    console.log(codeValue);
+
+    const handlePutCode = (cod) => {
+        dispatch(putCode(cod));
+    };
 
     const [fontsLoaded] = useFonts({
         'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
@@ -65,7 +75,11 @@ const SortingForm = ({ navigation, route }) => {
                         // navigation.navigate(route);
                     }}
                 />
-                <TouchableOpacity onPress={() => setCode(generateRandomCode())}>
+                <TouchableOpacity onPress={() => {
+                    console.log('clicked!')
+                    setCode(generateRandomCode())
+                    handlePutCode(code)
+                    }}>
                     <Text style={styles.getCode}>Gerar código identificador</Text>
                 </TouchableOpacity>
             </View>

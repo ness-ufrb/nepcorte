@@ -12,6 +12,8 @@ import SituationAnimalScreen from './src/screens/SituationAnimalScreen';
 import { COLORS } from './src/constant/colors';
 import BottomBarIcons from './src/components/BottomBarIcons';
 import { icons } from './src/constant/icons';
+import { Provider } from 'react-redux';
+import store from './src/context/store';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -19,56 +21,58 @@ const Tab = createMaterialBottomTabNavigator();
 function SortingStackScreens() {
   return (
     <Stack.Navigator initialRouteName="IdentifyAnimal">
-      <Stack.Screen name="IdentifyAnimal" component={IdentifyAnimalScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="SituationAnimal" component={SituationAnimalScreen}/>
+      <Stack.Screen name="IdentifyAnimal" component={IdentifyAnimalScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="SituationAnimal" component={SituationAnimalScreen} />
     </Stack.Navigator>
   );
 }
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        shifting={false}
-        initialRouteName="Triagem"
-        barStyle={{ backgroundColor: COLORS.main }}
-      >
-        <Tab.Screen name="Triagem" component={SortingStackScreens}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <BottomBarIcons imageSource={icons.truck054} focused={focused}/>
-            ),
-          }}
-        />
-        <Tab.Screen name="Animais" component={AnimalsScreen} 
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <BottomBarIcons imageSource={icons.cow008} focused={focused}/>
-            ),
-          }}
-        />
-        <Tab.Screen name="Avaliar" component={AssessScreen} 
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <BottomBarIcons imageSource={icons.camera003} focused={focused}/>
-            ),
-          }}
-        />
-        <Tab.Screen name="Avaliações" component={AssessmentsScreen} 
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <BottomBarIcons imageSource={icons.steak001} focused={focused}/>
-            ),
-          }}
-        />
-        <Tab.Screen name="Conta" component={AccountScreen} 
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <BottomBarIcons imageSource={icons.user032} focused={focused}/>
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          shifting={false}
+          initialRouteName="Triagem"
+          barStyle={{ backgroundColor: COLORS.main }}
+        >
+          <Tab.Screen name="Triagem" component={SortingStackScreens}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <BottomBarIcons imageSource={icons.truck054} focused={focused} />
+              ),
+            }}
+          />
+          <Tab.Screen name="Animais" component={AnimalsScreen}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <BottomBarIcons imageSource={icons.cow008} focused={focused} />
+              ),
+            }}
+          />
+          <Tab.Screen name="Avaliar" component={AssessScreen}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <BottomBarIcons imageSource={icons.camera003} focused={focused} />
+              ),
+            }}
+          />
+          <Tab.Screen name="Avaliações" component={AssessmentsScreen}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <BottomBarIcons imageSource={icons.steak001} focused={focused} />
+              ),
+            }}
+          />
+          <Tab.Screen name="Conta" component={AccountScreen}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <BottomBarIcons imageSource={icons.user032} focused={focused} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
