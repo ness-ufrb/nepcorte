@@ -4,8 +4,8 @@ import SortingForm from '../components/SortingForm';
 
 const IdentifyAnimalScreen = ({ navigation }) => {
     return (
-        <View>           
-            <SortingForm route="SituationAnimal" navigation={navigation}/>
+        <View>
+            <SortingForm nextRoute="SituationAnimal" navigation={navigation}/>
             {/* <TouchableOpacity onPress={() => {navigation.navigate("SituationAnimal")}}>
                 <Text>Algo</Text>
             </TouchableOpacity> */}

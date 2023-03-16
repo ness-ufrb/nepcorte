@@ -6,4 +6,7 @@ export const icons = {
     user032: require("../assets/icons/032-user.png"),
     truck054: require("../assets/icons/054-truck.png"),
     TopCarne: require("../assets/icons/TopCarne.png"),
+    check005: require("../assets/icons/005-check.png"),
+    close006: require("../assets/icons/006-close.png"),
+    plus024: require("../assets/icons/024-plus.png"),
 };

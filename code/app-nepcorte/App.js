@@ -14,13 +14,14 @@ import BottomBarIcons from './src/components/BottomBarIcons';
 import { icons } from './src/constant/icons';
 import { Provider } from 'react-redux';
 import store from './src/context/store';
+import { useFonts } from 'expo-font';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 function SortingStackScreens() {
   return (
-    <Stack.Navigator initialRouteName="IdentifyAnimal">
+    <Stack.Navigator initialRouteName="IdentifyAnimal" screenOptions={{headerShown: false}}>
       <Stack.Screen name="IdentifyAnimal" component={IdentifyAnimalScreen} options={{ headerShown: false }} />
       <Stack.Screen name="SituationAnimal" component={SituationAnimalScreen} />
     </Stack.Navigator>
@@ -28,6 +29,16 @@ function SortingStackScreens() {
 }
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'Inter-Bold': require('./src/assets/fonts/Inter-Bold.ttf'),
+    'Inter-SemiBold': require('./src/assets/fonts/Inter-SemiBold.ttf'),
+    'Inter-Light': require('./src/assets/fonts/Inter-Light.ttf')
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <Provider store={store}>
       <NavigationContainer>

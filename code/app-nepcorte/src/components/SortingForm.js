@@ -1,41 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Input } from '@rneui/themed';
-import { useFonts } from 'expo-font';
 import { Button } from '@rneui/themed';
 import { COLORS } from '../constant/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { putCode } from "../context/codeSlice";
+import { putCode, generateRandomCode } from "../context/codeSlice";
 
-const SortingForm = ({ navigation, route }) => {
-    const [code, setCode] = useState('');
-
+const SortingForm = ({ navigation, nextRoute }) => {
     const dispatch = useDispatch();
     const codeValue = useSelector((state) => state.code.value);
-    console.log(codeValue);
 
     const handlePutCode = (cod) => {
         dispatch(putCode(cod));
     };
 
-    const [fontsLoaded] = useFonts({
-        'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
-        'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
-        'Inter-Light': require('../assets/fonts/Inter-Light.ttf')
-    });
-
-    if (!fontsLoaded) {
-        return null;
-    }
-
-    function generateRandomCode() {
-        const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        let result = '';
-        for (let i = 0; i < 6; i++) {
-            result += chars[Math.floor(Math.random() * chars.length)];
-        }
-        return result;
-    }
+    const handleGenerateCode = () => {
+        dispatch(generateRandomCode());
+    };
 
     return (
         <View style={styles.container}>
@@ -52,13 +33,13 @@ const SortingForm = ({ navigation, route }) => {
                         paddingTop: 15,
                         width: '100%'
                     }}
-                    value={code}
-                    onChangeText={(newCode) => setCode(newCode)}
+                    value={codeValue}
+                    onChangeText={(newCode) => handlePutCode(newCode)}
                 />
                 <Button
                     title="Iniciar"
                     fontSize={50}
-                    disabled={code.length < 6 ? true : false}
+                    disabled={codeValue.length < 6 ? true : false}
                     buttonStyle={{
                         backgroundColor: COLORS.main,
                         borderRadius: 10,
@@ -72,13 +53,11 @@ const SortingForm = ({ navigation, route }) => {
                     }}
                     onPress={() => { 
                         console.log('Set code state, verify if code is valid and navigate to the next screen');
-                        // navigation.navigate(route);
+                        navigation.navigate(nextRoute);
                     }}
                 />
                 <TouchableOpacity onPress={() => {
-                    console.log('clicked!')
-                    setCode(generateRandomCode())
-                    handlePutCode(code)
+                    handleGenerateCode()
                     }}>
                     <Text style={styles.getCode}>Gerar código identificador</Text>
                 </TouchableOpacity>
