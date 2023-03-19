@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 // Define a slice using createSlice
-const codeSlice = createSlice({
-  name: 'code',
-  initialState: { value: '' },
+const sortingSlice = createSlice({
+  name: 'sorting',
+  initialState: { value: { code: '', situation: '', species: '', race: '', reproductiveSituation: '', age: 0 } },
   reducers: {
     putCode: (state, action) => {
-      state.value = action.payload;
+      state.value.code = action.payload;
     },
     generateRandomCode: (state) => {
       const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -14,13 +14,13 @@ const codeSlice = createSlice({
       for (let i = 0; i < 6; i++) {
         result += chars[Math.floor(Math.random() * chars.length)];
       }
-      state.value = result;
+      state.value.code = result;
     },
-  },
+  }
 });
 
-const codeReducer = codeSlice.reducer
+const sortingReducer = sortingSlice.reducer
 
 // Export the actions and reducer from the slice
-export const { putCode, generateRandomCode } = codeSlice.actions;
-export default codeReducer;
+export const { putCode, generateRandomCode } = sortingSlice.actions;
+export default sortingReducer;

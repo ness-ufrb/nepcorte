@@ -1,31 +1,20 @@
 import React from 'react';
-import { Text, StyleSheet, ScrollView, View } from 'react-native';
-import { useFonts } from 'expo-font';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import { icons } from '../constant/icons';
 import { COLORS } from '../constant/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
-// import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
-import ProgressStepsMenu from '../components/ProgressStepsMenu';
+import { fontSizes } from "../constant/fontSizes";
+import ProgressStep from '../components/ProgressSteps';
 
 const SituationAnimalScreen = ({ navigation }) => {
-    const code = 'A12G3' //Este código deve ser passado pela tela anterior ou ser buscado no reducer da triagem
-
-    const [fontsLoaded] = useFonts({
-        'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
-        'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
-        'Inter-Light': require('../assets/fonts/Inter-Light.ttf')
-    });
-
-    if (!fontsLoaded) {
-        return null;
-    }
+    const code = 'A12G3'; //Este código deve ser passado pela tela anterior ou ser buscado no reducer da triagem
 
     return (
         <SafeAreaView style={styles.container}>
             <Header code={code} navigation={navigation} />
-            <ProgressStepsMenu />
+            <ProgressStep />
             <ScrollView centerContent={true} contentContainerStyle={styles.contentContainerScrollView}>
                 <Text style={styles.text}>Informe a situação do animal</Text>
                 <Card mainText="Apto para abate" secText="O animal está em perfeito estado" icon={icons.check005} iconColor={COLORS.green} />
@@ -44,14 +33,13 @@ SituationAnimalScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
     contentContainerScrollView: {
-        // flexGrow: 1,
+        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center'
     },
     text: {
         fontFamily: 'Inter-Bold',
-        fontSize: 20,
+        fontSize: fontSizes.titleTextSize,
         color: COLORS.black
     },
     container: {

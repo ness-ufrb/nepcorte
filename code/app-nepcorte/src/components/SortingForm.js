@@ -4,11 +4,12 @@ import { Input } from '@rneui/themed';
 import { Button } from '@rneui/themed';
 import { COLORS } from '../constant/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { putCode, generateRandomCode } from "../context/codeSlice";
+import { putCode, generateRandomCode } from "../context/sortingSlice";
+import { fontSizes } from "../constant/fontSizes";
 
 const SortingForm = ({ navigation, nextRoute }) => {
     const dispatch = useDispatch();
-    const codeValue = useSelector((state) => state.code.value);
+    const sortingState = useSelector((state) => state.sorting.value);
 
     const handlePutCode = (cod) => {
         dispatch(putCode(cod));
@@ -33,19 +34,18 @@ const SortingForm = ({ navigation, nextRoute }) => {
                         paddingTop: 15,
                         width: '100%'
                     }}
-                    value={codeValue}
+                    value={sortingState.code}
                     onChangeText={(newCode) => handlePutCode(newCode)}
                 />
                 <Button
                     title="Iniciar"
-                    fontSize={50}
-                    disabled={codeValue.length < 6 ? true : false}
+                    disabled={sortingState.code.length < 6 ? true : false}
                     buttonStyle={{
                         backgroundColor: COLORS.main,
                         borderRadius: 10,
                         height: 70
                     }}
-                    titleStyle={{ fontSize: 22, fontFamily: 'Inter-SemiBold', }}
+                    titleStyle={{ fontSize: fontSizes.buttonTextSize, fontFamily: 'Inter-SemiBold', }}
                     containerStyle={{
                         paddingHorizontal: 5,
                         paddingBottom: 15,
@@ -83,18 +83,18 @@ const styles = StyleSheet.create({
     title: {
         paddingBottom: 10,
         fontFamily: 'Inter-Bold',
-        fontSize: 25,
+        fontSize: fontSizes.titleTextSize,
         color: COLORS.black
     },
     description: {
         paddingBottom: 10,
         fontFamily: 'Inter-Light',
-        fontSize: 20,
+        fontSize: fontSizes.descriptionTextSize,
         color: COLORS.gray
     },
     getCode: {
         fontFamily: 'Inter-Light',
-        fontSize: 20,
+        fontSize: fontSizes.descriptionTextSize,
         color: COLORS.main
     }
 });

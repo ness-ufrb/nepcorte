@@ -9,6 +9,7 @@ import AssessmentsScreen from './src/screens/AssessmentsScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import IdentifyAnimalScreen from './src/screens/IdentifyAnimalScreen';
 import SituationAnimalScreen from './src/screens/SituationAnimalScreen';
+import DetailsAnimalScreen from './src/screens/DetailsAnimalScreen';
 import { COLORS } from './src/constant/colors';
 import BottomBarIcons from './src/components/BottomBarIcons';
 import { icons } from './src/constant/icons';
@@ -21,9 +22,10 @@ const Tab = createMaterialBottomTabNavigator();
 
 function SortingStackScreens() {
   return (
-    <Stack.Navigator initialRouteName="IdentifyAnimal" screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName="DetailsAnimal" screenOptions={{headerShown: false}}>
       <Stack.Screen name="IdentifyAnimal" component={IdentifyAnimalScreen} options={{ headerShown: false }} />
       <Stack.Screen name="SituationAnimal" component={SituationAnimalScreen} />
+      <Stack.Screen name="DetailsAnimal" component={DetailsAnimalScreen} />
     </Stack.Navigator>
   );
 }

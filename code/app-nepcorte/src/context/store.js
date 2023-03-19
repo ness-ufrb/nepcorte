@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import codeReducer from './codeSlice';
+import sortingReducer from './sortingSlice';
 
 const rootReducer = combineReducers({
-  code: codeReducer,
+  sorting: sortingReducer,
 });
 
 const store = configureStore({

@@ -1,21 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { useFonts } from 'expo-font';
+import { View, Text, StyleSheet } from 'react-native';
+import { fontSizes } from "../constant/fontSizes";
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 const Header = ({ code, navigation }) => {
-    // console.log(navigation)
-    const [fontsLoaded] = useFonts({
-        'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
-        'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
-        'Inter-Light': require('../assets/fonts/Inter-Light.ttf')
-    });
-
-    if (!fontsLoaded) {
-        return null;
-    }
-
     return (
         <View style={styles.container}>
             <Ionicons name='chevron-back-outline' size={25} onPress={()=>{
@@ -37,7 +26,7 @@ const styles = StyleSheet.create({
         height: 50,
     },
     code: {
-        fontSize: 20,
+        fontSize: fontSizes.descriptionTextSize,
         fontFamily: 'Inter-SemiBold'
     }
 });
