@@ -6,6 +6,7 @@ import IconPig from "../assets/icons/019-pig.svg"
 import IconLamb from "../assets/icons/031-lamb.svg"
 import IconGoat from "../assets/icons/043-goat.svg"
 import IconBeef from "../assets/icons/025-beef.svg"
+import Header from "../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonSpeciesAnimals from "../components/ButtonSpeciesAnimals";
 import ProgressStep from '../components/ProgressSteps';
@@ -24,6 +25,7 @@ const SpeciesAnimalsScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <Header />
             <ProgressStep/>
             <View style={styles.containerText}>
                 <Text style={styles.title}>Informe a espécie do animal</Text>

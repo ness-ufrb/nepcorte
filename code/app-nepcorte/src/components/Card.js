@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font';
 import { icons } from '../constant/icons';
 import { COLORS } from '../constant/colors';
 
-const Card = ({ mainText, secText, icon, iconColor }) => {
+const Card = ({ mainText, secText, icon, iconColor, navigation, nextRoute }) => {
     const [fontsLoaded] = useFonts({
         'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
         'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
@@ -16,7 +16,10 @@ const Card = ({ mainText, secText, icon, iconColor }) => {
     }
 
     return (
-        <TouchableOpacity onPress={() => (console.log('card pressed'))}>
+        <TouchableOpacity onPress={() => {
+            console.log('card pressed');
+            navigation.navigate(nextRoute);
+        }}>
             <View style={styles.container}>
                 <View style={styles.leftSquare}>
                     <Image source={icon} style={{ tintColor: iconColor, resizeMode: 'contain', width: '90%', height: '65%' }} />
