@@ -11,8 +11,7 @@ const ProgressStep = ({ label, isAtive }) => {
                 <TextCircle number='2' label="Espécie" isActive={true}/>
                 <TextCircle number='3' label="Detalhes" isActive={false}/>
             </View>
-            <View style={styles.lineLeft} />
-            <View style={styles.lineRight} />
+            <View style={styles.lineStyle} />
         </View>
     </>)
 };
@@ -23,31 +22,29 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: "center",
         width: '100%',
-        height: '20%',
-        marginTop: -250,
+        height: 90,
+        // marginTop: -250,
         marginBottom: 10,
+        // borderColor: "green",
+        // borderWidth: 2,
     },
     stepsGroup: {
+        zIndex: 2,
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: "center",
         padding: 0,
         marginHorizontal: 20,
+        // borderColor: COLORS.black,
+        // borderWidth: 2,
     },
-    lineLeft: {
-        width: 78,
+    lineStyle: {
+        zIndex: 1,
+        width: '65%',
         height: 1,
-        marginTop: -155,
-        marginRight: 117,
-        backgroundColor: COLORS.grayLine,
-    },
-    lineRight: {
-        width: 80,
-        height: 1,
-        marginTop: -1,
-        marginLeft: 117,
-        backgroundColor: COLORS.grayLine,
+        marginTop: -120,
+        backgroundColor: COLORS.grayStep,
     },
 });
 

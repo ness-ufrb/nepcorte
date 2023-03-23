@@ -19,6 +19,7 @@ const Header = ({ code, navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
+        zIndex: 3,
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
         height: 50,
     },
     code: {
-        fontSize: fontSizes.descriptionTextSize,
+        fontSize: fontSizes.codeTextSize,
         fontFamily: 'Inter-SemiBold'
     }
 });

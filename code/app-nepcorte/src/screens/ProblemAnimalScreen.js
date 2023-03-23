@@ -4,35 +4,26 @@ import { useFonts } from 'expo-font';
 import { COLORS } from "../constant/colors";
 import IconWarning from "../assets/icons/warning.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from '../components/Header';
+import { fontSizes } from "../constant/fontSizes";
+import TriageFeedbackScreen from "../components/TriageFeedbackScreen";
 
-const ProblemAnimalScreen = ({ navigation }) => {
+const ProblemAnimalScreen = ({ navigation, nextRoute }) => {
 
-    const [fontsLoaded] = useFonts({
-        'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
-        'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
-        'Inter-Light': require('../assets/fonts/Inter-Light.ttf')
-    });
-
-    if (!fontsLoaded) {
-        return null;
-    }
+    const code = 'A12G3'; //Este código deve ser passado pela tela anterior ou ser buscado no reducer da triagem
 
     return (
         <SafeAreaView style={styles.container}>
-            <IconWarning width={200} height={200}/>
-            <Text style={styles.textStyle}>O animal A12G3 foi registrado. Retire A12G3 da fila para o abate.</Text>
-            <TouchableOpacity
-                onPress={() => {navigation.navigate(route="IdentifyAnimal")}}
-                style={styles.buttonNextStyle}
-            >
-                <Text style={styles.textButtonNextStyle}>Próximo Animal</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.buttonExitStyle}
-                onPress={() => {console.log("End!")}}
-            >
-                <Text style={styles.textButtonExitStyle}>Sair</Text>
-            </TouchableOpacity>
+            <Header code={code} navigation={navigation} />
+            <View style={styles.elementsContainerStyle}>
+                <TriageFeedbackScreen 
+                    navigation={navigation}
+                    nextRoute="IdentifyAnimal"
+                    icon={<IconWarning width={200} height={200}/>}
+                    text="O animal A12G3 foi registrado.
+                            Retire A12G3 da fila para o abate."
+                />
+            </View>
         </SafeAreaView>
     )
 };
@@ -41,47 +32,13 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.background,
         alignItems: "center",
-        justifyContent: "center",
         width: "100%",
         height: "100%",
     },
-    textStyle: {
-        fontFamily: 'Inter-SemiBold',
-        fontSize: 15,
-        color: COLORS.black,
-        textAlign: "center",
-        marginBottom: 30,
-        marginTop: 30,
-        width: "70%",
-    },
-    buttonExitStyle: {
+    elementsContainerStyle: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    buttonNextStyle: {
-        height: 50,
-        width: "70%",
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: COLORS.main,
-        borderRadius: 10,
-        shadowColor: COLORS.black,
-        borderColor: COLORS.main,
-        borderWidth: 3,
-        backgroundColor: COLORS.main,
-        marginBottom: 15,
-    },
-    textButtonNextStyle: {
-        fontFamily: 'Inter-SemiBold',
-        fontSize: 20,
-        color: "#fff",
-        textAlign: "center",
-    },
-    textButtonExitStyle: {
-        fontFamily: 'Inter-SemiBold',
-        fontSize: 15,
-        color: COLORS.main,
-        textAlign: "center",
     },
 });
 

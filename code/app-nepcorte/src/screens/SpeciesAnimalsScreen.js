@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS } from "../constant/colors";
-import { useFonts } from 'expo-font'; 
 import IconPig from "../assets/icons/019-pig.svg"
 import IconLamb from "../assets/icons/031-lamb.svg"
 import IconGoat from "../assets/icons/043-goat.svg"
@@ -11,45 +10,63 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonSpeciesAnimals from "../components/ButtonSpeciesAnimals";
 import ProgressStep from '../components/ProgressSteps';
 
-const SpeciesAnimalsScreen = ({ navigation }) => {
+const SpeciesAnimalsScreen = ({ navigation, nextRoute }) => {
 
-    const [fontsLoaded] = useFonts({
-        'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
-        'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
-        'Inter-Light': require('../assets/fonts/Inter-Light.ttf')
-    });
-
-    if (!fontsLoaded) {
-        return null;
-    }
+    const code = 'A12G3'; //Este código deve ser passado pela tela anterior ou ser buscado no reducer da triagem
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header />
-            <ProgressStep/>
+            <Header code={code} navigation={navigation} />
+            <View style={styles.progressStepStyle}>
+                <ProgressStep />
+            </View>
             <View style={styles.containerText}>
                 <Text style={styles.title}>Informe a espécie do animal</Text>
             </View>
             <View style={styles.containerButtons}>
-                <TouchableOpacity
+                <ButtonSpeciesAnimals 
+                    navigation = {navigation}
+                    nextRoute="DetailsAnimal"
+                    icon={<IconBeef width={80} height={89} fill={COLORS.black}/>}
+                    title="Bovino"
+                />
+                <ButtonSpeciesAnimals 
+                    navigation = {navigation}
+                    nextRoute="DetailsAnimal"
+                    icon={<IconGoat width={80} height={89} fill={COLORS.black}/>}
+                    title="Caprino"
+                />
+                {/* <TouchableOpacity
                     onPress={() => {
-                        navigation.navigate(route="DetailsAnimal");
+                        navigation.navigate(nextRoute="DetailsAnimal");
                     }}
                     style={styles.buttonStyle}>
                     <IconBeef width={80} height={90} fill={COLORS.black}/>
                     <View style={styles.buttonIconSeparatorStyle} />
                     <Text style={styles.buttonTextStyle}>Bovino</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                </TouchableOpacity> */}
+                {/* <TouchableOpacity
                     onPress={console.log("Caprino")}
                     style={styles.buttonStyle}>
                     <IconGoat width={70} height={90} fill={COLORS.black}/>
                     <View style={styles.buttonIconSeparatorStyle} />
                     <Text style={styles.buttonTextStyle}>Caprino</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <View style={styles.containerButtons}>
-                <TouchableOpacity
+                <ButtonSpeciesAnimals 
+                    navigation = {navigation}
+                    nextRoute="DetailsAnimal"
+                    icon={<IconLamb width={80} height={89} fill={COLORS.black}/>}
+                    title="Ovino"
+                />
+                <ButtonSpeciesAnimals 
+                    navigation = {navigation}
+                    nextRoute="DetailsAnimal"
+                    icon={<IconPig width={80} height={89} fill={COLORS.black}/>}
+                    title="Suíno"
+                />
+                {/* <TouchableOpacity
                     onPress={console.log("Ovino")}
                     style={styles.buttonStyle}>
                     <IconLamb width={75} height={90} fill={COLORS.black}/>
@@ -62,24 +79,31 @@ const SpeciesAnimalsScreen = ({ navigation }) => {
                     <IconPig width={85} height={90} fill={COLORS.black}/>
                     <View style={styles.buttonIconSeparatorStyle} />
                     <Text style={styles.buttonTextStyle}>Suíno</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </SafeAreaView>
     );
 };
 
+SpeciesAnimalsScreen.navigationOptions = () => {
+    return {
+        headerShown: false,
+    };
+};
+
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: COLORS.background,
+        zIndex: 4,
+        flex: 1,
+        backgroundColor: COLORS.screenBackgroungColor,
         alignItems: "center",
-        justifyContent: "center",
         width: "100%",
         height: "100%",
     },
     containerText: {
         alignItems: "center",
         width: "85%",
-        marginTop: 80,
+        marginTop: 70,
     },
     title: {
         paddingBottom: 10,
@@ -124,6 +148,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         shadowColor: COLORS.black,
         elevation: 3,
+    },
+    progressStepStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -50,
     },
 });
 

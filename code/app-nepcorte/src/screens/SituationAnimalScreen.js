@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, ScrollView } from 'react-native';
+import { Text, StyleSheet, ScrollView, View } from 'react-native';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import { icons } from '../constant/icons';
@@ -14,7 +14,9 @@ const SituationAnimalScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <Header code={code} navigation={navigation} />
-            <ProgressStep />
+            <View style={styles.progressStepStyle}>
+                <ProgressStep />
+            </View>
             <ScrollView centerContent={true} contentContainerStyle={styles.contentContainerScrollView}>
                 <Text style={styles.text}>Informe a situação do animal</Text>
                 <Card mainText="Apto para abate" secText="O animal está em perfeito estado" icon={icons.check005} iconColor={COLORS.green} 
@@ -38,17 +40,26 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        height: '100%',
+        marginTop: 40,
     },
     text: {
         fontFamily: 'Inter-Bold',
         fontSize: fontSizes.titleTextSize,
-        color: COLORS.black
+        color: COLORS.black,
+        marginBottom: 10,   
     },
     container: {
-        // position: 'relative',
         flex: 1,
         flexDirection: 'column',
-    }
+        height: '100%',
+        width: '100%',
+    },
+    progressStepStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -50,
+    },
 });
 
 export default SituationAnimalScreen;

@@ -6,14 +6,14 @@ import { useFonts } from 'expo-font';
 import SVGImg from "../assets/icons/019-pig.svg"
 
 
-const ButtonSpeciesAnimals = (props) => {
+const ButtonSpeciesAnimals = ({ navigation, nextRoute, icon, title }) => {
     return (
         <TouchableOpacity
-            onPress={props.onPress}
+            onPress={() => {console.log('card pressed'); navigation.navigate(nextRoute);}}
             style={styles.buttonStyle}>
-            {props.iconsScreen}
+            {icon}
             <View style={styles.buttonIconSeparatorStyle} />
-            <Text style={styles.buttonTextStyle}>{props.title}</Text>
+            <Text style={styles.buttonTextStyle}>{title}</Text>
         </TouchableOpacity>
     );
 }

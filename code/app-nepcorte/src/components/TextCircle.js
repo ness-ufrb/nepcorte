@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        // borderColor: 'blue',
+        // borderWidth: 2,
     },
     headerText: {
         fontSize: fontSizes.titleTextSize,

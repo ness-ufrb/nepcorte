@@ -4,63 +4,59 @@ import { useFonts } from 'expo-font';
 import { COLORS } from "../constant/colors";
 import IconChecked from "../assets/icons/checked.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from '../components/Header';
+import { fontSizes } from "../constant/fontSizes";
+import TriageFeedbackScreen from "../components/TriageFeedbackScreen";
 
-const SuccessAnimalScreen = ({ navigation }) => {
+const SuccessAnimalScreen = ({ navigation, nextRoute }) => {
 
-    const [fontsLoaded] = useFonts({
-        'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
-        'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
-        'Inter-Light': require('../assets/fonts/Inter-Light.ttf')
-    });
-
-    if (!fontsLoaded) {
-        return null;
-    }
+    const code = 'A12G3'; //Este código deve ser passado pela tela anterior ou ser buscado no reducer da triagem
 
     return (
         <SafeAreaView style={styles.container}>
-            <IconChecked width={200} height={200}/>
-            <Text style={styles.textStyle}>O animal A12G3 está pronto para o abate!</Text>
-            <TouchableOpacity
-                onPress={() => {navigation.navigate(route="IdentifyAnimal")}}
-                style={styles.buttonNextStyle}
-            >
-                <Text style={styles.textButtonNextStyle}>Próximo Animal</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.buttonExitStyle}
-                onPress={() => {console.log("End!")}}
-            >
-                <Text style={styles.textButtonExitStyle}>Sair</Text>
-            </TouchableOpacity>
+            <Header code={code} navigation={navigation} />
+            <View style={styles.elementsContainerStyle}>
+                <TriageFeedbackScreen 
+                    navigation={navigation}
+                    nextRoute="IdentifyAnimal"
+                    icon={<IconChecked width={200} height={200}/>}
+                    text="O animal A12G3 está pronto para o abate!"
+                />
+            </View>
         </SafeAreaView>
     )
+};
+
+SuccessAnimalScreen.navigationOptions = () => {
+    return {
+        headerShown: false,
+    };
 };
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.background,
         alignItems: "center",
-        justifyContent: "center",
         width: "100%",
         height: "100%",
     },
     textStyle: {
         fontFamily: 'Inter-SemiBold',
-        fontSize: 15,
+        fontSize: fontSizes.descriptionTextSize,
         color: COLORS.black,
         textAlign: "center",
         marginBottom: 30,
         marginTop: 30,
-        width: "60%",
+        width: 300,
+        paddingHorizontal: 30,
     },
     buttonExitStyle: {
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonNextStyle: {
-        height: 50,
-        width: "70%",
+        height: 60,
+        width: 300,
         justifyContent: 'center',
         alignItems: 'center',
         color: COLORS.main,
@@ -82,6 +78,11 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: COLORS.main,
         textAlign: "center",
+    },
+    elementsContainerStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

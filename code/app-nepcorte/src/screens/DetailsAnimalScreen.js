@@ -10,7 +10,7 @@ import { fontSizes } from "../constant/fontSizes";
 
 // Falta implementar o disable do botão, para habilitá-lo apenas quando todos os campos estiverem preenchidos
 
-const DetailsAnimalScreen = ({ navigation }) => {
+const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
     const code = 'A12G3'; //Este código deve ser passado pela tela anterior ou ser buscado no reducer da triagem
     const [animalAge, setAnimalAge] = useState();
 
@@ -44,7 +44,9 @@ const DetailsAnimalScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <Header code={code} navigation={navigation} />
-            <ProgressStep />
+            <View style={styles.progressStepStyle}>
+                <ProgressStep />
+            </View>
             <ScrollView centerContent={true} contentContainerStyle={styles.contentContainerScrollView}>
                 <DropdownComponent data={sheepRaces} placeholder='Informe a raça'/>
                 <DropdownComponent data={reproductiveSituations} placeholder='Informe a situação reprodutiva'/>
@@ -72,7 +74,7 @@ const DetailsAnimalScreen = ({ navigation }) => {
                         width: '100%'
                     }}
                     onPress={() => { 
-                        console.log('Finalize assessment');
+                        navigation.navigate(nextRoute="SuccessAnimal");
                     }}
                 />
             </ScrollView>
@@ -86,13 +88,19 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginTop: -50,
     },
     container: {
         // position: 'relative',
         flex: 1,
         flexDirection: 'column',
-    }
+    },
+    progressStepStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -50,
+    },
 });
 
 export default DetailsAnimalScreen;
