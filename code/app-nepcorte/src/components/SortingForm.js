@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { TextInput } from 'react-native-paper';
 import { Input } from '@rneui/themed';
 import { Button } from '@rneui/themed';
 import { COLORS } from '../constant/colors';
@@ -26,7 +27,22 @@ const SortingForm = ({ navigation, nextRoute }) => {
                 <Text style={styles.description}>Forneça o código identificador do animal recebido</Text>
             </View>
             <View style={styles.containerForm}>
-                <Input
+                <View style={styles.textImput}>
+                    <TextInput
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        activeOutlineColor={COLORS.gray}
+                        mode="outlined"
+                        label="Identificador do animal"
+                        placeholder="Informe o identificador do animal"
+                        value={sortingState.code}
+                        onChangeText={(newCode) => handlePutCode(newCode)}
+                        labelColor={COLORS.black}
+                        outlineColor={COLORS.gray} 
+                        contentStyle={{ borderRadius: 20 }}
+                    />
+                </View>
+                {/* <Input
                     autoCapitalize="none"
                     autoCorrect={false}
                     placeholder='Informe o identificador do animal'
@@ -39,6 +55,13 @@ const SortingForm = ({ navigation, nextRoute }) => {
                 />
                 <Button
                     title="Iniciar"
+                    disabled={sortingState.code.length < 6 ? true : false}
+                    value={code}
+                    onChangeText={(newCode) => setCode(newCode)}
+                /> */}
+                <Button
+                    title="Iniciar"
+                    fontSize={50}
                     disabled={sortingState.code.length < 6 ? true : false}
                     buttonStyle={{
                         backgroundColor: COLORS.main,
@@ -72,6 +95,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         height: '100%'
+    },
+    textImput: {
+        paddingVertical: 20,
+        paddingHorizontal: 10,
+        width: '100%',
+        flexDirection: 'column',
     },
     containerForm: {
         alignItems: 'center',

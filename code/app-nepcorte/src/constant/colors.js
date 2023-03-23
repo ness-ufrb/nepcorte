@@ -13,6 +13,7 @@ export const COLORS = {
     green: '#23CE6B',
     red: '#FF5D5D',
     orange: '#F79E1B',
+    grayLine: '#D0D0D0',
     transparent: 'rgba(255, 255, 255, 0.0)'
   // your colors
 }

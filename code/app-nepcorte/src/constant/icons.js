@@ -9,4 +9,8 @@ export const icons = {
     check005: require("../assets/icons/005-check.png"),
     close006: require("../assets/icons/006-close.png"),
     plus024: require("../assets/icons/024-plus.png"),
+    pig019: require("../assets/icons/019-pig.svg"),
+    beef025: require("../assets/icons/025-beef.png"),
+    lamb031: require("../assets/icons/031-lamb.png"),
+    goat043: require("../assets/icons/043-goat.png"),
 };

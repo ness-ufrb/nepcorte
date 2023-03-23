@@ -1,5 +1,5 @@
 export const fontSizes = {
-    titleTextSize: 25,
+    titleTextSize: 20,
     buttonTextSize: 22,
-    descriptionTextSize: 20
+    descriptionTextSize: 15
 }

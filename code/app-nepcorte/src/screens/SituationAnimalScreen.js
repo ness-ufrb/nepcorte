@@ -17,7 +17,9 @@ const SituationAnimalScreen = ({ navigation }) => {
             <ProgressStep />
             <ScrollView centerContent={true} contentContainerStyle={styles.contentContainerScrollView}>
                 <Text style={styles.text}>Informe a situação do animal</Text>
-                <Card mainText="Apto para abate" secText="O animal está em perfeito estado" icon={icons.check005} iconColor={COLORS.green} />
+                <Card mainText="Apto para abate" secText="O animal está em perfeito estado" icon={icons.check005} iconColor={COLORS.green} 
+                navigation = {navigation}
+                nextRoute="SpeciesAnimals"/>
                 <Card mainText="Doente ou machucado" secText="Sem condições para abate" icon={icons.plus024} iconColor={COLORS.red} />
                 <Card mainText="Animal está no lote errado" secText="Animal deve ser realocado" icon={icons.close006} iconColor={COLORS.orange} />
             </ScrollView>
