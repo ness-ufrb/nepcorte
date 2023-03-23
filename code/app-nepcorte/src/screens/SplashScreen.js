@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { useFonts } from 'expo-font';
 import { icons } from '../constant/icons';
+import { COLORS } from '../constant/colors';
 
 const SplashScreen = () => {
     const [fontsLoaded] = useFonts({
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     container: {
         height: '100%',
         width: '100%',
-        backgroundColor: '#EC441E',
+        backgroundColor: COLORS.main,
         alignItems: 'center',
         justifyContent: 'center'
     }
