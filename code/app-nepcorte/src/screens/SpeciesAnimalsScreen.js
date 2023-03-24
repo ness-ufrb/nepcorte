@@ -9,14 +9,15 @@ import Header from "../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonSpeciesAnimals from "../components/ButtonSpeciesAnimals";
 import ProgressStep from '../components/ProgressSteps';
+import { useDispatch, useSelector } from 'react-redux';
 
-const SpeciesAnimalsScreen = ({ navigation, nextRoute }) => {
-
-    const code = 'A12G3'; //Este código deve ser passado pela tela anterior ou ser buscado no reducer da triagem
+const SpeciesAnimalsScreen = ({ navigation }) => {
+    const sortingState = useSelector((state) => state.sorting.value);
+    console.log(sortingState);
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header code={code} navigation={navigation} />
+            <Header code={sortingState.code} navigation={navigation} />
             <View style={styles.progressStepStyle}>
                 <ProgressStep />
             </View>

@@ -1,15 +1,26 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS } from "../constant/colors";
 import { icons } from "../constant/icons";
-import { useFonts } from 'expo-font'; 
+import { useFonts } from 'expo-font';
 import SVGImg from "../assets/icons/019-pig.svg"
-
+import { useDispatch } from 'react-redux';
+import { setSpecies } from "../context/sortingSlice";
 
 const ButtonSpeciesAnimals = ({ navigation, nextRoute, icon, title }) => {
+    const dispatch = useDispatch();
+
+    const handleSetSpecies = (species) => {
+        dispatch(setSpecies(species));
+    };
+
     return (
         <TouchableOpacity
-            onPress={() => {console.log('card pressed'); navigation.navigate(nextRoute);}}
+            onPress={() => {
+                console.log('card pressed');
+                navigation.navigate(nextRoute);
+                handleSetSpecies(title);
+            }}
             style={styles.buttonStyle}>
             {icon}
             <View style={styles.buttonIconSeparatorStyle} />
@@ -27,11 +38,11 @@ const styles = StyleSheet.create({
         width: 135,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
-        margin: 5, 
+        margin: 5,
         shadowColor: COLORS.black,
         shadowOffset: {
-	        width: 0,
-	        height: 1,
+            width: 0,
+            height: 1,
         },
         shadowOpacity: 0.22,
         shadowRadius: 2,
@@ -55,8 +66,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         shadowColor: COLORS.black,
         shadowOffset: {
-	        width: 0,
-	        height: 1,
+            width: 0,
+            height: 1,
         },
         shadowOpacity: 0.22,
         shadowRadius: 2,

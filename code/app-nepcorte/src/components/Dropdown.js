@@ -4,7 +4,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { COLORS } from '../constant/colors';
 import { fontSizes } from "../constant/fontSizes";
 
-const DropdownComponent = ({ data, placeholder }) => {
+const DropdownComponent = ({ data, placeholder, callback }) => {
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
@@ -38,6 +38,7 @@ const DropdownComponent = ({ data, placeholder }) => {
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 onChange={item => {
+                    callback(item.label);
                     setValue(item.value);
                     setIsFocus(false);
                 }}

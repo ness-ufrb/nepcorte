@@ -27,7 +27,7 @@ const SortingForm = ({ navigation, nextRoute }) => {
                 <Text style={styles.description}>Forneça o código identificador do animal recebido</Text>
             </View>
             <View style={styles.containerForm}>
-                <View style={styles.textImput}>
+                <View style={styles.textInput}>
                     <TextInput
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     },
-    textImput: {
+    textInput: {
         paddingVertical: 20,
         paddingHorizontal: 10,
         width: '100%',

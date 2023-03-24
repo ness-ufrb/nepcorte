@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import DropdownComponent from '../components/Dropdown';
 import ProgressStep from '../components/ProgressSteps';
 import { Button, Input } from '@rneui/themed';
+import { TextInput } from 'react-native-paper';
 import { COLORS } from '../constant/colors';
 import { fontSizes } from "../constant/fontSizes";
+import { useDispatch, useSelector } from 'react-redux';
+import { setAge, setRace, setReproductiveSituation } from "../context/sortingSlice";
 
 // Falta implementar o disable do botão, para habilitá-lo apenas quando todos os campos estiverem preenchidos
 
-const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
-    const code = 'A12G3'; //Este código deve ser passado pela tela anterior ou ser buscado no reducer da triagem
-    const [animalAge, setAnimalAge] = useState();
+const DetailsAnimalScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
+    const sortingState = useSelector((state) => state.sorting.value);
+    console.log(sortingState);
+
+    const handleSetAge = (age) => {
+        dispatch(setAge(age));
+    };
+
+    const handleSetRace = (race) => {
+        dispatch(setRace(race));
+    };
+
+    const handleSetReproductiveSituation = (situation) => {
+        dispatch(setReproductiveSituation(situation));
+    };
 
     // Aqui o data deve ser definido pela tela anterior (espécie do animal)
     const sheepRaces = [
@@ -43,23 +59,32 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header code={code} navigation={navigation} />
+            <Header code={sortingState.code} navigation={navigation} />
             <View style={styles.progressStepStyle}>
                 <ProgressStep />
             </View>
             <ScrollView centerContent={true} contentContainerStyle={styles.contentContainerScrollView}>
-                <DropdownComponent data={sheepRaces} placeholder='Informe a raça'/>
-                <DropdownComponent data={reproductiveSituations} placeholder='Informe a situação reprodutiva'/>
-                <Input
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    placeholder='Informe a quantidade de dentes'
-                    containerStyle={{
-                        paddingTop: 15,
-                        width: '95%'
-                    }}
-                    onChangeText={(newCode) => setAnimalAge(newCode)}
-                />
+                <DropdownComponent data={sheepRaces}
+                    placeholder='Informe a raça'
+                    callback={(newRace) => handleSetRace(newRace)}/>
+                <DropdownComponent data={reproductiveSituations}
+                    placeholder='Informe a situação reprodutiva'
+                    callback={(newSituation) => handleSetReproductiveSituation(newSituation)} />
+                <View style={styles.textInput}>
+                    <TextInput
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        activeOutlineColor={COLORS.gray}
+                        mode="outlined"
+                        label="Informe a quantidade de dentes"
+                        placeholder="Informe a quantidade de dentes"
+                        onChangeText={(newAge) => handleSetAge(newAge)}
+                        containerStyle={{
+                            paddingTop: 15,
+                            // width: '30%'
+                        }}
+                    />
+                </View>
                 <Button
                     title="Finalizar triagem"
                     buttonStyle={{
@@ -73,8 +98,8 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
                         paddingBottom: 15,
                         width: '100%'
                     }}
-                    onPress={() => { 
-                        navigation.navigate(nextRoute="SuccessAnimal");
+                    onPress={() => {
+                        navigation.navigate(nextRoute = "SuccessAnimal");
                     }}
                 />
             </ScrollView>
@@ -83,8 +108,14 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
 };
 
 const styles = StyleSheet.create({
+    textInput: {
+        paddingVertical: 20,
+        paddingHorizontal: 10,
+        width: '95%',
+        flexDirection: 'column',
+    },
     contentContainerScrollView: {
-        width: '90%', 
+        width: '90%',
         flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',

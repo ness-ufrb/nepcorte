@@ -8,6 +8,21 @@ const sortingSlice = createSlice({
     putCode: (state, action) => {
       state.value.code = action.payload;
     },
+    setSituation: (state, action) => {
+      state.value.situation = action.payload;
+    },
+    setSpecies: (state, action) => {
+      state.value.species = action.payload;
+    },
+    setRace: (state, action) => {
+      state.value.race = action.payload;
+    },
+    setReproductiveSituation: (state, action) => {
+      state.value.reproductiveSituation = action.payload;
+    },
+    setAge: (state, action) => {
+      state.value.age = action.payload;
+    },
     generateRandomCode: (state) => {
       const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
       let result = '';
@@ -22,5 +37,5 @@ const sortingSlice = createSlice({
 const sortingReducer = sortingSlice.reducer
 
 // Export the actions and reducer from the slice
-export const { putCode, generateRandomCode } = sortingSlice.actions;
+export const { putCode, setSituation, setAge, setRace, setReproductiveSituation, setSpecies, generateRandomCode } = sortingSlice.actions;
 export default sortingReducer;
