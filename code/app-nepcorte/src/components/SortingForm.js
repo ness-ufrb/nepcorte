@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { TextInput } from 'react-native-paper';
-import { Input } from '@rneui/themed';
 import { Button } from '@rneui/themed';
 import { COLORS } from '../constant/colors';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,7 +38,12 @@ const SortingForm = ({ navigation, nextRoute }) => {
                         onChangeText={(newCode) => handlePutCode(newCode)}
                         labelColor={COLORS.black}
                         outlineColor={COLORS.gray} 
-                        contentStyle={{ borderRadius: 20 }}
+                        style={{ 
+                            backgroundColor: COLORS.screenBackgroungColor,
+                        }}
+                        outlineStyle={{
+                            borderRadius: 15,
+                        }}
                     />
                 </View>
                 {/* <Input
@@ -66,7 +70,8 @@ const SortingForm = ({ navigation, nextRoute }) => {
                     buttonStyle={{
                         backgroundColor: COLORS.main,
                         borderRadius: 10,
-                        height: 70
+                        height: 60,
+                        marginHorizontal: 5,
                     }}
                     titleStyle={{ fontSize: fontSizes.buttonTextSize, fontFamily: 'Inter-SemiBold', }}
                     containerStyle={{

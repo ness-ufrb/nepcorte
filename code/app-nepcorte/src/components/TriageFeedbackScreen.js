@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS } from "../constant/colors";
 import { fontSizes } from "../constant/fontSizes";
 
@@ -12,7 +12,7 @@ const TriageFeedbackScreen = ({ navigation, nextRoute, icon, text }) => {
                 onPress={() => {navigation.navigate(nextRoute)}}
                 style={styles.buttonNextStyle}
             >
-                <Text style={styles.textButtonNextStyle}>Próximo Animal</Text>
+                <Text style={styles.textButtonNextStyle}>Próximo animal</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.buttonExitStyle}

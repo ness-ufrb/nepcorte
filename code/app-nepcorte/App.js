@@ -1,8 +1,11 @@
+// PACKAGES
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import SortingScreen from './src/screens/SortingScreen';
+import { Provider } from 'react-redux';
+
+// SCREENS
 import AnimalsScreen from './src/screens/AnimalsScreen';
 import AssessScreen from './src/screens/AssessScreen';
 import AssessmentsScreen from './src/screens/AssessmentsScreen';
@@ -13,10 +16,11 @@ import SituationAnimalScreen from './src/screens/SituationAnimalScreen';
 import DetailsAnimalScreen from './src/screens/DetailsAnimalScreen';
 import SuccessAnimalScreen from './src/screens/SuccessAnimalScreen';
 import ProblemAnimalScreen from './src/screens/ProblemAnimalScreen';
-import { COLORS } from './src/constant/colors';
+
+// CONSTANTS AND COMPONENTS
 import BottomBarIcons from './src/components/BottomBarIcons';
+import { COLORS } from './src/constant/colors';
 import { icons } from './src/constant/icons';
-import { Provider } from 'react-redux';
 import store from './src/context/store';
 import { useFonts } from 'expo-font';
 
@@ -48,7 +52,7 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
+     <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator
           shifting={false}

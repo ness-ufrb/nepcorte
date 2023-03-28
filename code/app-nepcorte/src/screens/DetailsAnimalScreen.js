@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import DropdownComponent from '../components/Dropdown';
 import ProgressStep from '../components/ProgressSteps';
-import { Button, Input } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import { TextInput } from 'react-native-paper';
 import { COLORS } from '../constant/colors';
 import { fontSizes } from "../constant/fontSizes";
@@ -13,7 +13,7 @@ import { setAge, setRace, setReproductiveSituation } from "../context/sortingSli
 
 // Falta implementar o disable do botão, para habilitá-lo apenas quando todos os campos estiverem preenchidos
 
-const DetailsAnimalScreen = ({ navigation }) => {
+const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
     const dispatch = useDispatch();
     const sortingState = useSelector((state) => state.sorting.value);
     console.log(sortingState);
@@ -61,7 +61,7 @@ const DetailsAnimalScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <Header code={sortingState.code} navigation={navigation} />
             <View style={styles.progressStepStyle}>
-                <ProgressStep />
+                <ProgressStep navigation={navigation} screen={"DetailsAnimal"}/>
             </View>
             <ScrollView centerContent={true} contentContainerStyle={styles.contentContainerScrollView}>
                 <DropdownComponent data={sheepRaces}
@@ -72,6 +72,7 @@ const DetailsAnimalScreen = ({ navigation }) => {
                     callback={(newSituation) => handleSetReproductiveSituation(newSituation)} />
                 <View style={styles.textInput}>
                     <TextInput
+                        keyboardType="numeric"
                         autoCapitalize="none"
                         autoCorrect={false}
                         activeOutlineColor={COLORS.gray}
@@ -79,10 +80,10 @@ const DetailsAnimalScreen = ({ navigation }) => {
                         label="Informe a quantidade de dentes"
                         placeholder="Informe a quantidade de dentes"
                         onChangeText={(newAge) => handleSetAge(newAge)}
-                        containerStyle={{
-                            paddingTop: 15,
-                            // width: '30%'
+                        style={{ 
+                            backgroundColor: COLORS.screenBackgroungColor,
                         }}
+                        outlineStyle={{ borderRadius: 10}}
                     />
                 </View>
                 <Button
@@ -90,16 +91,17 @@ const DetailsAnimalScreen = ({ navigation }) => {
                     buttonStyle={{
                         backgroundColor: COLORS.main,
                         borderRadius: 10,
-                        height: 70
+                        height: 60,
+                        marginHorizontal: 15,
                     }}
                     titleStyle={{ fontSize: fontSizes.buttonTextSize, fontFamily: 'Inter-SemiBold', }}
                     containerStyle={{
                         paddingHorizontal: 5,
                         paddingBottom: 15,
-                        width: '100%'
+                        width: '100%',
                     }}
                     onPress={() => {
-                        navigation.navigate(nextRoute = "SuccessAnimal");
+                        navigation.navigate(sortingState.situation == "Apto para abate" ? nextRoute = "SuccessAnimal" : nextRoute = "ProblemAnimal");
                     }}
                 />
             </ScrollView>
@@ -109,7 +111,8 @@ const DetailsAnimalScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     textInput: {
-        paddingVertical: 20,
+        paddingTop: 10,
+        paddingBottom: 30,
         paddingHorizontal: 10,
         width: '95%',
         flexDirection: 'column',
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
         marginTop: -50,
     },
     container: {
-        // position: 'relative',
+        backgroundColor: COLORS.screenBackgroungColor,
         flex: 1,
         flexDirection: 'column',
     },

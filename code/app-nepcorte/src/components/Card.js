@@ -1,10 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
-import { icons } from '../constant/icons';
 import { COLORS } from '../constant/colors';
+import { useDispatch } from 'react-redux';
+import { setSituation } from "../context/sortingSlice";
 
-const Card = ({ mainText, secText, icon, iconColor, navigation, nextRoute }) => {
+const Card = ({ mainText, secText, icon, navigation, nextRoute }) => {
+    const dispatch = useDispatch();
+
+    const handlesetSituation = (species) => {
+        dispatch(setSituation(species));
+    };
+
     const [fontsLoaded] = useFonts({
         'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
         'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
@@ -19,10 +26,11 @@ const Card = ({ mainText, secText, icon, iconColor, navigation, nextRoute }) => 
         <TouchableOpacity onPress={() => {
             console.log('card pressed');
             navigation.navigate(nextRoute);
+            handlesetSituation(mainText);
         }}>
             <View style={styles.container}>
                 <View style={styles.leftSquare}>
-                    <Image source={icon} style={{ tintColor: iconColor, resizeMode: 'contain', width: '90%', height: '65%' }} />
+                    {icon}
                 </View>
                 <View style={styles.rightSquare}>
                     <Text style={styles.mainText}>{mainText}</Text>
@@ -57,7 +65,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 8,
         borderBottomRightRadius: 8,
         paddingHorizontal: '5%',
-        // alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: COLORS.white,
         width: '70%',

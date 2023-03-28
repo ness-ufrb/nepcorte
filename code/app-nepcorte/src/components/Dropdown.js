@@ -51,13 +51,14 @@ export default DropdownComponent;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: COLORS.grayBackground,
+        backgroundColor: COLORS.screenBackgroungColor,
         width: '100%',
-        padding: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 20,        
     },
     dropdown: {
         borderColor: COLORS.gray,
-        height: 70,
+        height: 60,
         borderWidth: 0.5,
         borderRadius: 8,
         paddingHorizontal: 8,
@@ -74,12 +75,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8
     },
     placeholderStyle: {
+        backgroundColor: COLORS.screenBackgroungColor,
         color: COLORS.gray,
         marginLeft: 10,
         fontFamily: 'Inter-Light',
         fontSize: fontSizes.descriptionTextSize
     },
     selectedTextStyle: {
+        backgroundColor: COLORS.screenBackgroungColor,
         color: COLORS.gray,
         fontSize: fontSizes.descriptionTextSize,
         fontFamily: 'Inter-Light',

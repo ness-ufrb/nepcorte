@@ -1,9 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS } from "../constant/colors";
-import { icons } from "../constant/icons";
-import { useFonts } from 'expo-font';
-import SVGImg from "../assets/icons/019-pig.svg"
 import { useDispatch } from 'react-redux';
 import { setSpecies } from "../context/sortingSlice";
 

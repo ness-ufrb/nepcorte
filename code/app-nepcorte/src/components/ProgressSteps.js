@@ -1,15 +1,51 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { COLORS } from '../constant/colors';
 import TextCircle from './TextCircle';
 
-const ProgressStep = ({ label, isAtive }) => {
+const ProgressStep = ({ navigation, screen }) => {
     return (<>
         <View style={styles.container}>
             <View style={styles.stepsGroup}>
-                <TextCircle number='1' label="Vistoria" isActive={true}/>
-                <TextCircle number='2' label="Espécie" isActive={true}/>
-                <TextCircle number='3' label="Detalhes" isActive={false}/>
+                {screen == "SituationAnimal" ? 
+                    <TextCircle 
+                        navigation = {navigation} nextRoute="SituationAnimal" 
+                        number='1' 
+                        label="Vistoria"
+                        isActive={true}
+                    /> : 
+                    <TextCircle 
+                        navigation = {navigation} nextRoute="SituationAnimal" 
+                        number='1' 
+                        label=""
+                    />
+                }
+                {screen == "SpeciesAnimal" ? 
+                    <TextCircle 
+                        navigation = {navigation} nextRoute="SpeciesAnimals" 
+                        number='2' 
+                        label="Espécie" 
+                        isActive={true}
+                    /> : 
+                    <TextCircle 
+                        navigation = {navigation} nextRoute="SpeciesAnimals" 
+                        number='2' 
+                        label=""
+                    />
+                }
+                {screen == "DetailsAnimal" ? 
+                    <TextCircle 
+                        navigation = {navigation} nextRoute="DetailsAnimal" 
+                        number='3' 
+                        label="Detalhes" 
+                        isActive={true}
+                    /> : 
+                    <TextCircle 
+                        navigation = {navigation} nextRoute="DetailsAnimal" 
+                        number='3' 
+                        label=""
+                    />
+                }
             </View>
             <View style={styles.lineStyle} />
         </View>
@@ -23,10 +59,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: '100%',
         height: 90,
-        // marginTop: -250,
         marginBottom: 10,
-        // borderColor: "green",
-        // borderWidth: 2,
     },
     stepsGroup: {
         zIndex: 2,
@@ -36,14 +69,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 0,
         marginHorizontal: 20,
-        // borderColor: COLORS.black,
-        // borderWidth: 2,
     },
     lineStyle: {
         zIndex: 1,
         width: '65%',
         height: 1,
-        marginTop: -120,
+        marginTop: -127,
         backgroundColor: COLORS.grayStep,
     },
 });
