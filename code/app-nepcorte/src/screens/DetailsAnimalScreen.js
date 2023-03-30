@@ -179,10 +179,9 @@ const styles = StyleSheet.create({
     contentContainerScrollView: {
         width: '85%',
         flexGrow: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        // marginTop: -50,
+        paddingTop: 10,
     },
     container: {
         backgroundColor: COLORS.screenBackgroungColor,
@@ -192,7 +191,7 @@ const styles = StyleSheet.create({
     progressStepStyle: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: -50
+        marginTop: -50,
     },
 });
 

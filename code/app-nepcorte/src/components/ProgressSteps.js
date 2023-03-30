@@ -49,6 +49,7 @@ const ProgressStep = ({ navigation, screen }) => {
             </View>
             <View style={styles.lineStyle} />
         </View>
+        <View style={styles.View}/>
     </>)
 };
 
@@ -59,24 +60,28 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: '100%',
         height: 90,
-        marginBottom: 10,
+        marginBottom: 20,
     },
     stepsGroup: {
-        zIndex: 2,
+        zIndex: 3,
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: "center",
-        padding: 0,
         marginHorizontal: 20,
     },
     lineStyle: {
-        zIndex: 1,
+        zIndex: 2,
         width: '65%',
         height: 1,
         marginTop: -127,
         backgroundColor: COLORS.grayStep,
     },
+    View: {
+        zIndex: 5,
+        width: "100%",
+        height: 45,
+    }
 });
 
 export default ProgressStep;

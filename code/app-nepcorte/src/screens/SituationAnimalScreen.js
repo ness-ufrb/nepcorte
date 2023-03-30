@@ -50,11 +50,11 @@ SituationAnimalScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
     contentContainerScrollView: {
         flexGrow: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
-        marginTop: 40,
-        
+        // marginTop: "10%",
+        paddingTop: 30,
     },
     text: {
         fontFamily: 'Inter-Bold',
@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: -50,
-        // height: 150,
     },
 });
 

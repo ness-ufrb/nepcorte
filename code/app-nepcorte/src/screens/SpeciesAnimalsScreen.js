@@ -68,12 +68,11 @@ const styles = StyleSheet.create({
     },
     containerForm: {
         alignItems: "center",
-        paddingTop: 10,
     },
     containerText: {
         alignItems: "center",
         width: "85%",
-        marginTop: 70,
+        marginTop: 30,
     },
     title: {
         paddingBottom: 10,
