@@ -4,48 +4,48 @@ import { COLORS } from '../constant/colors';
 import TextCircle from './TextCircle';
 
 const ProgressStep = ({ navigation, screen }) => {
+    let stepLabels = ["", "", ""];
+    let stepActivation = [true, false, false];
+
+    switch (screen) {
+        case "SituationAnimal":
+            stepLabels = ["Vistoria", "", ""];
+            stepActivation = [true, false, false];
+            break;
+        case "SpeciesAnimal":
+            stepLabels = ["", "Espécie", ""];
+            stepActivation = [true, true, false];
+            break;
+        case "DetailsAnimal":
+            stepLabels = ["", "", "Detalhes"];
+            stepActivation = [true, true, true];
+            break;
+        default:
+            stepLabels = ["Vistoria", "", ""];
+            stepActivation = [true, false, false];
+    }
+
     return (<>
         <View style={styles.container}>
             <View style={styles.stepsGroup}>
-                {screen == "SituationAnimal" ? 
-                    <TextCircle 
-                        navigation = {navigation} nextRoute="SituationAnimal" 
-                        number='1' 
-                        label="Vistoria"
-                        isActive={true}
-                    /> : 
-                    <TextCircle 
-                        navigation = {navigation} nextRoute="SituationAnimal" 
-                        number='1' 
-                        label=""
-                    />
-                }
-                {screen == "SpeciesAnimal" ? 
-                    <TextCircle 
-                        navigation = {navigation} nextRoute="SpeciesAnimals" 
-                        number='2' 
-                        label="Espécie" 
-                        isActive={true}
-                    /> : 
-                    <TextCircle 
-                        navigation = {navigation} nextRoute="SpeciesAnimals" 
-                        number='2' 
-                        label=""
-                    />
-                }
-                {screen == "DetailsAnimal" ? 
-                    <TextCircle 
-                        navigation = {navigation} nextRoute="DetailsAnimal" 
-                        number='3' 
-                        label="Detalhes" 
-                        isActive={true}
-                    /> : 
-                    <TextCircle 
-                        navigation = {navigation} nextRoute="DetailsAnimal" 
-                        number='3' 
-                        label=""
-                    />
-                }
+                <TextCircle
+                    navigation={navigation} nextRoute="SituationAnimal"
+                    number='1'
+                    label={stepLabels[0]}
+                    isActive={stepActivation[0]}
+                />
+                <TextCircle
+                    navigation={navigation} nextRoute="SpeciesAnimals"
+                    number='2'
+                    label={stepLabels[1]}
+                    isActive={stepActivation[1]}
+                />
+                <TextCircle
+                    navigation={navigation} nextRoute="DetailsAnimal"
+                    number='3'
+                    label={stepLabels[2]}
+                    isActive={stepActivation[2]}
+                />                
             </View>
             <View style={styles.lineStyle} />
         </View>
