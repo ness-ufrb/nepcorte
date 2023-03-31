@@ -11,6 +11,7 @@ import { fontSizes } from "../constant/fontSizes";
 import { useDispatch, useSelector } from 'react-redux';
 import { setAge, setRace, setReproductiveSituation } from "../context/sortingSlice";
 import { Formik } from 'formik';
+
 import * as yup from 'yup';
 
 // Falta implementar o disable do botão, para habilitá-lo apenas quando todos os campos estiverem preenchidos
@@ -40,6 +41,7 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
             .required('Por favor, informe a situação reprodutiva do animal'),
         age: yup
             .number()
+            .positive('Insira um número maior que zero neste campo')
             .typeError("Insira um número inteiro neste campo")
             .integer('Insira um número inteiro neste campo')
             .required('Este campo é obrigatório')
@@ -74,10 +76,10 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
 
     let raceList;
 
-    if(sortingState.species=="Caprino"){
+    if (sortingState.species == "Caprino") {
         raceList = goatRaces;
-    } else{
-        raceList = sheepRaces;        
+    } else {
+        raceList = sheepRaces;
     }
 
     return (
@@ -90,35 +92,30 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
                 <Formik
                     initialValues={{ sheepRace: '', reproductiveSituation: '', age: 0 }}
                     validationSchema={detailsValidationSchema}
+                    validateOnChange={false}
+                    validateOnBlur={false}
                     onSubmit={values => {
+                        console.log(values);
                         handleSetReproductiveSituation(values.reproductiveSituation);
                         handleSetRace(values.sheepRace);
                         handleSetAge(values.age);
-                        console.log(sortingState);
                         navigation.navigate(sortingState.situation == "Apto para abate" ? nextRoute = "SuccessAnimal" : nextRoute = "ProblemAnimal");
                     }}
                 >
-                    {({ handleChange, handleSubmit, errors, isValid, dirty, values }) => (
+                    {({ handleChange, handleSubmit, errors }) => (
                         <>
                             <DropdownComponent data={raceList}
                                 placeholder='Informe a raça'
-                                callback={(value) => {
-                                    console.log(value);
-                                }}
-                                // callback={handleChange('sheepRace')} 
-                                />
+                                callback={handleChange('sheepRace')}
+                            />
                             {errors.sheepRace &&
                                 <Text style={{ fontFamily: 'Inter-Bold', fontSize: fontSizes.descriptionTextSize, color: 'red' }}>{errors.sheepRace}</Text>
                             }
                             <DropdownComponent data={reproductiveSituations}
                                 placeholder='Informe a situação reprodutiva'
-                                callback={(value) => {
-                                    console.log(value);
-                                    values.reproductiveSituation=value;
-                                }}
-                                // callback={handleChange('reproductiveSituation')} 
-                                />
-                            {errors.reproductiveSituation &&                                
+                                callback={handleChange('reproductiveSituation')}
+                            />
+                            {errors.reproductiveSituation &&
                                 <Text style={{ fontFamily: 'Inter-Bold', fontSize: fontSizes.descriptionTextSize, color: 'red' }}>{errors.reproductiveSituation}</Text>
                             }
                             <View style={styles.textInput}>
@@ -130,35 +127,31 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
                                     mode="outlined"
                                     label="Informe a quantidade de dentes"
                                     placeholder="Quantidade de dentes"
-                                    // onChangeText={handleChange('age')}
+                                    onChangeText={
+                                        handleChange('age')
+                                    }
                                     style={{
                                         backgroundColor: COLORS.screenBackgroungColor,
                                         fontFamily: 'Inter-Light'
                                     }}
-                                    // outlineStyle={{ borderRadius: 10 }}
                                 />
-                                {errors.age &&
-                                    <Text style={{ fontFamily: 'Inter-Bold', fontSize: fontSizes.descriptionTextSize, color: 'red' }}>{errors.age}</Text>
-                                }
                             </View>
+                            {errors.age &&
+                                <Text style={{ fontFamily: 'Inter-Bold', fontSize: fontSizes.descriptionTextSize, color: 'red' }}>{errors.age}</Text>
+                            }
                             <Button
                                 title="Finalizar triagem"
                                 buttonStyle={{
                                     backgroundColor: COLORS.main,
                                     borderRadius: 10,
-                                    height: 60,
-                                    // marginHorizontal: 15,
+                                    height: 60
                                 }}
                                 titleStyle={{ fontSize: fontSizes.buttonTextSize, fontFamily: 'Inter-SemiBold', }}
                                 containerStyle={{
-                                    // paddingHorizontal: 5,
                                     paddingBottom: 15,
-                                    width: '100%',
+                                    width: '100%'
                                 }}
-                                // disabled={!(isValid && dirty)}
-                                onPress={
-                                    handleSubmit
-                                }
+                                onPress={handleSubmit}
                             />
                         </>
                     )}
@@ -175,10 +168,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter-Light',
         width: '100%',
         flexDirection: 'column',
+        // borderColor: 'black',
+        // borderWidth: 2
     },
     contentContainerScrollView: {
         width: '85%',
         flexGrow: 1,
+        justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
         paddingTop: 10,
@@ -191,7 +187,7 @@ const styles = StyleSheet.create({
     progressStepStyle: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: -50,
+        marginTop: -50
     },
 });
 

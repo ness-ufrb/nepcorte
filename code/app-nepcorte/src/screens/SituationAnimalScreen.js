@@ -19,22 +19,22 @@ const SituationAnimalScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <Header code={sortingState.code} navigation={navigation} />
             <View style={styles.progressStepStyle}>
-                <ProgressStep navigation={navigation} screen={"SituationAnimal"}/>
+                <ProgressStep navigation={navigation} screen={"SituationAnimal"} />
             </View>
             <ScrollView centerContent={true} contentContainerStyle={styles.contentContainerScrollView}>
                 <Text style={styles.text}>Informe a situação do animal</Text>
-                <Card mainText="Apto para abate" secText="O animal está em perfeito estado" 
-                icon={<IconCheck width={90} height={90} fill={COLORS.green}/>}
-                navigation = {navigation}
-                nextRoute="SpeciesAnimals"
+                <Card mainText="Apto para abate" secText="O animal está em perfeito estado"
+                    icon={<IconCheck width={90} height={90} fill={COLORS.green} />}
+                    navigation={navigation}
+                    nextRoute="SpeciesAnimals"
                 />
-                <Card mainText="Doente ou machucado" secText="Sem condições para abate" icon={<IconPlus width={90} height={90} fill={COLORS.red}/>}
-                navigation = {navigation}
-                nextRoute="SpeciesAnimals"
+                <Card mainText="Doente ou machucado" secText="Sem condições para abate" icon={<IconPlus width={90} height={90} fill={COLORS.red} />}
+                    navigation={navigation}
+                    nextRoute="SpeciesAnimals"
                 />
-                <Card mainText="Animal está no lote errado" secText="Animal deve ser realocado" icon={<IconClose width={90} height={90} fill={COLORS.orange}/>} 
-                navigation = {navigation}
-                nextRoute="SpeciesAnimals"
+                <Card mainText="Animal está no lote errado" secText="Animal deve ser realocado" icon={<IconClose width={90} height={90} fill={COLORS.orange} />}
+                    navigation={navigation}
+                    nextRoute="SpeciesAnimals"
                 />
             </ScrollView>
         </SafeAreaView>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         // justifyContent: 'center',
         alignItems: 'center',
-        height: '100%',
+        // height: '100%',
         // marginTop: "10%",
         paddingTop: 30,
     },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter-Bold',
         fontSize: fontSizes.titleTextSize,
         color: COLORS.black,
-        marginBottom: 10,   
+        marginBottom: 10,
     },
     container: {
         backgroundColor: COLORS.screenBackgroungColor,
