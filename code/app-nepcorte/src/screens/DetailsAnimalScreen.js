@@ -109,14 +109,26 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
                                 callback={handleChange('sheepRace')}
                             />
                             {errors.sheepRace &&
-                                <Text style={{ fontFamily: 'Inter-Bold', fontSize: fontSizes.descriptionTextSize, color: 'red' }}>{errors.sheepRace}</Text>
+                                <Text style={{
+                                    paddingBottom: 2,
+                                    fontFamily: 'Inter-Bold',
+                                    fontSize: fontSizes.descriptionTextSize,
+                                    color: 'red',
+                                    alignSelf: 'flex-start'
+                                }}>{errors.sheepRace}</Text>
                             }
                             <DropdownComponent data={reproductiveSituations}
                                 placeholder='Informe a situação reprodutiva'
                                 callback={handleChange('reproductiveSituation')}
                             />
                             {errors.reproductiveSituation &&
-                                <Text style={{ fontFamily: 'Inter-Bold', fontSize: fontSizes.descriptionTextSize, color: 'red' }}>{errors.reproductiveSituation}</Text>
+                                <Text style={{
+                                    paddingBottom: 2,
+                                    fontFamily: 'Inter-Bold',
+                                    fontSize: fontSizes.descriptionTextSize,
+                                    color: 'red',
+                                    alignSelf: 'flex-start'
+                                }}>{errors.reproductiveSituation}</Text>
                             }
                             <View style={styles.textInput}>
                                 <TextInput
@@ -135,10 +147,17 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
                                         fontFamily: 'Inter-Light'
                                     }}
                                 />
+                                {errors.age &&
+                                    <Text style={{
+                                        paddingTop: 15,
+                                        paddingBottom: 2,
+                                        fontFamily: 'Inter-Bold',
+                                        fontSize: fontSizes.descriptionTextSize,
+                                        color: 'red',
+                                        alignSelf: 'flex-start'
+                                    }}>{errors.age}</Text>
+                                }
                             </View>
-                            {errors.age &&
-                                <Text style={{ fontFamily: 'Inter-Bold', fontSize: fontSizes.descriptionTextSize, color: 'red' }}>{errors.age}</Text>
-                            }
                             <Button
                                 title="Finalizar triagem"
                                 buttonStyle={{
