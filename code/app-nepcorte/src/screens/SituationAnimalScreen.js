@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         // height: '100%',
         // marginTop: "10%",
-        paddingTop: 30,
+        paddingTop: 30
     },
     text: {
         fontFamily: 'Inter-Bold',

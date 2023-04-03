@@ -12,7 +12,6 @@ import ProgressStep from '../components/ProgressSteps';
 import { useSelector } from 'react-redux';
 
 const SpeciesAnimalsScreen = ({ navigation }) => {
-
     const sortingState = useSelector((state) => state.sorting.value);
     console.log(sortingState);
 

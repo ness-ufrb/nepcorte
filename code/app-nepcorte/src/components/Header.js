@@ -4,15 +4,18 @@ import { fontSizes } from "../constant/fontSizes";
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
-const Header = ({ code, navigation }) => {
+const Header = ({ code: title, navigation, hasReturn }) => {
     return (
         <View style={styles.container}>
-            <Ionicons name='chevron-back-outline' size={25} onPress={()=>{
-                navigation.pop()
-                console.log('back pressed')
-                }}/>
-            <Text style={styles.code}>{code}</Text>
-            <Feather name='menu' size={25} onPress={()=>(console.log('menu pressed'))}/>
+            {!hasReturn ?
+                <Ionicons name='chevron-back-outline' size={25} onPress={() => {
+                    navigation.pop()
+                    console.log('back pressed')
+                }} />
+                : null
+            }
+            <Text style={styles.code}>{title}</Text>
+            <Feather name='menu' size={25} onPress={() => (console.log('menu pressed'))} />
         </View>
     )
 };

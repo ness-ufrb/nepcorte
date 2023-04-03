@@ -33,7 +33,7 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
     };
 
     const detailsValidationSchema = yup.object().shape({
-        sheepRace: yup
+        animalRace: yup
             .string()
             .required('Por favor, informe a raça do animal'),
         reproductiveSituation: yup
@@ -90,14 +90,14 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
             </View>
             <ScrollView centerContent={true} contentContainerStyle={styles.contentContainerScrollView}>
                 <Formik
-                    initialValues={{ sheepRace: '', reproductiveSituation: '', age: 0 }}
+                    initialValues={{ animalRace: '', reproductiveSituation: '', age: 0 }}
                     validationSchema={detailsValidationSchema}
                     validateOnChange={false}
                     validateOnBlur={false}
                     onSubmit={values => {
                         console.log(values);
                         handleSetReproductiveSituation(values.reproductiveSituation);
-                        handleSetRace(values.sheepRace);
+                        handleSetRace(values.animalRace);
                         handleSetAge(values.age);
                         navigation.navigate(sortingState.situation == "Apto para abate" ? nextRoute = "SuccessAnimal" : nextRoute = "ProblemAnimal");
                     }}
@@ -106,16 +106,16 @@ const DetailsAnimalScreen = ({ navigation, nextRoute }) => {
                         <>
                             <DropdownComponent data={raceList}
                                 placeholder='Informe a raça'
-                                callback={handleChange('sheepRace')}
+                                callback={handleChange('animalRace')}
                             />
-                            {errors.sheepRace &&
+                            {errors.animalRace &&
                                 <Text style={{
                                     paddingBottom: 2,
                                     fontFamily: 'Inter-Bold',
                                     fontSize: fontSizes.descriptionTextSize,
                                     color: 'red',
                                     alignSelf: 'flex-start'
-                                }}>{errors.sheepRace}</Text>
+                                }}>{errors.animalRace}</Text>
                             }
                             <DropdownComponent data={reproductiveSituations}
                                 placeholder='Informe a situação reprodutiva'
