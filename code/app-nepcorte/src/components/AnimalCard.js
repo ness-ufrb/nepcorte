@@ -7,7 +7,7 @@ import IconLamb from "../assets/icons/031-lamb.svg";
 import IconGoat from "../assets/icons/043-goat.svg";
 import IconBeef from "../assets/icons/025-beef.svg";
 
-const AnimalCard = ({ title, animalRace, reproductiveSituation, age, species, isClickable }) => {
+const AnimalCard = ({ title, animalRace, reproductiveSituation, age, species, isClickable, navigation, nextRoute }) => {
 
     let icon;
     switch (species) {
@@ -35,7 +35,7 @@ const AnimalCard = ({ title, animalRace, reproductiveSituation, age, species, is
                 () => {
                     if (isClickable) {
                         console.log('Faz algo caso isClickable seja true');
-                        // colocar navegação de tela aqui
+                        navigation.navigate(nextRoute);
                     }
                 }
             }
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     topContainer: {
         justifyContent: 'space-between',
         flexDirection: 'row',
-        borderColor: 'blue',
-        borderWidth: 2
+        // borderColor: 'blue',
+        // borderWidth: 2
     },
     container: {
         justifyContent: 'space-between',
@@ -116,15 +116,15 @@ const styles = StyleSheet.create({
     },
     leftSide: {
         height: '100%',
-        borderColor: 'green',
-        borderWidth: 2
+        // borderColor: 'green',
+        // borderWidth: 2
     },
     rightSide: {
         paddingHorizontal: '5%',
         height: '100%',
         alignSelf: 'flex-end',
-        borderColor: 'red',
-        borderWidth: 2
+        // borderColor: 'red',
+        // borderWidth: 2
     }
 });
 

@@ -4,7 +4,6 @@ import { COLORS } from "../constant/colors";
 import IconChecked from "../assets/icons/checked.svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from '../components/Header';
-import { fontSizes } from "../constant/fontSizes";
 import TriageFeedbackScreen from "../components/TriageFeedbackScreen";
 import { useSelector } from "react-redux";
 
@@ -39,45 +38,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
         height: "100%",
-    },
-    textStyle: {
-        fontFamily: 'Inter-SemiBold',
-        fontSize: fontSizes.descriptionTextSize,
-        color: COLORS.black,
-        textAlign: "center",
-        marginBottom: 30,
-        marginTop: 30,
-        width: 300,
-        paddingHorizontal: 30,
-    },
-    buttonExitStyle: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonNextStyle: {
-        height: 60,
-        width: 300,
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: COLORS.main,
-        borderRadius: 10,
-        shadowColor: COLORS.black,
-        borderColor: COLORS.main,
-        borderWidth: 3,
-        backgroundColor: COLORS.main,
-        marginBottom: 15,
-    },
-    textButtonNextStyle: {
-        fontFamily: 'Inter-SemiBold',
-        fontSize: 20,
-        color: "#fff",
-        textAlign: "center",
-    },
-    textButtonExitStyle: {
-        fontFamily: 'Inter-SemiBold',
-        fontSize: 15,
-        color: COLORS.main,
-        textAlign: "center",
     },
     elementsContainerStyle: {
         flex: 1,
