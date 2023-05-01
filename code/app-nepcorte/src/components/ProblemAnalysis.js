@@ -8,7 +8,7 @@ import IconCancel from "../assets/icons/cancel.svg"
 const ProblemAnalysis = ({ navigation, nextRoute, title }) => {
     return (
         <>
-            <Header code={title} navigation={navigation}/>
+            <Header code={title} navigation={navigation} notHasReturn={true}/>
             <View style={{paddingTop: "15%"}}/>
             <IconCancel width={200} height={200}/>
             <Text style={styles.textStyle}>Oops... Não conseguimos enviar a foto para análise.</Text>
@@ -22,7 +22,7 @@ const ProblemAnalysis = ({ navigation, nextRoute, title }) => {
                 style={styles.buttonExitStyle}
                 onPress={() => {navigation.navigate("Assess")}}
             >
-                <Text style={styles.textButtonExitStyle}>Sair</Text>
+                <Text style={styles.textButtonExitStyle}>Finalizar</Text>
             </TouchableOpacity>
         </>
     )

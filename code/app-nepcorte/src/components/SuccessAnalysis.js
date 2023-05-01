@@ -8,7 +8,7 @@ import IconChecked from "../assets/icons/checked.svg"
 const SuccessAnalysis = ({ navigation, nextRoute, title, textDescription, textButton }) => {
     return (
         <>
-            <Header code={title} navigation={navigation}/>
+            <Header code={title} navigation={navigation} notHasReturn={true}/>
             <View style={{paddingTop: "15%"}}/>
             <IconChecked width={200} height={200}/>
             <Text style={styles.textStyle}>{textDescription}</Text>
@@ -22,7 +22,7 @@ const SuccessAnalysis = ({ navigation, nextRoute, title, textDescription, textBu
                 style={styles.buttonExitStyle}
                 onPress={() => {navigation.navigate("Assess")}}
             >
-                <Text style={styles.textButtonExitStyle}>Sair</Text>
+                <Text style={styles.textButtonExitStyle}>Finalizar</Text>
             </TouchableOpacity>
         </>
     )

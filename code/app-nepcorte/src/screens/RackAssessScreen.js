@@ -18,7 +18,7 @@ const RackAssessScreen = ({ navigation }) => {
             code: 'A12G3',
             animalRace: 'Ovino chinês',
             reproductiveSituation: 'Fêmea',
-            age: '3 anos',
+            age: '3 dentes',
             species: 'Ovino'
         },
         {
@@ -26,7 +26,7 @@ const RackAssessScreen = ({ navigation }) => {
             code: 'XA23Y',
             animalRace: 'Caprino africano',
             reproductiveSituation: 'Castrado',
-            age: '2 anos',
+            age: '2 dentes',
             species: 'Caprino'
         },
         {
@@ -34,7 +34,7 @@ const RackAssessScreen = ({ navigation }) => {
             code: 'A439S',
             animalRace: 'Nelore',
             reproductiveSituation: 'Macho',
-            age: '1 ano',
+            age: '1 dente',
             species: 'Bovino'
         }
     ];
@@ -59,7 +59,7 @@ const RackAssessScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header notHasReturn={true} code="Avaliar carré" />
+            <Header code="Avaliar carré" navigation={navigation}/>
             <Text style={styles.title}>Escolha o animal a ser analisado</Text>
             <View style={styles.textInput}>
                 <TextInput

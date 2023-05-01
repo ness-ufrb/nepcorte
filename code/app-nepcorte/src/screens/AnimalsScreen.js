@@ -18,7 +18,7 @@ const AnimalsScreen = () => {
             code: 'A12G3',
             animalRace: 'Ovino chinês',
             reproductiveSituation: 'Fêmea',
-            age: '3 anos',
+            age: '3 dentes',
             species: 'Ovino'
         },
         {
@@ -26,7 +26,7 @@ const AnimalsScreen = () => {
             code: 'XA23Y',
             animalRace: 'Caprino africano',
             reproductiveSituation: 'Castrado',
-            age: '2 anos',
+            age: '2 dentes',
             species: 'Caprino'
         },
         {
@@ -34,7 +34,7 @@ const AnimalsScreen = () => {
             code: 'A439S',
             animalRace: 'Nelore',
             reproductiveSituation: 'Macho',
-            age: '1 ano',
+            age: '1 dente',
             species: 'Bovino'
         }
     ];
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.screenBackgroungColor,
     },
     textInput: {
+        paddingBottom: '3%',
         alignSelf: 'center',
         paddingHorizontal: 10,
         width: '90%',

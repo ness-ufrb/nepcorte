@@ -4,11 +4,13 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS } from "../constant/colors";
 import { Camera, CameraType } from 'expo-camera';
 import { useState, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@expo/vector-icons';
 
 const CameraScreen = ({ navigation, route }) => {
     const camRef = useRef(null);
     const [hasPermission, setHasPermission] = useState(null);
     const [capturedPhoto, setCapturedPhoto] = useState(null);
+    const [flashMode, setFlashMode] = useState('off');
 
     useEffect(() => {
         (async () => {
@@ -23,6 +25,11 @@ const CameraScreen = ({ navigation, route }) => {
     if (hasPermission === false) {
         return <Text>No access to camera</Text>;
     }
+
+    const flipCamera = () => {
+        setFlashMode(flashMode === 'off' ? 'on' : 'off');
+    }
+
 
     async function takePicture() {
         if (camRef) {
@@ -86,6 +93,13 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         borderColor: COLORS.gray,
         borderWidth: 3,
+    },
+    buttonFlash: {
+        left: 120,  
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        backgroundColor: COLORS.white,
     },
 })
 
