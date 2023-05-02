@@ -7,11 +7,11 @@ import { FlatList } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import AnimalCard from '../components/AnimalCard';
 import Header from "../components/Header";
-import { fontSizes } from "../constant/fontSizes";
 
 // Temos que gravar a data/hora de registro animal no banco
 
 const AnimalsScreen = () => {
+    const wasSent = false;
     const exampleData = [
         {
             id: 1,
@@ -47,6 +47,7 @@ const AnimalsScreen = () => {
             age={item.age}
             species={item.species}
             isClickable={false}
+            wasSent={wasSent}
         />;
     };
 
@@ -64,7 +65,7 @@ const AnimalsScreen = () => {
                     autoCorrect={false}
                     activeOutlineColor={COLORS.grayLine}
                     mode="outlined"
-                    label="Encontre o animal que deseja"
+                    label="Encontre o animal que deseja pela espécie"
                     left={<TextInput.Icon name={() => <FontAwesome name="search" size={24} color={COLORS.grayLine} />} />}
                     placeholder="..."
                     placeholderTextColor={COLORS.grayLine}
