@@ -17,7 +17,7 @@ const SituationAnimalScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header code={sortingState.code} navigation={navigation} />
+            <Header hasReturn={false} code={sortingState.code} navigation={navigation} />
             <View style={styles.progressStepStyle}>
                 <ProgressStep navigation={navigation} screen={"SituationAnimal"} />
             </View>

@@ -16,6 +16,12 @@ import SituationAnimalScreen from './src/screens/SituationAnimalScreen';
 import DetailsAnimalScreen from './src/screens/DetailsAnimalScreen';
 import SuccessAnimalScreen from './src/screens/SuccessAnimalScreen';
 import ProblemAnimalScreen from './src/screens/ProblemAnimalScreen';
+import CarcassAssessScreen from './src/screens/CarcassAssessScreen';
+import InstructionsRackAssessScreen from './src/screens/InstructionsRackAssessScreen';
+import InstructionsCarcassAssessScreen from './src/screens/InstructionsCarcassAssessScreen';
+import CameraScreen from './src/screens/CameraScreen';
+import WaitImageAnalysisCarcassScreen from './src/screens/WaitImageAnalysisCarcassScreen';
+import SuccessAnalysisCarcassScreen from './src/screens/SuccessAnalysisCarcassScreen';
 
 // CONSTANTS AND COMPONENTS
 import BottomBarIcons from './src/components/BottomBarIcons';
@@ -36,6 +42,20 @@ function SortingStackScreens() {
       <Stack.Screen name="DetailsAnimal" component={DetailsAnimalScreen} />
       <Stack.Screen name="SuccessAnimal" component={SuccessAnimalScreen}/>
       <Stack.Screen name="ProblemAnimal" component={ProblemAnimalScreen}/>
+    </Stack.Navigator>
+  );
+}
+
+function AssessStackScreens() {
+  return (
+    <Stack.Navigator initialRouteName="Assess" screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Assess" component={AssessScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="CarcassAssess" component={CarcassAssessScreen} />
+      <Stack.Screen name="InstructionsRackAssess" component={InstructionsRackAssessScreen} />
+      <Stack.Screen name="InstructionsCarcassAssess" component={InstructionsCarcassAssessScreen} />
+      <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen name="WaitImageAnalysisCarcass" component={WaitImageAnalysisCarcassScreen} />
+      <Stack.Screen name="SuccessAnalysisCarcass" component={SuccessAnalysisCarcassScreen} />
     </Stack.Navigator>
   );
 }
@@ -73,7 +93,7 @@ export default function App() {
               ),
             }}
           />
-          <Tab.Screen name="Avaliar" component={AssessScreen}
+          <Tab.Screen name="Avaliar" component={AssessStackScreens}
             options={{
               tabBarIcon: ({ focused }) => (
                 <BottomBarIcons imageSource={icons.camera003} focused={focused} />
