@@ -1,15 +1,16 @@
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { FontAwesome } from '@expo/vector-icons';
 import { COLORS } from "../constant/colors";
 import { Camera, CameraType } from 'expo-camera';
 import { useState, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@expo/vector-icons';
 
-const CameraScreen = ({ navigation }) => {
+const CameraScreen = ({ navigation, route }) => {
     const camRef = useRef(null);
     const [hasPermission, setHasPermission] = useState(null);
     const [capturedPhoto, setCapturedPhoto] = useState(null);
+    const [flashMode, setFlashMode] = useState('off');
 
     useEffect(() => {
         (async () => {
@@ -25,13 +26,23 @@ const CameraScreen = ({ navigation }) => {
         return <Text>No access to camera</Text>;
     }
 
+    const flipCamera = () => {
+        setFlashMode(flashMode === 'off' ? 'on' : 'off');
+    }
+
+
     async function takePicture() {
         if (camRef) {
             const data = await camRef.current.takePictureAsync();
             setCapturedPhoto(data.uri);
             console.log(data);
-            // onPress={() => {navigation.navigate(nextRoute)}}
-            navigation.navigate("WaitImageAnalysisCarcass");
+            console.log(route);
+            if (route.params === "Carcass") {
+                navigation.navigate("WaitImageAnalysisCarcass");
+            }
+            else if (route.params === "Rack") {
+                navigation.navigate("WaitImageAnalysisRack");
+            }
         }
     }
 
@@ -45,8 +56,7 @@ const CameraScreen = ({ navigation }) => {
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={takePicture}
-                    >
+                        onPress={takePicture}>
                         <View style={styles.buttonCamera}/>
                     </TouchableOpacity>
                 </View>
@@ -83,6 +93,13 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         borderColor: COLORS.gray,
         borderWidth: 3,
+    },
+    buttonFlash: {
+        left: 120,  
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        backgroundColor: COLORS.white,
     },
 })
 

@@ -3,20 +3,20 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS } from "../constant/colors";
 import { fontSizes } from "../constant/fontSizes";
 import Header from "../components/Header";
-import IconChecked from "../assets/icons/checked.svg"
+import IconCancel from "../assets/icons/cancel.svg"
 
-const SuccessAnalysis = ({ navigation, nextRoute, title, textDescription, textButton }) => {
+const ProblemAnalysis = ({ navigation, nextRoute, title }) => {
     return (
         <>
             <Header code={title} navigation={navigation} notHasReturn={true}/>
             <View style={{paddingTop: "15%"}}/>
-            <IconChecked width={200} height={200}/>
-            <Text style={styles.textStyle}>{textDescription}</Text>
+            <IconCancel width={200} height={200}/>
+            <Text style={styles.textStyle}>Oops... Não conseguimos enviar a foto para análise.</Text>
             <TouchableOpacity
                 onPress={() => {navigation.navigate(nextRoute)}}
                 style={styles.buttonNextStyle}
             >
-                <Text style={styles.textButtonNextStyle}>{textButton}</Text>
+                <Text style={styles.textButtonNextStyle}>Tentar novamente</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.buttonExitStyle}
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SuccessAnalysis;
+export default ProblemAnalysis;

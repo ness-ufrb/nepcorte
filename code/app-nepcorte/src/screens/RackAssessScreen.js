@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StyleSheet } from "react-native";
-import { TextInput } from 'react-native-paper';
-import { COLORS } from '../constant/colors';
+import React from "react";
+import { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, View, StyleSheet } from "react-native";
 import { FlatList } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import AnimalCard from '../components/AnimalCard';
+import { TextInput } from 'react-native-paper';
+import { COLORS } from "../constant/colors";
 import Header from "../components/Header";
-import { fontSizes } from "../constant/fontSizes";
+import AnimalCard from "../components/AnimalCard";
 
-// Temos que gravar a data/hora de registro animal no banco
 
-const AnimalsScreen = () => {
+const RackAssessScreen = ({ navigation }) => {
+
     const exampleData = [
         {
             id: 1,
@@ -46,7 +46,9 @@ const AnimalsScreen = () => {
             reproductiveSituation={item.reproductiveSituation}
             age={item.age}
             species={item.species}
-            isClickable={false}
+            isClickable={true}
+            navigation={navigation}
+            nextRoute="InstructionsRackAssess"
         />;
     };
 
@@ -56,8 +58,9 @@ const AnimalsScreen = () => {
     );
 
     return (
-        <SafeAreaView forceInset={{ top: 'always' }} style={styles.container}>
-            <Header notHasReturn={true} code="Animais" />
+        <SafeAreaView style={styles.container}>
+            <Header code="Avaliar carré" navigation={navigation}/>
+            <Text style={styles.title}>Escolha o animal a ser analisado</Text>
             <View style={styles.textInput}>
                 <TextInput
                     autoCapitalize="none"
@@ -76,8 +79,6 @@ const AnimalsScreen = () => {
                     style={styles.search}
                 />
             </View>
-            <View>
-            </View>
             <FlatList
                 data={filteredData}
                 renderItem={renderItem}
@@ -86,32 +87,38 @@ const AnimalsScreen = () => {
             />
         </SafeAreaView>
     );
-};
+}
 
 const styles = StyleSheet.create({
-    search: {         
+    container: {
         backgroundColor: COLORS.screenBackgroungColor,
+        width: "100%",
+        height: "100%",
+        flexDirection: 'column',
+    },
+    title: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontFamily: 'Inter-SemiBold',
+        fontSize: 20,
+        color: COLORS.black,
+        textAlign: 'center',
     },
     textInput: {
-        paddingBottom: '3%',
+        paddingTop: 10,
         alignSelf: 'center',
         paddingHorizontal: 10,
         width: '90%',
         flexDirection: 'column',
     },
+    search: {         
+        backgroundColor: COLORS.screenBackgroungColor,
+    },
     contentContainerFlatList: {
         width: '100%',
         flexGrow: 1,
-        // borderColor: 'black',
-        // borderWidth: 2
+        paddingTop: 20,
     },
-    container: {
-        backgroundColor: COLORS.screenBackgroungColor,
-        flex: 1,
-        flexDirection: 'column',
-        height: '100%',
-        width: '100%',
-    }
 });
 
-export default AnimalsScreen;
+export default RackAssessScreen;

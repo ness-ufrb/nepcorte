@@ -10,18 +10,26 @@ import AnimalsScreen from './src/screens/AnimalsScreen';
 import AssessScreen from './src/screens/AssessScreen';
 import AssessmentsScreen from './src/screens/AssessmentsScreen';
 import AccountScreen from './src/screens/AccountScreen';
+// TRIAGE SCREENS
 import SpeciesAnimalsScreen from './src/screens/SpeciesAnimalsScreen';
 import IdentifyAnimalScreen from './src/screens/IdentifyAnimalScreen';
 import SituationAnimalScreen from './src/screens/SituationAnimalScreen';
 import DetailsAnimalScreen from './src/screens/DetailsAnimalScreen';
 import SuccessAnimalScreen from './src/screens/SuccessAnimalScreen';
 import ProblemAnimalScreen from './src/screens/ProblemAnimalScreen';
+// ASSESS SCREENS
 import CarcassAssessScreen from './src/screens/CarcassAssessScreen';
+import RackAssessScreen from './src/screens/RackAssessScreen';
 import InstructionsRackAssessScreen from './src/screens/InstructionsRackAssessScreen';
 import InstructionsCarcassAssessScreen from './src/screens/InstructionsCarcassAssessScreen';
 import CameraScreen from './src/screens/CameraScreen';
 import WaitImageAnalysisCarcassScreen from './src/screens/WaitImageAnalysisCarcassScreen';
+import WaitImageAnalysisRackScreen from './src/screens/WaitImageAnalysisRackScreen';
 import SuccessAnalysisCarcassScreen from './src/screens/SuccessAnalysisCarcassScreen';
+import SuccessAnalysisRackScreen from './src/screens/SuccessAnalysisRackScreen';
+import ProblemAnalysisCarcassScreen from './src/screens/ProblemAnalysisCarcassScreen';
+import ProblemAnalysisRackScreen from './src/screens/ProblemAnalysisRackScreen';
+
 
 // CONSTANTS AND COMPONENTS
 import BottomBarIcons from './src/components/BottomBarIcons';
@@ -51,11 +59,16 @@ function AssessStackScreens() {
     <Stack.Navigator initialRouteName="Assess" screenOptions={{headerShown: false}}>
       <Stack.Screen name="Assess" component={AssessScreen} options={{ headerShown: false }} />
       <Stack.Screen name="CarcassAssess" component={CarcassAssessScreen} />
+      <Stack.Screen name="RackAssess" component={RackAssessScreen} />
       <Stack.Screen name="InstructionsRackAssess" component={InstructionsRackAssessScreen} />
       <Stack.Screen name="InstructionsCarcassAssess" component={InstructionsCarcassAssessScreen} />
       <Stack.Screen name="Camera" component={CameraScreen} />
       <Stack.Screen name="WaitImageAnalysisCarcass" component={WaitImageAnalysisCarcassScreen} />
+      <Stack.Screen name="WaitImageAnalysisRack" component={WaitImageAnalysisRackScreen} />
       <Stack.Screen name="SuccessAnalysisCarcass" component={SuccessAnalysisCarcassScreen} />
+      <Stack.Screen name="SuccessAnalysisRack" component={SuccessAnalysisRackScreen} />
+      <Stack.Screen name="ProblemAnalysisCarcass" component={ProblemAnalysisCarcassScreen} />
+      <Stack.Screen name="ProblemAnalysisRack" component={ProblemAnalysisRackScreen} />
     </Stack.Navigator>
   );
 }

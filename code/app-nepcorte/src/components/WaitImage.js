@@ -8,7 +8,7 @@ const WaitImage = ({ title }) => {
     return (
         <View style={styles.container}>
             <Header notHasReturn={true} code={title}/>
-            <View style={{paddingTop: "40%"}}/>
+            <View style={{paddingTop: "30%"}}/>
             <View style={styles.icon}>
                 <IconHourglass width={200} height={200}/>
             </View>

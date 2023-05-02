@@ -4,10 +4,13 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../constant/colors";
 import WaitImage from "../components/WaitImage";
 
-const WaitImageAnalysisCarcassScreen = () => {
+// Esta tela depende do envio da imagem para o backend, falta implementar a rota caso sucesso ou caso erro.
+// O mesmo para WaitImageAnalysisCarcassScreen.js
+
+const WaitImageAnalysisRackScreen = ({ navigation }) => {
 
     setTimeout(() => {
-        navigation.navigate("WaitImageAnalysisCarcass");
+        navigation.navigate("ProblemAnalysisRack");
     }, 5000);
 
     return (
@@ -25,4 +28,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default WaitImageAnalysisCarcassScreen;
+export default WaitImageAnalysisRackScreen;

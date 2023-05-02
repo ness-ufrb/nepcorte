@@ -55,13 +55,7 @@ const AnimalCard = ({ title, animalRace, reproductiveSituation, age, species, is
                     </View>
                 </View>
                 <View style={styles.bottomContainer}>
-                    <Text style={{
-                        fontFamily: 'Inter-SemiBold',
-                        color: COLORS.grayDark,
-                        fontSize: fontSizes.descriptionTextSize,
-                        borderTopColor: COLORS.grayLine,
-                        borderTopWidth: 1
-                    }}>Registrado em 12/12/2022 às 16:25</Text>
+                    <Text style={styles.descriptionText}>Registrado em 12/12/2022 às 16:25</Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -84,7 +78,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignSelf: 'center',
         borderRadius: 8,
-        padding: 20,
+        // padding: 20,
+        paddingTop : '5%',
+        paddingBottom: '5%',
+        paddingHorizontal: '6%',
         width: '80%',
         height: 200,
         marginHorizontal: '5%',
@@ -105,7 +102,9 @@ const styles = StyleSheet.create({
         fontSize: fontSizes.descriptionTextSize,
     },
     age: {
-        paddingVertical: 4,
+        // marginBottom: 5,
+        marginTop: 5,
+        paddingVertical: 5,
         paddingHorizontal: 8,
         backgroundColor: COLORS.main,
         borderRadius: 12,
@@ -125,7 +124,16 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         // borderColor: 'red',
         // borderWidth: 2
-    }
+    },
+    descriptionText: {
+        marginTop: '5%',
+        paddingTop: '3%',
+        fontFamily: 'Inter-SemiBold',
+        color: COLORS.grayDark,
+        fontSize: fontSizes.descriptionTextSize,
+        borderTopColor: COLORS.grayLine,
+        borderTopWidth: 1,
+    },
 });
 
 export default AnimalCard;

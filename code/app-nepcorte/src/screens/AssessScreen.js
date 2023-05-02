@@ -35,7 +35,7 @@ const AssessScreen = ({ navigation }) => {
                         secText="Analisa a deposição de gordura"
                         icon={<IconMeatloaf width={70} height={70} fill={COLORS.black} />}
                         navigation={navigation}
-                        nextRoute="SpeciesAnimals"
+                        nextRoute="RackAssess"
                     />
                 </View>
             </View>

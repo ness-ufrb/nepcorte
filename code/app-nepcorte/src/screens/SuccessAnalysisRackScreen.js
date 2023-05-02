@@ -4,16 +4,17 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../constant/colors";
 import SuccessAnalysis from "../components/SuccessAnalysis";
 
-const SuccessAnalysisCarcassScreen = ({ navigation }) => {
+const SuccessAnalysisRackScreen = ({ navigation }) => {
     let code = "A12G3";
     return (
         <SafeAreaView style={styles.container}>
             <SuccessAnalysis 
-                title="Avaliar carcaça" 
-                nextRoute="CarcassAssess" 
+                title="Avaliar carré" 
+                nextRoute="RackAssess" 
                 navigation={navigation} 
-                textDescription={`A foto da carcaça do animal ${code} foi enviada para análise e o resultado estará disponível em breve.`} 
-                textButton="Avaliar outra carcaça"/>
+                code="A12G3" 
+                textDescription={`A foto do carré do animal ${code} foi enviada para análise e o resultado estará disponível em breve.`} 
+                textButton="Avaliar outro carré"/>
         </SafeAreaView>
     );
 }
@@ -28,4 +29,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SuccessAnalysisCarcassScreen;
+export default SuccessAnalysisRackScreen;
