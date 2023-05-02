@@ -12,7 +12,7 @@ const InstructionsCarcassAssessScreen = ({ navigation }) => {
             <View style={{paddingTop: "10%"}}/>
             <ScrollView>
                 <InstructionsForm route="Carcass" navigation={navigation} nextRoute="Camera"/>
-            </ScrollView>       
+            </ScrollView> 
         </SafeAreaView>
     )
 }
