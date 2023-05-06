@@ -18,12 +18,16 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "br.dev.ness.nepcorte",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "br.dev.ness.nepcorte",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#EC441E"
       }
     },
     "web": {
