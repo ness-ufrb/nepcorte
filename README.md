@@ -23,3 +23,27 @@ The standard Git repository branches are:
 * **baseline/<sprint_number>**: branchs to accommodate the working source code for a specific sprint delivery.
 
 * **<developer_username>/<feature_name>**: branchs to accommodate the developer's isolated work.
+
+## Mobile app
+
+### Run project
+
+```
+cd code/app-nepcorte
+yarn
+expo start
+```
+
+### Build for testing
+
+```
+cd code/app-nepcorte
+eas build -p android --profile preview
+```
+
+### Build for production
+
+```
+cd code/app-nepcorte
+eas build -p android
+```
