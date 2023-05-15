@@ -47,3 +47,36 @@ eas build -p android --profile preview
 cd code/app-nepcorte
 eas build -p android
 ```
+
+## API
+
+### Installation and configuration
+
+```
+python3 -m venv nepcorte
+source acesso-facil/bin/activate
+pip3 install django
+pip3 install mysqlclient
+django-admin startproject nepcorte
+cd nepcorte
+python3 manage.py startapp api
+python3 manage.py runserver
+```
+
+### Database
+
+Locan environment configuration:
+
+```
+Schema: nepcorte
+Usuário: nepcorte
+Senha: nepcorte
+```
+
+Django admin database migration and checking:
+
+```
+python3 manage.py migrate
+python3 manage.py check
+
+```
