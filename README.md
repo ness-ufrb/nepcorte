@@ -52,15 +52,67 @@ eas build -p android
 
 ### Installation and configuration
 
+* Python version: 3.9
+
+* venv creation
+
 ```
-python3 -m venv nepcorte
-source acesso-facil/bin/activate
-pip3 install django
-pip3 install mysqlclient
-django-admin startproject nepcorte
-cd nepcorte
-python3 manage.py startapp api
-python3 manage.py runserver
+cd positivo-preditor/back-end
+python3.9 -m venv venv
+source venv/bin/activate
+pip install -r ./requirements.txt
+```
+
+* Project config file
+
+```
+cd positivo-preditor/back-end
+cp example.cnf default.cnf
+```
+
+Modify the content in default.cnf according to your local MySQL database
+
+### Migrations
+
+#### Create migration file
+
+```
+python manage.py makemigrations
+```
+
+#### Migrate database
+
+```
+python manage.py migrate
+```
+
+### Dependencies
+
+#### Save dependencies
+
+```
+pip freeze > requirements.txt
+```
+
+### Run
+
+#### Run project
+
+```
+source venv/bin/activate
+python manage.py runserver 0.0.0.0:7777
+```
+
+#### Create superuser
+
+```
+python manage.py createsuperuser
+```
+
+#### Test user
+
+```
+nepcorte@ness.dev.br | 6gY+XtU5jH8eG&ZERpstUQG8q^6XmDsB
 ```
 
 ### Database
