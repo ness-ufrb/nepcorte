@@ -1,0 +1,5 @@
+[client]
+database = nepcorte
+user = nepcorte
+password = nepcorte
+default-character-set = utf8
