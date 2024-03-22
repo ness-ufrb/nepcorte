@@ -10,6 +10,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from api import settings
 
 
 class BaseModelManager(models.Manager):
@@ -102,3 +103,14 @@ class User(PermissionsMixin, AbstractBaseUser, BaseModel):
 
     USERNAME_FIELD='email'
     REQUIRED_FIELDS = []
+
+
+class UserIndexedModel(BaseModel):
+    """Model for adding the responsible user"""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        abstract = True  # Set this to True to create an abstract base model

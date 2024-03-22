@@ -23,6 +23,8 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/examples/', include('examples.urls')),
+    # path('api/animals/', include('animal.urls')),
     path(
         'api/schema/', 
         SpectacularAPIView.as_view(), 

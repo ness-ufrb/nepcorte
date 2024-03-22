@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'core',
     'user',
+    'examples',
+    'animal'
 ]
 
 MIDDLEWARE = [
