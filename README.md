@@ -61,6 +61,8 @@ cd positivo-preditor/back-end
 python3.9 -m venv venv
 source venv/bin/activate
 pip install -r ./requirements.txt
+python manage.py migrate
+python manage.py collectstatic --noinput
 ```
 
 * Project config file
@@ -71,6 +73,12 @@ cp example.cnf default.cnf
 ```
 
 Modify the content in default.cnf according to your local MySQL database
+
+#### Create static files
+
+```
+python manage.py collectstatic --noinput
+```
 
 ### Migrations
 
