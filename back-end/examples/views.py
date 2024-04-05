@@ -1,6 +1,7 @@
 """
 View for the examples API
 """
+
 from drf_spectacular.utils import (
     extend_schema_view,
     extend_schema,
@@ -13,13 +14,12 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from examples.models import Example
 from examples import serializers
 
-
 @extend_schema_view(
     list=extend_schema(
         parameters=[
             OpenApiParameter(name="id", type=str, location=OpenApiParameter.PATH),
             OpenApiParameter(
-                'ids',
+                'id',
                 OpenApiTypes.STR,
                 description='Comma separated list of IDs to filter'
             ),

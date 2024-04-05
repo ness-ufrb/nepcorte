@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'core',
     'user',
     'examples',
-    'animal'
+    'animal',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +93,11 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': BASE_DIR / 'default.cnf',
         },
+        'NAME': 'nepcorte',
+        'USER': 'nepcorte',
+        'PASSWORD': 'nepcorte',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 pymysql.install_as_MySQLdb()
@@ -120,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Sao_Paulo'
 

@@ -24,7 +24,7 @@ from drf_spectacular.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/examples/', include('examples.urls')),
-    # path('api/animals/', include('animal.urls')),
+    path('api/animal/', include('animal.urls')),
     path(
         'api/schema/', 
         SpectacularAPIView.as_view(), 
@@ -37,5 +37,6 @@ urlpatterns = [
         ), 
         name='api-docs',
     ),
-    path('api/user/', include('user.urls'))
+    path('api/user/', include('user.urls')),
+    
 ]
