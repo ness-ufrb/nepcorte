@@ -74,7 +74,7 @@ class UserManager(BaseUserManager, BaseModelManager):
         user.save(using=self._db)
 
         return user
-    
+
     def create_superuser(self, email, password=None, **extra_fields):
         """Create and return a new superuser"""
         extra_fields.setdefault('is_superuser', True)
