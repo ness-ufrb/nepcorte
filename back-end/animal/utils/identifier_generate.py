@@ -8,4 +8,4 @@ def generate_custom_uuid(size=5):
 
     return custom_uuid
 
-print(generate_custom_uuid())
+

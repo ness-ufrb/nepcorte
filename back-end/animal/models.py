@@ -3,15 +3,15 @@ from django.db import models
 # Create your models here.
 from django.db import models
 from core.models import UserIndexedModel, BaseModelManager
-from .utils.identifier_generate import generate_custom_uuid
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class AnimalManager(BaseModelManager):
     """Manager for the users"""
     pass
 
 class Animal(UserIndexedModel):
-    custom_uuid = generate_custom_uuid()
-    identifier = models.CharField(max_length=5, default=custom_uuid, editable=False)
+    identifier = models.CharField(max_length=5, editable=True)
+
     ANIMAL_CONDITIONS=[
         ('apt_for_slaughter', 'Apto para o abate'),
         ('sick_or_injured', 'Doente ou machucado'),
@@ -29,9 +29,8 @@ class Animal(UserIndexedModel):
 
     breed = models.CharField(max_length=125)
     productive_situation = models.CharField(max_length=125, verbose_name='productive situation')
-    animal_age = models.IntegerField(verbose_name='animal age')
+    animal_age = models.IntegerField(verbose_name='animal age', validators=[MinValueValidator(1), MaxValueValidator(2400)])
     description = models.CharField(max_length=300, default='')
-
     objects = AnimalManager()
 
     def __str__(self):

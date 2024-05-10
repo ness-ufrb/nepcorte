@@ -68,11 +68,10 @@ python manage.py collectstatic --noinput
 * Project config file
 
 ```
-cd positivo-preditor/back-end
-cp example.cnf default.cnf
+change .env-example file to .env
 ```
 
-Modify the content in default.cnf according to your local MySQL database
+Modify the content of .env according to your local MySQL database
 
 #### Create static files
 

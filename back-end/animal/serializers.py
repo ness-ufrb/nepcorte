@@ -10,11 +10,5 @@ class AnimalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Animal
         fields = ['id', 'identifier', 'animal_conditions', 'animal_species', 
-                  'breed', 'productive_situation', 'animal_age']
+                  'breed', 'productive_situation', 'animal_age', 'created_at', 'updated_at', 'deleted_at']
         read_only_fields = ['id', 'created_at', 'updated_at', 'deleted_at']
-
-
-class AnimalDetailSerializer(AnimalSerializer):
-    """Serializer for the Animal detail view"""
-    class Meta(AnimalSerializer.Meta):
-        fields = AnimalSerializer.Meta.fields + ['description']

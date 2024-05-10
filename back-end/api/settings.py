@@ -13,12 +13,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import pymysql
 import os
+import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+# Media Files.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -31,7 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    'api.nepcorte.ness.dev.br'
+    'api.nepcorte.ness.dev.br',
 ]
 
 
@@ -44,13 +48,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #rest_framework
     'rest_framework',
     'rest_framework_simplejwt',
+    #drf_spectacular
     'drf_spectacular',
+    'drf_yasg',
+    # apps
+    'examples', #mold app 
     'core',
     'user',
-    'examples',
     'animal',
+    'review',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +95,7 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+dotenv.load_dotenv()
 
 DATABASES = {
     'default': {
@@ -93,11 +103,11 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': BASE_DIR / 'default.cnf',
         },
-        'NAME': 'nepcorte',
-        'USER': 'nepcorte',
-        'PASSWORD': 'nepcorte',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.environ.get('MYSQL_DATABASE'),
+        'USER': os.environ.get('MYSQL_USER'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+        'HOST': os.environ.get('MYSQL_HOST'),
+        'PORT': os.environ.get('MYSQL_PORT'),
     }
 }
 pymysql.install_as_MySQLdb()
@@ -151,4 +161,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'NepCorte API',
+    'DESCRIPTION': 'Data analysis API for maintenance information insights at NepCorte app',
+    'VERSION': '0.0.1',
 }

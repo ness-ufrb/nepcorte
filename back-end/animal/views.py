@@ -7,10 +7,7 @@ View for the animals API
 """
 
 from drf_spectacular.utils import (
-    extend_schema_view,
     extend_schema,
-    OpenApiParameter,
-    OpenApiTypes,
 )
 
 from rest_framework import viewsets
@@ -18,12 +15,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from animal.models import Animal
 from animal import serializers
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
-@extend_schema_view(
-)
+extend_schema()
 class AnimalViewSet(viewsets.ModelViewSet):
     """View for managing user settings API"""
-    serializer_class = serializers.AnimalDetailSerializer
+    serializer_class = serializers.AnimalSerializer
     query_set = Animal.objects.active()
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -31,7 +28,7 @@ class AnimalViewSet(viewsets.ModelViewSet):
     def _params_to_ints(self, qs):
         """Convert a list of strings to ints"""
         return [int(str_id) for str_id in qs.split(',')]
-
+    
     def get_queryset(self):
         """Retrieve Animals for authenticated user"""
         ids_param = self.request.query_params.get('id')
