@@ -30,7 +30,7 @@ The standard Git repository branches are:
 
 ```
 cd code/app-nepcorte
-yarn
+pnpm
 expo start
 ```
 
