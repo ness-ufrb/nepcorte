@@ -6,9 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-#Data base module
-back-end/data_base/mysql_nepcorte/
-
 # Distribution / packaging
 .Python
 build/

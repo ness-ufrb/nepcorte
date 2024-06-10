@@ -1,27 +1,24 @@
 from django.db import models
 from core.models import UserIndexedModel, BaseModelManager
 from animal.models import Animal 
+from review.utils.status import CustomerStatus
 
-
-class AnalysisResultManager(BaseModelManager):
+class AnalysisResult(BaseModelManager):
     """Manager for the users"""
     pass
 
 class AnalysisResult(UserIndexedModel):
-    """User settings model""" 
-    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    type = models.CharField(max_length=255)
-    result = models.TextField()
 
-    STATUS_CHOICES = [
-        ('waiting', 'Aguardando análise'),
-        ('processing', 'Em análise'),
-        ('completed', 'Concluído'),
-    ]
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    type_result      = models.CharField(max_length=255)
+    marbling_level   = models.CharField(max_length=55)
+    fat_distribution = models.CharField(max_length=55)
+    result           = models.TextField()
+    status           = models.CharField(max_length=30, choices=CustomerStatus.choices(), default=CustomerStatus.WAITING)
+    animal_id        = models.ForeignKey(Animal, related_name='analysis_results', on_delete=models.CASCADE)
     
-    objects = AnalysisResultManager()
+    objects = AnalysisResult()
 
     def __str__(self):
-        return self.animal.identifier
+        return self.animal_id.identifier
+
     

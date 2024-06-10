@@ -1,5 +1,5 @@
 from django.db import models
-
+from .utils import genders, animal_conditions, species
 # Create your models here.
 from django.db import models
 from core.models import UserIndexedModel, BaseModelManager
@@ -10,27 +10,19 @@ class AnimalManager(BaseModelManager):
     pass
 
 class Animal(UserIndexedModel):
-    identifier = models.CharField(max_length=5, editable=True)
-
-    ANIMAL_CONDITIONS=[
-        ('apt_for_slaughter', 'Apto para o abate'),
-        ('sick_or_injured', 'Doente ou machucado'),
-        ('wrong_batch', 'Animal está no lote errado'),
-    ]
-    animal_conditions = models.CharField(max_length=20, choices=ANIMAL_CONDITIONS)
-
-    ANIMAL_SPECIES=[
-        ('bovine', 'Bovino'),
-        ('caprine', 'Caprino'),
-        ('ovine', 'Ovino'),
-        ('porcine', 'Suíno'),
-    ]
-    animal_species = models.CharField(max_length=8, choices=ANIMAL_SPECIES, verbose_name='animal species')
-
-    breed = models.CharField(max_length=125)
+    
+    identifier           = models.CharField(max_length=5, editable=True)
+    gender               = models.CharField(max_length=8, choices=genders.CustomerGender.choices(), default=genders.CustomerGender.MALE)
+    animal_conditions    = models.CharField(max_length=26, choices=animal_conditions.CustomerConditions.choices(), default=animal_conditions.CustomerConditions.APT_FOR_SLAUGHTER)
+    breed                = models.CharField(max_length=125)
     productive_situation = models.CharField(max_length=125, verbose_name='productive situation')
-    animal_age = models.IntegerField(verbose_name='animal age', validators=[MinValueValidator(1), MaxValueValidator(2400)])
-    description = models.CharField(max_length=300, default='')
+    animal_age           = models.IntegerField(verbose_name='animal age', validators=[MinValueValidator(1), MaxValueValidator(2400)])
+    description          = models.CharField(max_length=300, default='')
+    animal_species       = models.CharField(
+        max_length=8, 
+        choices=species.CustomerSpecies.choices(), 
+        default=species.CustomerSpecies.BOVINE, 
+    )
     objects = AnimalManager()
 
     def __str__(self):

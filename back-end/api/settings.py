@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     #rest_framework
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_filters',
     #drf_spectacular
     'drf_spectacular',
     'drf_yasg',
@@ -103,11 +104,11 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': BASE_DIR / 'default.cnf',
         },
-        'NAME': os.environ.get('MYSQL_DATABASE'),
-        'USER': os.environ.get('MYSQL_USER'),
-        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-        'HOST': os.environ.get('MYSQL_HOST'),
-        'PORT': os.environ.get('MYSQL_PORT'),
+        'NAME': os.getenv("MYSQL_DATABASE"),
+        'USER': os.getenv("MYSQL_USER"),
+        'PASSWORD': os.getenv("MYSQL_PASSWORD"),
+        'HOST': os.getenv("MYSQL_HOST"),
+        'PORT': os.getenv("MYSQL_PORT"),
     }
 }
 pymysql.install_as_MySQLdb()
@@ -161,6 +162,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 6,
 }
 
 SPECTACULAR_SETTINGS = {

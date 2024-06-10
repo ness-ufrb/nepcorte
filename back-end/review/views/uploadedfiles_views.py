@@ -17,13 +17,17 @@ from review.ia_code.marbling import segmentation
 import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from rest_framework.pagination import PageNumberPagination
+
+class UploadedFilesPagination(PageNumberPagination):
+    page_size = 4
 
 # media_storage = FileSystemStorage(location=settings.MEDIA_ROOT)
 
 class ImageUploadAPIView(APIView):
     
     serializer_class = FileUploadSerializer
-    
+    pagination_class = UploadedFilesPagination
     #Lembrar do jwt
 
     def is_image(self, file):

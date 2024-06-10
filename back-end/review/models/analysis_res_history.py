@@ -1,6 +1,7 @@
 from django.db import models
 from core.models import UserIndexedModel, BaseModelManager
 from .analysis_result import AnalysisResult
+from review.utils import status
 
 class AnalysisResultHistoryManager(BaseModelManager):
     """Manager for the users"""
@@ -8,14 +9,9 @@ class AnalysisResultHistoryManager(BaseModelManager):
 
 class AnalysisResultHistory(UserIndexedModel):
     """User settings model"""
-    STATUS_CHOICES = [
-        ('waiting', 'Aguardando análise'),
-        ('processing', 'Em análise'),
-        ('completed', 'Concluído'),
-    ]
     analysis_result = models.ForeignKey(AnalysisResult, on_delete=models.CASCADE)
-    previous_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
-    new_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    previous_status = models.CharField(max_length=20, choices=status.CustomerStatus.choices(), default=status.CustomerStatus.PROCESSING)
+    new_status      = models.CharField(max_length=20, choices=status.CustomerStatus.choices(), default=status.CustomerStatus.PROCESSING)
     
     objects = AnalysisResultHistoryManager()
 

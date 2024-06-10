@@ -13,7 +13,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from review.models import AnalysisResultHistory
 from review.serializers import AnalysisResultHistorySerializer
+from rest_framework.pagination import PageNumberPagination
 
+class AnalysisResultHistoryPagination(PageNumberPagination):
+    page_size = 4
 
 @extend_schema_view()
 class AResultHistoryViewSet(viewsets.ModelViewSet):
@@ -22,6 +25,7 @@ class AResultHistoryViewSet(viewsets.ModelViewSet):
     query_set = AnalysisResultHistory.objects.active()
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    pagination_class = AnalysisResultHistoryPagination
 
     def _params_to_ints(self, qs):
         """Convert a list of strings to ints"""

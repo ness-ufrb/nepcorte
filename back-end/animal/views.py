@@ -15,7 +15,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from animal.models import Animal
 from animal import serializers
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+from drf_spectacular.utils import extend_schema
+from rest_framework import filters
+from rest_framework.pagination import PageNumberPagination
+
+class AnimalSetPagination(PageNumberPagination):
+    page_size = 4 #Animal per page
 
 extend_schema()
 class AnimalViewSet(viewsets.ModelViewSet):
@@ -24,6 +29,9 @@ class AnimalViewSet(viewsets.ModelViewSet):
     query_set = Animal.objects.active()
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['identifier', 'gender', 'animal_species', 'breed']
+    pagination_class = AnimalSetPagination
 
     def _params_to_ints(self, qs):
         """Convert a list of strings to ints"""
