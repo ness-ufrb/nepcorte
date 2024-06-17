@@ -105,6 +105,9 @@ ENV/
 env.bak/ 
 venv.bak/ 
 
+#data_base
+data_base
+
 # mkdocs documentation 
 /site 
 

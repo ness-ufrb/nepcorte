@@ -33,16 +33,6 @@ class AResultViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if self.action in ['list', 'retrieve']:
             animal_qs = Animal.objects.filter(user=user).order_by('-id').distinct()
-            search = self.request.query_params.get('search')
-            if search:
-                animal_qs = animal_qs.filter(
-                    Q(identifier__icontains=search) |
-                    Q(breed__icontains=search) |
-                    Q(animal_species__icontains=search) |
-                    Q(gender__icontains=search) |
-                    Q(analysis_results__marbling_level__icontains=search) |
-                    Q(analysis_results__fat_distribution__icontains=search)
-                ).distinct()
             return animal_qs
         else:
             queryset = AnalysisResult.objects.active().filter(user=user).order_by('-id').distinct()
