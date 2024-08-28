@@ -1,17 +1,11 @@
 from rest_framework import viewsets, filters
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from drf_spectacular.utils import extend_schema_view
-from django.db.models import Q
 from django_filters.rest_framework import DjangoFilterBackend
-
 from review.models import AnalysisResult
 from animal.models import Animal
 from review.serializers import AnalysisResultWithAnimalSerializer, AnalysisResultSerializer
-
-class AnalysisResultPagination(PageNumberPagination):
-    page_size = 4
 
 @extend_schema_view()
 class AResultViewSet(viewsets.ModelViewSet):
@@ -21,8 +15,6 @@ class AResultViewSet(viewsets.ModelViewSet):
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['identifier', 'breed', 'animal_species', 'gender', 'analysis_results__marbling_level', 'analysis_results__fat_distribution']
-
-    pagination_class = AnalysisResultPagination
 
     def _params_to_ints(self, qs):
         """Convert a list of strings to ints"""

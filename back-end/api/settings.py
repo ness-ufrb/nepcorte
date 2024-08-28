@@ -163,11 +163,13 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 6,
+    'PAGE_SIZE': 4,
+    
 }
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'NepCorte API',
     'DESCRIPTION': 'Data analysis API for maintenance information insights at NepCorte app',
     'VERSION': '0.0.1',
+    'COMPONENT_SPLIT_REQUEST': True,
 }

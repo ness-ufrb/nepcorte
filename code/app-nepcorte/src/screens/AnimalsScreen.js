@@ -90,7 +90,7 @@ const AnimalsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    search: {         
+    search: {
         backgroundColor: COLORS.screenBackgroungColor,
     },
     textInput: {
