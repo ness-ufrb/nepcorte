@@ -36,6 +36,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     'api.nepcorte.ness.dev.br',
+    '192.168.1.110',
+    '172.30.80.1',
+    '192.168.1.107',
 ]
 
 
@@ -61,6 +64,8 @@ INSTALLED_APPS = [
     'user',
     'animal',
     'review',
+    # testar a api
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -71,9 +76,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #testar a api
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:19006',  # se estiver usando Expo localmente
+    'http://192.168.1.110:19006',  # seu IP local com a porta do Expo (se aplicável)
+    'http://localhost:8000',
+    'http://192.168.1.110:8000',
+    'http://api.nepcorte.ness.dev.br',
+]
 
 TEMPLATES = [
     {
