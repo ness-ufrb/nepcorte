@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "nep-corte",
+    "slug": "nep-corte",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#EC441E"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "br.dev.ness.nepcorte",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "br.dev.ness.nepcorte",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#EC441E"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7eee9620-c3a9-47a9-9b7c-c6de48ad0fe3"
+      }
+    }
+  }
+}

@@ -20,8 +20,12 @@ class AnalysisResultWithAnimalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Animal
-        fields = ['id', 'identifier', 'gender', 'animal_conditions', 'animal_species', 
-                  'breed', 'productive_situation', 'animal_age', 'created_at', 'updated_at', 'deleted_at', 'analysis_result']
+        fields = [
+                    'id', 'code', 'reproductiveSituation', 
+                    'situation', 'species', 'race', 'age', 'teeth', 
+                    'created_at', 'updated_at', 'deleted_at', 'analysis_result'
+                ]
+        
         read_only_fields = ['id', 'created_at', 'updated_at', 'deleted_at']
 
 class AnalysisResultHistorySerializer(serializers.ModelSerializer):

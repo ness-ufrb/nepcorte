@@ -1,7 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 """
 View for the animals API
 """
@@ -21,14 +17,14 @@ from rest_framework import filters
 extend_schema()
 class AnimalViewSet(viewsets.ModelViewSet):
     """View for managing user settings API"""
+    
     serializer_class = serializers.AnimalSerializer
     query_set = Animal.objects.active()
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     filter_backends = [filters.SearchFilter]
-    search_fields = ['identifier', 'gender', 'animal_species', 'breed']
+    search_fields = ['code', 'reproductiveSituation', 'species', 'race']
     
-
     def _params_to_ints(self, qs):
         """Convert a list of strings to ints"""
         return [int(str_id) for str_id in qs.split(',')]

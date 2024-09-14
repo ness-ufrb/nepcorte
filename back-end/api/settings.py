@@ -17,6 +17,8 @@ import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Static Files.
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -37,10 +39,11 @@ ALLOWED_HOSTS = [
     'localhost',
     'api.nepcorte.ness.dev.br',
     '192.168.1.110',
-    '172.30.80.1',
+    '172.30.80.1', # URLs to test API
     '192.168.1.107',
+    '192.168.1.112',
+    '192.168.1.117',
 ]
-
 
 # Application definition
 
@@ -64,7 +67,7 @@ INSTALLED_APPS = [
     'user',
     'animal',
     'review',
-    # testar a api
+    # test api
     'corsheaders',
 ]
 
@@ -83,8 +86,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'api.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:19006',  # se estiver usando Expo localmente
-    'http://192.168.1.110:19006',  # seu IP local com a porta do Expo (se aplicável)
+    'http://localhost:19006',  
+    'http://192.168.1.110:19006', 
     'http://localhost:8000',
     'http://192.168.1.110:8000',
     'http://api.nepcorte.ness.dev.br',
@@ -177,9 +180,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 4,
-    
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
 }
 
 SPECTACULAR_SETTINGS = {

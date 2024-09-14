@@ -14,7 +14,7 @@ class AResultViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    search_fields = ['identifier', 'breed', 'animal_species', 'gender', 'analysis_results__marbling_level', 'analysis_results__fat_distribution']
+    search_fields = ['code', 'race', 'species', 'reproductiveSituation', 'analysis_results__marbling_level', 'analysis_results__fat_distribution']
 
     def _params_to_ints(self, qs):
         """Convert a list of strings to ints"""
@@ -24,7 +24,7 @@ class AResultViewSet(viewsets.ModelViewSet):
         """Retrieve the appropriate queryset based on action"""
         user = self.request.user
         if self.action in ['list', 'retrieve']:
-            animal_qs = Animal.objects.filter(user=user).order_by('-id').distinct()
+            animal_qs = Animal.objects.filter(user=user, analysis_results__isnull=False).order_by('-analysis_results__id').distinct()
             return animal_qs
         else:
             queryset = AnalysisResult.objects.active().filter(user=user).order_by('-id').distinct()

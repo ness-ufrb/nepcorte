@@ -1,10 +1,10 @@
 from enum import Enum
 
 class CustomerSpecies(Enum):
-  BOVINE = 'bovino'
-  CAPRINE = 'caprino'
-  OVINE = 'ovino' 
-  PORCINE = 'suíno'
+  BOVINE = 'Bovino'
+  CAPRINE = 'Caprino'
+  OVINE = 'Ovino' 
+  PORCINE = 'Suíno'
   
   @classmethod
   def choices(cls):
