@@ -6,7 +6,7 @@ import IconTripod from "../assets/icons/tripod.svg";
 import IconCamera from "../assets/icons/camera.svg";
 import IconPhoto from "../assets/icons/photo.svg";
 
-const InstructionsForm = ({ navigation, nextRoute, route }) => {
+const InstructionsForm = ({ navigation, nextRoute, route, type }) => {
     return (
         <View>
             <Text style={styles.title}>Instruções</Text>
@@ -19,7 +19,7 @@ const InstructionsForm = ({ navigation, nextRoute, route }) => {
                 <View style={{paddingTop: "5%"}}/>
                 <StepsInstructions 
                     step="Passo 2"
-                    description="Enquadre a câmera para fotografar toda a carcaça"
+                description={`Enquadre a câmera para fotografar toda a ${type}`}
                     icon={<IconPhoto width={75} height={80} fill={COLORS.black}/>}
                 />
                 <View style={{paddingTop: "5%"}}/>

@@ -19,6 +19,8 @@ const Card = ({ mainText, secText, icon, navigation, nextRoute, Press }) => {
         <TouchableOpacity onPress={() => {
             console.log('card pressed');
             navigation.navigate(nextRoute);
+            console.log(mainText)
+
             Press(mainText);
         }}>
             <View style={styles.container}>

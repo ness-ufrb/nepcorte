@@ -1,7 +1,6 @@
 import nepcorteServer from "../../api/nepcorteServer"
-import { showError } from "../../api/alerts"
 import { useContext } from "react"
-import { AuthContext } from "../UserContext/AuthContext"
+import { Context as AuthContext } from "../UserContext/Context"
 
 const setCode = dispatch => {
     return (code)=>{
@@ -46,7 +45,9 @@ const setRandomCode = dispatch => {
 }
 
 const createAnimal = dispatch => {
-    const { token } = useContext(AuthContext);
+    const { state } = useContext(AuthContext);
+    const { token } = state
+    
     return async (animal, navigation, race, reproductiveSituation, age) => {
         const {code, situation, species} = animal
         const animalToSend = {

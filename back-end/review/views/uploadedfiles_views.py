@@ -32,7 +32,7 @@ class ImageUploadAPIView(APIView):
 
         # Receiving the data for processing
         file = request.FILES.get('file')
-        animal = request.POST.get('animal')
+        animal = request.POST.get('animal_id')
 
         # If any field is empty
         if not file or not animal:
@@ -44,14 +44,14 @@ class ImageUploadAPIView(APIView):
         if self.is_image(file):
             # If the file is an image
             # Create the data dictionary for the serializer
-            data = {'file': file, 'animal': animal}
+            data = {'file': file, 'animal_id': animal}
             serializer = self.serializer_class(data=data)
 
             if serializer.is_valid():
                 uploaded_file = serializer.save()
                 # Here's some additional processing (using artificial intelligence)
-                mask = segmentation.make_mask(os.path.join(settings.MEDIA_ROOT, uploaded_file.file.name))
-                print(mask.shape)
+                # mask = segmentation.make_mask(os.path.join(settings.MEDIA_ROOT, uploaded_file.file.name))
+                # print(mask.shape)
 
                 return Response(
                     serializer.data,

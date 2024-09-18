@@ -13,13 +13,15 @@ import { Context as AnimalContext } from "../context/AnimalsContext/Context";
 import { useFocusEffect } from '@react-navigation/native';
 import { icons } from "../constant/icons";
 import { AnimalEndPoint } from "../api/nepcorteServer";
+import { Context as AssessmentsContext } from "../context/AssessmentsContext/Context";
 
 const CarcassAssessScreen = ({ navigation }) => {
 
-    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetPage, SetHasMore, SetRefreshing } = useContext(AnimalContext);
+    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetHasMore, SetRefreshing } = useContext(AnimalContext);
     const { loading, loadingMore, page, animalSearchTerm, animals, hasMore, refreshing } = state;
-  
+    const { SetAnimalId } = useContext(AssessmentsContext) 
     
+
     useFocusEffect(
         React.useCallback(() => {
             const fetchInitialAnimals = async () => {
@@ -61,11 +63,12 @@ const CarcassAssessScreen = ({ navigation }) => {
                 created_at={item.created_at}
                 isClickable={true}
                 navigation={navigation}
+                onPress={()=>SetAnimalId(item.id)}
                 nextRoute="InstructionsCarcassAssess"
             />
         );
     };
-    console.log(animals)
+    
     const renderContent = () => {
         if (loading) {
             return <ActivityIndicator size="large" style={styles.loading} />;

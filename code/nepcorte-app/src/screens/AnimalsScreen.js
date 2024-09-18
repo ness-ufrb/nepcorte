@@ -15,7 +15,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { AnimalEndPoint } from "../api/nepcorteServer";
 
 const AnimalsScreen = ({ navigation }) => {
-    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetPage, SetHasMore, SetRefreshing } = useContext(AnimalContext);
+    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetHasMore, SetRefreshing } = useContext(AnimalContext);
     const { loading, loadingMore, page, animalSearchTerm, animals, hasMore, refreshing } = state;
 
     useFocusEffect(

@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { COLORS } from "../constant/colors";
 import Card from '../components/Card';
 import Header from '../components/Header';
 import IconPig from "../assets/icons/032-pig.svg"
 import IconMeatloaf from "../assets/icons/035-meatloaf.svg"
 import { fontSizes } from "../constant/fontSizes";
-
+import { Context as AssessmentsContext } from "../context/AssessmentsContext/Context";
 
 const AssessScreen = ({ navigation }) => {
+    const { SetType } = useContext(AssessmentsContext)
+
+    const handleSetType = (type) => {
+        SetType(type)
+    }
     
     return (
         <SafeAreaView style={styles.container}>
             <Header notHasReturn={true} code="Avaliar" />
             <View style={styles.form}>
                 <Text 
-                    style={{ fontSize: fontSizes.titleTextSize, 
-                        color: COLORS.black, 
-                        fontFamily: 'Inter-Bold', 
+                    style={{ fontSize: fontSizes.titleTextSize,
+                        color: COLORS.black,
+                        fontFamily: 'Inter-Bold',
                         textAlign: 'center',
                         paddingBottom: 20,
                     }}>
@@ -31,7 +36,7 @@ const AssessScreen = ({ navigation }) => {
                         icon={<IconPig width={80} height={80} fill={COLORS.black} />}
                         navigation={navigation}
                         nextRoute="CarcassAssess"
-                        Press={()=>console.log('botao pressionado')}
+                        Press={handleSetType}
                     />
                     <Card 
                         mainText="Carré" 
@@ -39,7 +44,7 @@ const AssessScreen = ({ navigation }) => {
                         icon={<IconMeatloaf width={70} height={70} fill={COLORS.black} />}
                         navigation={navigation}
                         nextRoute="RackAssess"
-                        Press={()=>console.log('botao pressionado')}
+                        Press={handleSetType}
                     />
                 </View>
             </View>

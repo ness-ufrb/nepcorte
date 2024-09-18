@@ -9,7 +9,7 @@ import IconBeef from "../assets/icons/025-beef.svg";
 import AnimalStatus from './AnimalStatus';
 import moment from 'moment';
 
-const AnimalCard = ({ title, animalRace, reproductiveSituation, age, species, created_at, isClickable, navigation, nextRoute, wasSent, trimLevel, fatDeposition }) => {
+const AnimalCard = ({ title, animalRace, reproductiveSituation, age, species, created_at, isClickable, navigation, nextRoute, wasSent, trimLevel, fatDeposition, onPress }) => {
     
     // Formatando o tempo de criação
     const formattedDateTime = moment(created_at).format('DD/MM/YYYY [às] HH:mm');;
@@ -39,7 +39,7 @@ const AnimalCard = ({ title, animalRace, reproductiveSituation, age, species, cr
             onPress={
                 () => {
                     if (isClickable) {
-                        console.log('Faz algo caso isClickable seja true');
+                        onPress();
                         navigation.navigate(nextRoute);
                     }
                 }

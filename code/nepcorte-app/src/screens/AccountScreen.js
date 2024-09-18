@@ -1,19 +1,30 @@
-import React from "react";
+import React, {useContext} from "react";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import IconUnderConstruction from "../assets/icons/under-construction.svg";
 import { COLORS } from "../constant/colors";
 import { fontSizes } from "../constant/fontSizes";
 import Header from "../components/Header";
+import { Context as AuthContext } from "../context/UserContext/Context";
 
 const FeatureConstruction = ({ navigation }) => {
+    const { Logout } = useContext(AuthContext)
+    
+    const handleLogout = () => {
+        Logout(navigation)
+    }
     return (
         <SafeAreaView style={styles.container}>
-            <Header code="Conta" navigation={navigation}/>
+            <Header code="Conta"  navigation={navigation} notHasReturn={true}/>
             <View style={styles.form}>
                 <IconUnderConstruction width={200} height={200} fill={COLORS.black}/>
                 <Text style={styles.text}>Esta feature está em construção</Text>
             </View>
+        {/* Botão de Deslogar */}
+            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                <Text style={styles.logoutButtonText}>Deslogar</Text>
+            </TouchableOpacity>
+           
         </SafeAreaView>
     );
 }
@@ -31,11 +42,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text: {
-        fontSize: fontSizes.descriptionTextSize, 
-        color: COLORS.black, 
-        fontFamily: 'Inter-SemiBold', 
-        textAlign: 'center' ,
+        fontSize: fontSizes.descriptionTextSize,
+        color: COLORS.black,
+        fontFamily: 'Inter-SemiBold',
+        textAlign: 'center',
         paddingTop: 20,
+    },
+    logoutButton: {
+        marginTop: 30,
+        backgroundColor: COLORS.main, // Cor do botão
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+    },
+    logoutButtonText: {
+        fontSize: fontSizes.buttonTextSize,
+        color: COLORS.white, // Cor do texto
+        fontFamily: 'Inter-Bold',
+        textAlign: 'center',
     },
 });
 

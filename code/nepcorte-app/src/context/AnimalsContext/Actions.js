@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../UserContext/AuthContext";
+import { Context as AuthContext } from "../UserContext/Context";
 import nepcorteServer from "../../api/nepcorteServer";
 import { AnimalEndPoint, ReviewEndPoint } from "../../api/nepcorteServer";
 // Actions.js
@@ -40,8 +40,8 @@ const SetRefreshing = dispatch => {
 }
 
 const GetAnimals = dispatch => {
-    const { token } = useContext(AuthContext);
-
+    const { state } = useContext(AuthContext);
+    const { token } = state
     return async (search = '', endPoint, page, reset = false) => {
         try {
             console.log(`endPoint: ${endPoint}\nsearch: ${search}\npage: ${page}`);
@@ -52,6 +52,9 @@ const GetAnimals = dispatch => {
 
             const hasMorePages = response.data.next !== null;
             const results = response.data.results;
+
+            // hasMorePages VAI RECEBER TRUE CASO HAJA MAIS PAGINAS OU FALSO CASO next(page) seja null
+            dispatch({ type: 'SET_HAS_MORE', payload: hasMorePages });
 
             //LOGICA PRA DEFINIR OS ANIMAIS
             if (endPoint === AnimalEndPoint) {
@@ -68,9 +71,6 @@ const GetAnimals = dispatch => {
                     dispatch({ type: 'SET_ANALYSIS_RESULTS', payload: results });
                 }
             }
-
-            // hasMorePages VAI RECEBER TRUE CASO HAJA MAIS PAGINAS OU FALSO CASO next(page) seja null
-            dispatch({ type: 'SET_HAS_MORE', payload: hasMorePages });
 
             // se hasMorePages for true adiciona mais uma pagina
             if (hasMorePages) {
