@@ -1,6 +1,7 @@
 import nepcorteServer from "../../api/nepcorteServer"
 import { useContext } from "react"
 import { Context as AuthContext } from "../UserContext/Context"
+import { AnimalEndPoint } from "../../api/nepcorteServer"
 
 const setCode = dispatch => {
     return (code)=>{
@@ -62,13 +63,9 @@ const createAnimal = dispatch => {
         try {
             console.log('Tentando criar o animal...');
             await nepcorteServer.post(
-                `/api/animal/`, 
+                AnimalEndPoint, 
                 animalToSend, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}` 
-                    },
-                }
+                { headers: {Authorization: `Bearer ${token}`} }
             );
             if (navigation) {
                 navigation(); 
@@ -77,7 +74,6 @@ const createAnimal = dispatch => {
             console.log('Animal criado com sucesso:');
         } catch (e) {
             console.error('Erro ao criar o animal:', e.response ? e.response.data : e.message);
-            showError(e);
         }
     }
 }

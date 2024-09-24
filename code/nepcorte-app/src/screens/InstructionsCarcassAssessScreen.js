@@ -4,7 +4,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { COLORS } from "../constant/colors";
 import Header from "../components/Header";
 import InstructionsForm from "../components/InstructionsForm";
-import { Context } from "../context/AssessmentsContext/Context";
+import { Context } from "../context/AssessContext/Context";
 
 const InstructionsCarcassAssessScreen = ({ navigation }) => {
     const {state} = useContext(Context)

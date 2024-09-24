@@ -1,6 +1,6 @@
 import createDataContext from '../createDataContext';
 import Reducer from './Reducer';
-import { SetAnimalId, SetType, SetFile } from './Actions';
+import { SetAnimalId, SetType, SetFile, CreateAssess } from './Actions';
 initialState = {
     type_result: '',
     animal_id: '',
@@ -9,6 +9,6 @@ initialState = {
 
 export const { Context, Provider } = createDataContext(
     Reducer,
-    { SetAnimalId, SetType, SetFile },
+    { SetAnimalId, SetType, SetFile, CreateAssess },
     initialState
 );

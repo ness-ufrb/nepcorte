@@ -46,9 +46,10 @@ const GetAnimals = dispatch => {
         try {
             console.log(`endPoint: ${endPoint}\nsearch: ${search}\npage: ${page}`);
             
-            const response = await nepcorteServer.get(`${endPoint}?search=${search}&page=${page}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const response = await nepcorteServer.get(
+                `${endPoint}?search=${search}&page=${page}`, 
+                { headers: { Authorization: `Bearer ${token}`} }
+            );
 
             const hasMorePages = response.data.next !== null;
             const results = response.data.results;

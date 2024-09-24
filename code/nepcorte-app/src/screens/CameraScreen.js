@@ -1,96 +1,88 @@
-import React, { useState, useEffect, useRef } from "react";
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, Alert } from "react-native";
-import { Camera } from 'expo-camera';
-import { FontAwesome } from '@expo/vector-icons';
+import React, { useState, useContext, useRef } from "react";
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, Alert, PixelRatio, Button } from "react-native";
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { COLORS } from "../constant/colors";
+import { captureRef } from 'react-native-view-shot';
+import { CameraType } from "expo-camera/build/legacy/Camera.types";
+import { Context as AssessmentsContext } from "../context/AssessContext/Context";
 
 const CameraScreen = ({ navigation, route }) => {
-    const camRef = useRef(null);
-    const [hasPermission, setHasPermission] = useState(null);
-    const [capturedPhoto, setCapturedPhoto] = useState(null);
-    const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off); // Verifique a constante
-    const [type, setType] = useState(Camera.Constants.Type.back); // Verifique a constante
-
-    // Solicitar permissão da câmera
-    useEffect(() => {
-        (async () => {
-            const { status } = await Camera.requestCameraPermissionsAsync();
-            setHasPermission(status === 'granted');
-        })();
-    }, []);
-
-    // Renderizar mensagem de permissão
-    if (hasPermission === null) {
-        return <View style={styles.container}><Text>Solicitando permissão...</Text></View>;
-    }
-    if (hasPermission === false) {
-        return <View style={styles.container}><Text>Sem acesso à câmera</Text></View>;
-    }
-
-    // Função para alternar a câmera frontal/traseira
-    const toggleCameraType = () => {
-        setType(prevType => 
-            prevType === Camera.Constants.Type.back 
-            ? Camera.Constants.Type.front 
-            : Camera.Constants.Type.back
-        );
-    };
-
-    // Função para alternar o modo de flash
-    const toggleFlash = () => {
-        setFlashMode(prevFlashMode => 
-            prevFlashMode === Camera.Constants.FlashMode.off 
-            ? Camera.Constants.FlashMode.on 
-            : Camera.Constants.FlashMode.off
-        );
-    };
-
-    // Função para tirar foto
+    const [ facing, setFacing ] = useState(CameraType);
+    const [ permission ] = useCameraPermissions();
+    const { state, SetFile } = useContext(AssessmentsContext)
+    
+    const viewRef = useRef();
     const takePicture = async () => {
-        if (camRef.current) {
-            const photo = await camRef.current.takePictureAsync();
-            setCapturedPhoto(photo.uri);
-            console.log(photo);
+        
+        const targetPixelCount = 1080; 
+        const pixelRatio = PixelRatio.get(); 
+        
+        const pixels = targetPixelCount / pixelRatio;
 
-            if (route.params?.type === "Carcass") {
-                navigation.navigate("WaitImageAnalysisCarcass");
-            } else if (route.params?.type === "Rack") {
-                navigation.navigate("WaitImageAnalysisRack");
-            } else {
-                Alert.alert("Erro", "Parâmetro desconhecido!");
-            }
-        }
+        const photo = await captureRef(viewRef, {
+        result: 'tmpfile',
+        height: pixels,
+        width: pixels,
+        quality: 1,
+        format: 'png',
+        });
+
+        SetFile(photo)
+      
+        if (route.params === "Carcass") {
+            navigation.navigate("WaitImageAnalysisCarcass");
+        } else if (route.params === "Rack") {
+            navigation.navigate("WaitImageAnalysisRack");
+        } else {
+            Alert.alert("Erro", "Parâmetro desconhecido!");
+        }   
+
+        console.log(photo)
     };
+
+    if (!permission) {
+        // Camera permissions are still loading.
+        return <View />;
+      }
+    
+      if (!permission.granted) {
+        // Camera permissions are not granted yet.
+        return (
+          <View style={styles.container}>
+            <Text style={styles.message}>We need your permission to show the camera</Text>
+            <Button onPress={requestPermission} title="grant permission" />
+          </View>
+        );
+      }
+    
+      function toggleCameraFacing() {
+        setFacing(current => (current === 'back' ? 'front' : 'back'));
+      }
 
     return (
         <SafeAreaView style={styles.container}>
-            <Camera 
-                style={styles.camera} 
-                type={type} 
-                flashMode={flashMode} 
-                ref={camRef}
+            <CameraView
+                style={styles.camera}
+                type={facing}
+                ref={viewRef}
             >
                 <View style={styles.controlContainer}>
-                    {/* Botão para alternar o flash */}
-                    <TouchableOpacity onPress={toggleFlash} style={styles.flashButton}>
-                        <FontAwesome 
-                            name={flashMode === Camera.Constants.FlashMode.on ? "flash" : "flash-off"} 
-                            size={24} 
-                            color={COLORS.white} 
-                        />
+                    {/* Botão para alternar a câmera */}
+                    <TouchableOpacity style={styles.sideButton} onPress={toggleCameraFacing}>
+                        <Text style={styles.text}>Flip</Text>
                     </TouchableOpacity>
 
-                    {/* Botão para alternar câmera */}
-                    <TouchableOpacity onPress={toggleCameraType} style={styles.switchButton}>
-                        <FontAwesome name="refresh" size={24} color={COLORS.white} />
-                    </TouchableOpacity>
-
-                    {/* Botão para tirar foto */}
-                    <TouchableOpacity onPress={takePicture} style={styles.captureButton}>
+                    {/* Botão para capturar a foto */}
+                    <TouchableOpacity onPress={()=>{takePicture(); console.log(state)}} style={styles.captureButton}>
                         <View style={styles.buttonCamera} />
                     </TouchableOpacity>
+
+                    {/* Exemplo de outro botão à direita */}
+                    <TouchableOpacity style={styles.sideButton}>
+                        <Text style={styles.text}>Another</Text>
+                    </TouchableOpacity>
                 </View>
-            </Camera>
+            </CameraView>
         </SafeAreaView>
     );
 };
@@ -106,25 +98,17 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     controlContainer: {
-        flex: 1,
-        backgroundColor: 'transparent',
-        justifyContent: 'space-between',
-        padding: 20,
+        position: 'absolute',
+        bottom: 30,
         flexDirection: 'row',
-        alignItems: 'flex-end',
-    },
-    flashButton: {
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        padding: 10,
-        borderRadius: 5,
-    },
-    switchButton: {
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        padding: 10,
-        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        paddingHorizontal: 30,
     },
     captureButton: {
         alignSelf: 'center',
+        paddingHorizontal: 20,
     },
     buttonCamera: {
         width: 70,
@@ -133,6 +117,14 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         borderColor: COLORS.gray,
         borderWidth: 3,
+    },
+    sideButton: {
+        padding: 10,
+        backgroundColor: COLORS.gray,
+        borderRadius: 5,
+    },
+    text: {
+        color: 'white',
     },
 });
 

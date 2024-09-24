@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import IconPig from "../assets/icons/032-pig.svg"
 import IconMeatloaf from "../assets/icons/035-meatloaf.svg"
 import { fontSizes } from "../constant/fontSizes";
-import { Context as AssessmentsContext } from "../context/AssessmentsContext/Context";
+import { Context as AssessmentsContext } from "../context/AssessContext/Context";
 
 const AssessScreen = ({ navigation }) => {
     const { SetType } = useContext(AssessmentsContext)

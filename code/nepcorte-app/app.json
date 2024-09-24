@@ -39,11 +39,12 @@
       }
     },
     "plugins": [
-      "react-native-vision-camera",
       [
-        "react-native-vision-camera",
+        "expo-camera",
         {
-          "cameraPermissionText": "$TopCarne precisa do acesso à Câmera."
+          "cameraPermission": "Allow NepCorte to access your camera",
+          "microphonePermission": "Allow NepCorte to access your microphone",
+          "recordAudioAndroid": true
         }
       ]
     ]

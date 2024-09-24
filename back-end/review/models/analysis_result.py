@@ -10,9 +10,9 @@ class AnalysisResult(BaseModelManager):
 class AnalysisResult(UserIndexedModel):
 
     type_result      = models.CharField(max_length=255)
-    marbling_level   = models.CharField(max_length=55)
-    fat_distribution = models.CharField(max_length=55)
-    result           = models.TextField()
+    marbling_level   = models.CharField(max_length=75, default='Em análise')
+    fat_distribution = models.CharField(max_length=75, default='Em análise')
+    result           = models.TextField(default='')
     status           = models.CharField(max_length=30, choices=CustomerStatus.choices(), default=CustomerStatus.WAITING)
     animal_id        = models.ForeignKey(Animal, related_name='analysis_results', on_delete=models.CASCADE)
     

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import MainApp  from "./TabNavigator";
 import Login from "../screens/Login";
+import { getTokens } from "../api/nepcorteServer";
 import { Context as AuthContext } from "../context/UserContext/Context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -10,20 +11,16 @@ export default function FirstScreen(){
     const { isAuthenticated } = state
 
     useEffect(()=>{
-        const verifyUser = async () =>{
-            const token = await AsyncStorage.getItem('accessToken')
-            if ( token !== null){
-                SetAuthenticated(true)
-                console.log(token)
-            }
-        }
-        verifyUser()
+        if ( getTokens() !== null){
+            SetAuthenticated(true)
+            console.log(getTokens())
+        }    
     }, [])
 
     console.log(isAuthenticated)
     return(
         <NavigationContainer>
-            {isAuthenticated ? <MainApp/> : <Login/> }
+            {!isAuthenticated ? <Login/> : <MainApp/> }
         </NavigationContainer>
     )
 }

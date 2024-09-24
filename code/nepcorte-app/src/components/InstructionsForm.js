@@ -32,7 +32,6 @@ const InstructionsForm = ({ navigation, nextRoute, route, type }) => {
                 <TouchableOpacity
                     onPress={() => {navigation.navigate(nextRoute, route)}}
                     style={styles.buttonNextStyle}
-                    
                 >
                     <Text style={styles.textButtonNextStyle}>Iniciar</Text>
                 </TouchableOpacity>

@@ -13,7 +13,7 @@ import { Context as AnimalContext } from "../context/AnimalsContext/Context";
 import { useFocusEffect } from '@react-navigation/native';
 import { icons } from "../constant/icons";
 import { AnimalEndPoint } from "../api/nepcorteServer";
-import { Context as AssessmentsContext } from "../context/AssessmentsContext/Context";
+import { Context as AssessmentsContext } from "../context/AssessContext/Context";
 
 const CarcassAssessScreen = ({ navigation }) => {
 

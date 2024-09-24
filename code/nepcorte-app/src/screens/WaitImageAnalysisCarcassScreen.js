@@ -1,17 +1,22 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native";
 import { COLORS } from "../constant/colors";
 import WaitImage from "../components/WaitImage";
-
-// Esta tela depende do envio da imagem para o backend, falta implementar a rota caso sucesso ou caso erro.
-// O mesmo para WaitImageAnalysisRackScreen.js
+import { Context as AssessmentsContext } from "../context/AssessContext/Context";
 
 const WaitImageAnalysisCarcassScreen = ({ navigation }) => {
 
-    setTimeout(() => {
-        navigation.navigate("SuccessAnalysisCarcass");
-    }, 5000);
+    const { state, CreateAssess } = useContext(AssessmentsContext);
+    
+    useEffect(() => {
+        
+        console.log('State:', state);
+        
+        // Invocando a função assíncrona retornada por CreateAssess
+        const response = CreateAssess(state, navigation,'SuccessAnalysisCarcassScreen', 'ProblemAnalysisCarcassScreen');
+        // console.log(response)
+    }, [state, navigation]);
 
     return (
         <SafeAreaView style={styles.container}>

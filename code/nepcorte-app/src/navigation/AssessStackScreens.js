@@ -13,7 +13,7 @@ import ProblemAnalysisCarcassScreen from '../screens/ProblemAnalysisCarcassScree
 import ProblemAnalysisRackScreen from '../screens/ProblemAnalysisRackScreen';
 import AssessScreen from '../screens/AssessScreen';
 // Provider
-import { Provider as AssessmentsProvider } from "../context/AssessmentsContext/Context";
+import { Provider as AssessmentsProvider } from "../context/AssessContext/Context";
 // Navigation
 import { createStackNavigator } from "@react-navigation/stack";
 

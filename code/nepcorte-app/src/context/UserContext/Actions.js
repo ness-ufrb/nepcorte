@@ -1,6 +1,6 @@
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import nepcorteServer from "../../api/nepcorteServer";
+import nepcorteServer, { saveToken } from "../../api/nepcorteServer";
 
 const SetEmail = (dispatch) => {
     return (email) => {
@@ -23,6 +23,7 @@ const Login = (dispatch) => {
             });
 
             // Salvar o token de acesso e refresh token no AsyncStorage
+            
             await AsyncStorage.setItem('accessToken', res.data.access);
             await AsyncStorage.setItem('refreshToken', res.data.refresh);
 
