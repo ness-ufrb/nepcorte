@@ -15,24 +15,18 @@ import { useFocusEffect } from '@react-navigation/native';
 import { AnimalEndPoint } from "../api/nepcorteServer";
 
 const AnimalsScreen = ({ navigation }) => {
-    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetHasMore, SetRefreshing } = useContext(AnimalContext);
+    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore } = useContext(AnimalContext);
     const { loading, loadingMore, page, animalSearchTerm, animals, hasMore, refreshing } = state;
 
+    // Função que faz a busca ao abrir a tela e ao digitar na barra de pesquisa
     useFocusEffect(
         React.useCallback(() => {
-            const fetchInitialAnimals = async () => {
-                SetLoading(true)
-                await GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
-                SetLoading(false)
+            const fetchInitialAnimals = () => {
+                GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
             };
             fetchInitialAnimals();
         }, [animalSearchTerm, navigation])
     );
-
-    const handleSearch = (text) => {
-        SetHasMore(true);
-        GetAnimals(text, AnimalEndPoint, 1, true);
-    };
 
     const fetchMoreAnimals = () => {
         if (loadingMore || !hasMore) return; 
@@ -41,11 +35,9 @@ const AnimalsScreen = ({ navigation }) => {
         SetLoadingMore(false);
     };
 
-    const onRefresh = async () => {
+    const onRefresh = () => {
         SetAnimalTerm('');
-        SetRefreshing(true);
-        await GetAnimals('', AnimalEndPoint, 1, true); 
-        SetRefreshing(false);
+        GetAnimals('', AnimalEndPoint, 1, true); 
     };
 
     const renderItem = ({ item }) => {
@@ -112,7 +104,9 @@ const AnimalsScreen = ({ navigation }) => {
                     placeholder="Código, Gênero, Espécie, Raça..."
                     placeholderTextColor={COLORS.grayLine}
                     value={animalSearchTerm}
-                    onChangeText={(text) => { SetAnimalTerm(text); handleSearch(text); }}
+                    onChangeText={(text) => { SetAnimalTerm(text) }}
+                    onTouchStart={()=>console.log('espero que nao faca nada')}
+                    onEndEditing={ () => { GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true); }}
                     theme={{ 
                         colors: { text: COLORS.black }, 
                         roundness: 10 

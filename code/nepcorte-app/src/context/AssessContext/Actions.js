@@ -39,7 +39,7 @@ const CreateAssess = dispatch => {
             const { animal_id, type_result, file } = assess;
 
             const base64Image = await convertImageToBase64(file);
-
+            console.log("\n\n\nNavigation", navigation, "\nScreens:", goodScreen, " ",wrongScreen)
             // Envio da imagem como Base64
             await nepcorteServer.post(
                 '/api/review/upload-file/',
@@ -62,13 +62,13 @@ const CreateAssess = dispatch => {
             );
 
             if (navigation) {
-                navigation.navigate(goodScreen.name);
+                navigation.navigate(goodScreen);
             }
 
         } catch (e) {
             console.error('Error details:', e.response ? e.response.data : e.message);
             if (navigation) {
-                navigation.navigate(wrongScreen.name);
+                navigation.navigate(wrongScreen);
             }
         }
     };

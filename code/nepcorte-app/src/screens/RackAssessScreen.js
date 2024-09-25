@@ -16,25 +16,20 @@ import { AnimalEndPoint } from "../api/nepcorteServer";
 import { Context as AssessmentsContext } from "../context/AssessContext/Context";
 
 const RackAssessScreen = ({ navigation }) => {
-    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetPage, SetHasMore, SetRefreshing } = useContext(AnimalContext);
+    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetRefreshing } = useContext(AnimalContext);
     const { loading, loadingMore, page, animalSearchTerm, animals, hasMore, refreshing } = state;
     const { SetAnimalId } = useContext(AssessmentsContext) 
 
     useFocusEffect(
         React.useCallback(() => {
-            const fetchInitialAnimals = async () => {
+            const fetchInitialAnimals = () => {
                 SetLoading(true)
-                await GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
+                GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
                 SetLoading(false)
             };
             fetchInitialAnimals();
         }, [animalSearchTerm, navigation])
     );
-
-    const handleSearch = (text) => {
-        SetHasMore(true);
-        GetAnimals(text, AnimalEndPoint, 1, true);
-    };
 
     const fetchMoreAnimals = () => {
         if (loadingMore || !hasMore) return; 
@@ -54,7 +49,7 @@ const RackAssessScreen = ({ navigation }) => {
         return (
             <AnimalCard
                 title={item.code}
-                animalRace={item.animalRace}
+                animalRace={item.race}
                 reproductiveSituation={item.reproductiveSituation}
                 age={item.age}
                 species={item.species}
@@ -117,7 +112,7 @@ const RackAssessScreen = ({ navigation }) => {
                     placeholder="..."
                     placeholderTextColor={COLORS.grayLine}
                     value={animalSearchTerm}
-                    onChangeText={(text) => { SetAnimalTerm(text); handleSearch(text); }}
+                    onChangeText={(text) => { SetAnimalTerm(text) }}
                     theme={{ 
                         colors: { text: COLORS.black }, 
                         roundness: 10 }}

@@ -1,15 +1,24 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS } from "../constant/colors";
 import { fontSizes } from "../constant/fontSizes";
+import { Context as SortingContext } from "../context/SortingContext/Context";
 
 const TriageFeedbackScreen = ({ navigation, nextRoute, icon, text }) => {
+
+    const { setCode } = useContext(SortingContext)
+
+    const handleNextAnimal = ()=> {
+        setCode('')
+        navigation.navigate(nextRoute)
+    }
+
     return (
         <>
             {icon}
             <Text style={styles.textStyle}>{text}</Text>
             <TouchableOpacity
-                onPress={() => {navigation.navigate(nextRoute)}}
+                onPress={handleNextAnimal}
                 style={styles.buttonNextStyle}
             >
                 <Text style={styles.textButtonNextStyle}>Próximo animal</Text>

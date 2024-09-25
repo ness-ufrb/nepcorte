@@ -14,7 +14,7 @@ const WaitImageAnalysisCarcassScreen = ({ navigation }) => {
         console.log('State:', state);
         
         // Invocando a função assíncrona retornada por CreateAssess
-        const response = CreateAssess(state, navigation,'SuccessAnalysisCarcassScreen', 'ProblemAnalysisCarcassScreen');
+        CreateAssess(state, navigation,'SuccessAnalysisCarcass', 'ProblemAnalysisCarcass');
         // console.log(response)
     }, [state, navigation]);
 

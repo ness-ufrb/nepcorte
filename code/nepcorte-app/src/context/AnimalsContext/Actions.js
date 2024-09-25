@@ -45,7 +45,7 @@ const GetAnimals = dispatch => {
     return async (search = '', endPoint, page, reset = false) => {
         try {
             console.log(`endPoint: ${endPoint}\nsearch: ${search}\npage: ${page}`);
-            
+
             const response = await nepcorteServer.get(
                 `${endPoint}?search=${search}&page=${page}`, 
                 { headers: { Authorization: `Bearer ${token}`} }

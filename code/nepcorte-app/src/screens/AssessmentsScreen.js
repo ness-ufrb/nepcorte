@@ -14,25 +14,18 @@ import { COLORS } from '../constant/colors';
 import { icons } from '../constant/icons';
 
 const AssessmentsScreen = ({ navigation }) => {
-    const { state, GetAnimals, SetReviewSearchTerm, SetLoadingMore, SetLoading, SetHasMore, SetRefreshing } = useContext(AnimalContext);
+    const { state, GetAnimals, SetReviewSearchTerm, SetLoadingMore, SetRefreshing } = useContext(AnimalContext);
     const { loading, loadingMore, page, reviewSearchTerm, analysis_result, hasMore, refreshing } = state;
 
-    // Função que faz a busca inicial de animais com resultados de avaliação
+    // Função que faz a busca ao abrir a tela e ao digitar na barra de pesquisa
     useFocusEffect(
         React.useCallback(() => {
-            const fetchInitialAnimals = async () => {
-                SetLoading(true)
-                await GetAnimals(reviewSearchTerm, ReviewEndPoint, 1, true);
-                SetLoading(false)
+            const fetchInitialAnimals = () => {
+                GetAnimals(reviewSearchTerm, ReviewEndPoint, 1, true);
             };
             fetchInitialAnimals();
-        }, [reviewSearchTerm, navigation])
+        }, [reviewSearchTerm, navigation]) 
     );
-
-    const handleSearch = (text) => {
-        SetHasMore(true);
-        GetAnimals(text, ReviewEndPoint, 1, true);
-    };
 
     const fetchMoreAnimals = () => {
         if (loadingMore || !hasMore) return; 
@@ -41,11 +34,11 @@ const AssessmentsScreen = ({ navigation }) => {
         SetLoadingMore(false);
     };
 
-    const onRefresh = async () => {
+    const onRefresh = () => {
         SetReviewSearchTerm('');
-        SetRefreshing(true);
-        await GetAnimals('', ReviewEndPoint, 1, true); 
-        SetRefreshing(false);
+        
+        GetAnimals('', ReviewEndPoint, 1, true); 
+        
     };
 
     // Função que renderiza os itens na lista
@@ -116,7 +109,7 @@ const AssessmentsScreen = ({ navigation }) => {
                     placeholder="Código, Raça, Idade, Situação..."
                     placeholderTextColor={COLORS.grayLine}
                     value={reviewSearchTerm}
-                    onChangeText={(text) => { SetReviewSearchTerm(text); handleSearch(text); }}
+                    onChangeText={(text) => { SetReviewSearchTerm(text) }}
                     theme={{
                         colors: { text: COLORS.black },
                         roundness: 10

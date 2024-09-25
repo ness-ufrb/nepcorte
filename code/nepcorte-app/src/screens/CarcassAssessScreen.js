@@ -21,22 +21,17 @@ const CarcassAssessScreen = ({ navigation }) => {
     const { loading, loadingMore, page, animalSearchTerm, animals, hasMore, refreshing } = state;
     const { SetAnimalId } = useContext(AssessmentsContext) 
     
-
+    // Função que faz a busca ao abrir a tela e ao digitar na barra de pesquisa
     useFocusEffect(
         React.useCallback(() => {
-            const fetchInitialAnimals = async () => {
+            const fetchInitialAnimals = () => {
                 SetLoading(true)
-                await GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
+                GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
                 SetLoading(false)
             };
             fetchInitialAnimals();
         }, [animalSearchTerm, navigation])
     );
-
-    const handleSearch = (text) => {
-        SetHasMore(true);
-        GetAnimals(text, AnimalEndPoint, 1, true);
-    };
 
     const fetchMoreAnimals = () => {
         if (loadingMore || !hasMore) return; 
@@ -56,7 +51,7 @@ const CarcassAssessScreen = ({ navigation }) => {
         return (
             <AnimalCard
                 title={item.code}
-                animalRace={item.animalRace}
+                animalRace={item.race}
                 reproductiveSituation={item.reproductiveSituation}
                 age={item.age}
                 species={item.species}
@@ -119,7 +114,7 @@ const CarcassAssessScreen = ({ navigation }) => {
                     placeholder="..."
                     placeholderTextColor={COLORS.grayLine}
                     value={animalSearchTerm}
-                    onChangeText={(text) => { SetAnimalTerm(text); handleSearch(text); }}
+                    onChangeText={(text) => { SetAnimalTerm(text) }}
                     theme={{ 
                         colors: { text: COLORS.black }, 
                         roundness: 10 }}
