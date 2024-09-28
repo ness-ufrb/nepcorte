@@ -15,29 +15,31 @@ import { useFocusEffect } from '@react-navigation/native';
 import { AnimalEndPoint } from "../api/nepcorteServer";
 
 const AnimalsScreen = ({ navigation }) => {
-    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore } = useContext(AnimalContext);
+    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading } = useContext(AnimalContext);
     const { loading, loadingMore, page, animalSearchTerm, animals, hasMore, refreshing } = state;
 
-    // Função que faz a busca ao abrir a tela e ao digitar na barra de pesquisa
+    // Função que faz a busca ao abrir a tela e ao ocorrer alterações na barra de pesquisa
     useFocusEffect(
         React.useCallback(() => {
-            const fetchInitialAnimals = () => {
-                GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
+            const fetchInitialAnimals = async () => {
+                SetLoading(true)
+                await GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
+                SetLoading(false)
             };
             fetchInitialAnimals();
         }, [animalSearchTerm, navigation])
     );
 
-    const fetchMoreAnimals = () => {
+    const fetchMoreAnimals = async () => {
         if (loadingMore || !hasMore) return; 
         SetLoadingMore(true);
-        GetAnimals(animalSearchTerm, AnimalEndPoint, page);
+        await GetAnimals(animalSearchTerm, AnimalEndPoint, page);
         SetLoadingMore(false);
     };
 
-    const onRefresh = () => {
+    const onRefresh = async () => {
         SetAnimalTerm('');
-        GetAnimals('', AnimalEndPoint, 1, true); 
+        await GetAnimals('', AnimalEndPoint, 1, true); 
     };
 
     const renderItem = ({ item }) => {

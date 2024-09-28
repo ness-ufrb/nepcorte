@@ -8,8 +8,8 @@ import Header from "../components/Header";
 import { Context as AuthContext } from "../context/UserContext/Context";
 
 const FeatureConstruction = ({ navigation }) => {
-    const { Logout } = useContext(AuthContext)
-    
+    const { state, Logout } = useContext(AuthContext)
+    console.log("\n\n Token do usuário: ", state.token ,"\n\n" )
     const handleLogout = () => {
         Logout(navigation)
     }

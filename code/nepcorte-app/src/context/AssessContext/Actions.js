@@ -36,26 +36,35 @@ const CreateAssess = dispatch => {
 
     return async(assess, navigation, goodScreen, wrongScreen) => {
         try {
-            const { animal_id, type_result, file } = assess;
+            const { animal_id, file, type_result } = assess;
 
-            const base64Image = await convertImageToBase64(file);
-            console.log("\n\n\nNavigation", navigation, "\nScreens:", goodScreen, " ",wrongScreen)
-            // Envio da imagem como Base64
+            // Create a FormData object to send the file and data
+            const formData = new FormData();
+            formData.append('animal_id', animal_id);
+
+            // Certifique-se de que o arquivo seja um Blob ou File
+            const fileBlob = {
+                uri: file.uri, // O caminho do arquivo no dispositivo
+                type: file.type || 'image/jpeg', // Certifique-se de especificar o tipo MIME
+                name: 'photo.jpg', // Dê um nome ao arquivo
+            };
+
+            formData.append('file', fileBlob); // Adiciona o arquivo ao FormData
+
+            // Enviar a imagem e o animal_id usando multipart/form-data
             await nepcorteServer.post(
                 '/api/review/upload-file/',
-                {
-                    animal_id,
-                    file: base64Image, // Enviando a imagem como Base64
-                },
+                formData,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json', // Use JSON para Base64
+                        'Content-Type': 'multipart/form-data', // Cabeçalho adequado para upload de arquivos
                     },
                 }
             );
 
-            const response = await nepcorteServer.post(
+            // Continue a lógica de envio de outros dados se necessário
+            await nepcorteServer.post(
                 ReviewEndPoint,
                 { animal_id, type_result },
                 { headers: { Authorization: `Bearer ${token}` } }

@@ -14,36 +14,38 @@ import { COLORS } from '../constant/colors';
 import { icons } from '../constant/icons';
 
 const AssessmentsScreen = ({ navigation }) => {
-    const { state, GetAnimals, SetReviewSearchTerm, SetLoadingMore, SetRefreshing } = useContext(AnimalContext);
+    const { state, GetAnimals, SetReviewSearchTerm, SetLoadingMore, SetLoading } = useContext(AnimalContext);
     const { loading, loadingMore, page, reviewSearchTerm, analysis_result, hasMore, refreshing } = state;
 
+    console.log('ANALYSIS RESULT: ', analysis_result)
     // Função que faz a busca ao abrir a tela e ao digitar na barra de pesquisa
     useFocusEffect(
         React.useCallback(() => {
-            const fetchInitialAnimals = () => {
-                GetAnimals(reviewSearchTerm, ReviewEndPoint, 1, true);
+            const fetchInitialAnimals = async () => {
+                SetLoading(true)
+                await GetAnimals(reviewSearchTerm, ReviewEndPoint, 1, true);
+                SetLoading(false)
+                console.log(analysis_result)
             };
             fetchInitialAnimals();
         }, [reviewSearchTerm, navigation]) 
     );
 
-    const fetchMoreAnimals = () => {
+    const fetchMoreAnimals = async () => {
         if (loadingMore || !hasMore) return; 
         SetLoadingMore(true);
-        GetAnimals(reviewSearchTerm, ReviewEndPoint, page);
+        await GetAnimals(reviewSearchTerm, ReviewEndPoint, page);
         SetLoadingMore(false);
     };
 
-    const onRefresh = () => {
+    const onRefresh = async () => {
         SetReviewSearchTerm('');
-        
-        GetAnimals('', ReviewEndPoint, 1, true); 
-        
+        await GetAnimals('', ReviewEndPoint, 1, true); 
     };
 
     // Função que renderiza os itens na lista
     const renderItem = ({ item }) => {
-        const analysisResult = item.analysis_result ? item.analysis_result[0] : null;
+        lastAnalysis = item.analysis_result[item.analysis_result.length - 1]
         return (
             <AnimalCard
                 title={item.code}
@@ -52,8 +54,8 @@ const AssessmentsScreen = ({ navigation }) => {
                 age={item.age}
                 species={item.species}
                 isClickable={false}
-                trimLevel={analysisResult ? analysisResult.marbling_level : null}
-                fatDeposition={analysisResult ? analysisResult.fat_distribution : null}
+                trimLevel={lastAnalysis.marbling_level}
+                fatDeposition={lastAnalysis.fat_distribution}
                 wasSent={true}
             />
         );

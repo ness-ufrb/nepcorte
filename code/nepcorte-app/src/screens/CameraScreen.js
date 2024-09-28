@@ -3,13 +3,17 @@ import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, Alert, PixelRat
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { COLORS } from "../constant/colors";
 import { captureRef } from 'react-native-view-shot';
-import { CameraType } from "expo-camera/build/legacy/Camera.types";
+
 import { Context as AssessmentsContext } from "../context/AssessContext/Context";
+import * as FileSystem from 'expo-file-system';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { CameraType, FlashMode } from "expo-camera/build/legacy/Camera.types";
 
 const CameraScreen = ({ navigation, route }) => {
-    const [facing, setFacing] = useState(CameraType);
+    const [facing, setFacing] = useState(CameraType.back);
     const [permission, requestPermission] = useCameraPermissions();
     const { state, SetFile } = useContext(AssessmentsContext);
+    const [flash, setFlash] = useState(FlashMode.off)
 
     useEffect(() => {
         if (!permission) {
@@ -31,7 +35,11 @@ const CameraScreen = ({ navigation, route }) => {
             format: 'jpg',
         });
 
-        SetFile(photo);
+        // Converter o arquivo temporário para base64
+        const base64Image = await FileSystem.readAsStringAsync(photo, { encoding: 'base64' });
+
+        // Atualiza o estado com a imagem em base64
+        SetFile(base64Image); 
 
         if (route.params === "Carcass") {
             navigation.navigate("WaitImageAnalysisCarcass");
@@ -64,29 +72,39 @@ const CameraScreen = ({ navigation, route }) => {
     }
 
     function toggleCameraFacing() {
-        setFacing(current => (current === 'back' ? 'front' : 'back'));
+        setFacing(current => (current === CameraType.back ? CameraType.front : CameraType.back)); // Alterna entre a câmera traseira e dianteira
+    }
+    function toggleFlash() {
+        setFlash(current => (current === FlashMode.off ? FlashMode.on : FlashMode.off));
     }
 
     return (
         <SafeAreaView style={styles.container}>
             <CameraView
                 style={styles.camera}
-                type={facing}
+                facing={facing}
                 ref={viewRef}
+                flash={flash}
             >
                 <View style={styles.controlContainer}>
+
                     <TouchableOpacity style={styles.sideButton} onPress={toggleCameraFacing}>
-                        <Text style={styles.text}>Flip</Text>
+                        <Ionicons name="camera-reverse" size={35} color="white" />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => { takePicture(); console.log(state); }} style={styles.captureButton}>
                         <View style={styles.buttonCamera} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.sideButton}>
-                        <Text style={styles.text}>Another</Text>
+                    <TouchableOpacity style={styles.sideButton} onPress={toggleFlash}>
+                        {
+                        flash === 'on' ? 
+                        <Ionicons name="flash-off" size={32} color="white" /> : 
+                        <Ionicons name="flash" size={32} color="white" />
+                        } 
                     </TouchableOpacity>
                 </View>
+                
             </CameraView>
         </SafeAreaView>
     );
@@ -101,10 +119,11 @@ const styles = StyleSheet.create({
     camera: {
         flex: 1,
         width: '100%',
+        height:'100%'
     },
     controlContainer: {
         position: 'absolute',
-        bottom: 30,
+        bottom: 25,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -120,12 +139,11 @@ const styles = StyleSheet.create({
         height: 70,
         borderRadius: 35,
         backgroundColor: COLORS.white,
-        borderColor: COLORS.gray,
+        borderColor: COLORS.main,
         borderWidth: 3,
     },
     sideButton: {
-        padding: 10,
-        backgroundColor: COLORS.gray,
+        padding: 5,
         borderRadius: 5,
     },
     text: {

@@ -4,71 +4,53 @@ import { COLORS } from '../constant/colors';
 import { fontSizes } from '../constant/fontSizes';
 
 const AnimalStatus = ({ trimLevel, fatDeposition }) => {
-    let trimLevelStatus;
-    let fatDepositionStatus;
-    let line = <>
-        <View style={{            
+    const goodResults = [
+        'moderada', 'abundante', 'muito bom',
+        'boa', 'muita gordura', 'melhor que tem',
+        'muito boa', 'brabo'
+    ];
+    
+    const badResults = ['menos músculo', 'escassa', 'ausente', 'ruim'];
+
+    const getStatus = (value) => {
+        if (!value) return 'analysis';
+        const lowerValue = value.toLowerCase();
+        if (goodResults.includes(lowerValue)) return 'good';
+        if (badResults.includes(lowerValue)) return 'bad';
+        return 'analysis';
+    };
+
+    const renderStatus = (label, value) => {
+        const status = getStatus(value);
+        const statusStyles = {
+            good: styles.statusGood,
+            bad: styles.statusBad,
+            analysis: styles.statusAnalysis
+        };
+
+        return (
+            <View style={styles.statusContainer}>
+                <Text style={styles.statusText}>{label}</Text>
+                <Text style={statusStyles[status]}>{value || 'Em análise'}</Text>
+            </View>
+        );
+    };
+
+    let line = (
+        <View style={{
             borderBottomColor: '#ccc',
             borderBottomWidth: 1,
             marginVertical: 15,
-        }}></View></>
-    
-    if (trimLevel) {
-        if (trimLevel) {
-            trimLevelStatus = <>
-                <View style={styles.statusContainer}>
-                    <Text style={styles.statusText}>Nível de acabamento</Text>
-                    <Text style={styles.statusGood}>{trimLevel}</Text>
-                </View>
-            </>
-        } else if (!trimLevel) {
-            trimLevelStatus = <>
-                <View style={styles.statusContainer}>
-                    <Text style={styles.statusText}>Nível de acabamento</Text>
-                    <Text style={styles.statusBad}>{fatDeposition}</Text>
-                </View>
+        }}></View>
+    );
 
-            </>
-        }
-    } else {
-        trimLevelStatus = <>
-            <View style={styles.statusContainer}>
-                <Text style={styles.statusText}>Nível de acabamento</Text>
-                <Text style={styles.statusAnalysis}>Em análise</Text>
-            </View>
+    return (
+        <>
+            {line}
+            {renderStatus('Nível de acabamento', trimLevel)}
+            {renderStatus('Deposição de gordura', fatDeposition)}
         </>
-    }
-
-    if (fatDeposition) {
-        if (fatDeposition) {
-            fatDepositionStatus = <>
-                <View style={styles.statusContainer}>
-                    <Text style={styles.statusText}>Deposição de gorgura</Text>
-                    <Text style={styles.statusGood}>{fatDeposition}</Text>
-                </View>
-            </>
-        } else if (!fatDeposition) {
-            fatDepositionStatus = <>
-                <View style={styles.statusContainer}>
-                    <Text style={styles.statusText}>Deposição de gorgura</Text>
-                    <Text style={styles.statusBad}>{fatDeposition}</Text>
-                </View>
-            </>
-        }
-    } else {
-        fatDepositionStatus = <>
-            <View style={styles.statusContainer}>
-                <Text style={styles.statusText}>Deposição de gorgura</Text>
-                <Text style={styles.statusAnalysis}>Em análise</Text>
-            </View>
-        </>
-    }
-
-    return (<>
-        {line}
-        {trimLevelStatus}
-        {fatDepositionStatus}
-    </>)
+    );
 }
 
 const styles = StyleSheet.create({

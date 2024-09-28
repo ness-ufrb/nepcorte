@@ -44,7 +44,7 @@ const Login = (dispatch) => {
 
 
 const Logout = (dispatch) => {
-    return async (navigation) => {
+    return async () => {
         try {
             // Remover o token de autenticação do AsyncStorage
             await AsyncStorage.removeItem('accessToken');

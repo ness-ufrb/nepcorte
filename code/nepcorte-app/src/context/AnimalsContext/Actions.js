@@ -53,7 +53,7 @@ const GetAnimals = dispatch => {
 
             const hasMorePages = response.data.next !== null;
             const results = response.data.results;
-
+            console.log('RESULTS   ', results)
             // hasMorePages VAI RECEBER TRUE CASO HAJA MAIS PAGINAS OU FALSO CASO next(page) seja null
             dispatch({ type: 'SET_HAS_MORE', payload: hasMorePages });
 

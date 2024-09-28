@@ -12,16 +12,18 @@ SplashScreenExpo.preventAutoHideAsync();
 export default function FirstScreen() {
   const { state, SetAuthenticated } = useContext(AuthContext);
   const { isAuthenticated } = state;
-  const [appIsReady, setAppIsReady] = useState(false);
+  const [ appIsReady, setAppIsReady ] = useState(false);
 
   useEffect(() => {
     async function prepareApp() {
       try {
         // Simula uma inicialização ou carrega recursos necessários
-        const tokens = await getTokens();
+        tokens = await getTokens()
         
-        if (tokens !== null) {
-          SetAuthenticated(true);
+        if (tokens.accessToken !== null) {
+            SetAuthenticated(true);
+        }else{
+            SetAuthenticated(false);
         }
       } catch (e) {
         console.warn(e);
@@ -41,7 +43,7 @@ export default function FirstScreen() {
 
   return (
     <NavigationContainer>
-      {!isAuthenticated ? <Login/> : <MainApp/>}
+      {isAuthenticated ? <MainApp/> : <Login/>}
     </NavigationContainer>
   );
 }

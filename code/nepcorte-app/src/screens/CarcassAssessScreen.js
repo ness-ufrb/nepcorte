@@ -24,27 +24,25 @@ const CarcassAssessScreen = ({ navigation }) => {
     // Função que faz a busca ao abrir a tela e ao digitar na barra de pesquisa
     useFocusEffect(
         React.useCallback(() => {
-            const fetchInitialAnimals = () => {
+            const fetchInitialAnimals = async () => {
                 SetLoading(true)
-                GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
+                await GetAnimals(animalSearchTerm, AnimalEndPoint, 1, true);
                 SetLoading(false)
             };
             fetchInitialAnimals();
         }, [animalSearchTerm, navigation])
     );
 
-    const fetchMoreAnimals = () => {
+    const fetchMoreAnimals = async () => {
         if (loadingMore || !hasMore) return; 
         SetLoadingMore(true);
-        GetAnimals(animalSearchTerm, AnimalEndPoint, page);
+        await GetAnimals(animalSearchTerm, AnimalEndPoint, page);
         SetLoadingMore(false);
     };
 
     const onRefresh = async () => {
         SetAnimalTerm('');
-        SetRefreshing(true);
         await GetAnimals('', AnimalEndPoint, 1, true); 
-        SetRefreshing(false);
     };
 
     const renderItem = ({ item }) => {
