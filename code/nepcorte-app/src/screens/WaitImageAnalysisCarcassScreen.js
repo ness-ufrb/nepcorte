@@ -10,12 +10,9 @@ const WaitImageAnalysisCarcassScreen = ({ navigation }) => {
     const { state, CreateAssess } = useContext(AssessmentsContext);
     
     useEffect(() => {
-        
-        console.log('State:', state);
-        
-        // Invocando a função assíncrona retornada por CreateAssess
+
         CreateAssess(state, navigation,'SuccessAnalysisCarcass', 'ProblemAnalysisCarcass');
-        // console.log(response)
+       
     }, [state, navigation]);
 
     return (

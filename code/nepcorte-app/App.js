@@ -11,7 +11,7 @@ import * as Font from 'expo-font';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  
+
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
@@ -21,13 +21,17 @@ export default function App() {
       });
       setFontsLoaded(true);
     }
-
     loadFonts();
+    
+    // Solicitar permissão para notificações push
+    
   }, []);
 
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
+  
 
   return (
     <AuthProvider>

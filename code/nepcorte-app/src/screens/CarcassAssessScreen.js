@@ -17,9 +17,14 @@ import { Context as AssessmentsContext } from "../context/AssessContext/Context"
 
 const CarcassAssessScreen = ({ navigation }) => {
 
-    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetHasMore, SetRefreshing } = useContext(AnimalContext);
+    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading } = useContext(AnimalContext);
     const { loading, loadingMore, page, animalSearchTerm, animals, hasMore, refreshing } = state;
-    const { SetAnimalId } = useContext(AssessmentsContext) 
+    const { SetAnimalId, SetAnimalCode } = useContext(AssessmentsContext) 
+
+    const handleAnimal =(item)=>{
+        SetAnimalId(item.id);
+        SetAnimalCode(item.code)
+    }
     
     // Função que faz a busca ao abrir a tela e ao digitar na barra de pesquisa
     useFocusEffect(
@@ -56,7 +61,7 @@ const CarcassAssessScreen = ({ navigation }) => {
                 created_at={item.created_at}
                 isClickable={true}
                 navigation={navigation}
-                onPress={()=>SetAnimalId(item.id)}
+                onPress={()=>handleAnimal(item)}
                 nextRoute="InstructionsCarcassAssess"
             />
         );

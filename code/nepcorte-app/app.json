@@ -20,7 +20,10 @@
     "ios": {
       "bundleIdentifier": "br.dev.ness.nepcorte",
       "buildNumber": "1.0.0",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "entitlements": {
+        "aps-environment": "production"
+      }
     },
     "android": {
       "package": "br.dev.ness.nepcorte",
@@ -28,7 +31,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#EC441E"
-      }
+      },
+      "permissions": [
+        "CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

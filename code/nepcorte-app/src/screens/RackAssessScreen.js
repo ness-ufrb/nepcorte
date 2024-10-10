@@ -16,9 +16,14 @@ import { AnimalEndPoint } from "../api/nepcorteServer";
 import { Context as AssessmentsContext } from "../context/AssessContext/Context";
 
 const RackAssessScreen = ({ navigation }) => {
-    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading, SetRefreshing } = useContext(AnimalContext);
+    const { state, GetAnimals, SetAnimalTerm, SetLoadingMore, SetLoading } = useContext(AnimalContext);
     const { loading, loadingMore, page, animalSearchTerm, animals, hasMore, refreshing } = state;
-    const { SetAnimalId } = useContext(AssessmentsContext) 
+    const { SetAnimalId, SetAnimalCode } = useContext(AssessmentsContext) 
+
+    const handleAnimal =(item)=>{
+        SetAnimalId(item.id);
+        SetAnimalCode(item.code)
+    }
 
     useFocusEffect(
         React.useCallback(() => {
@@ -54,7 +59,7 @@ const RackAssessScreen = ({ navigation }) => {
                 created_at={item.created_at}
                 isClickable={true}
                 navigation={navigation}
-                onPress={()=>SetAnimalId(item.id)}
+                onPress={()=>handleAnimal(item)}
                 nextRoute="InstructionsRackAssess"
             />
         );

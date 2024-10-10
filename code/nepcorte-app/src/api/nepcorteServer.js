@@ -7,7 +7,7 @@ const ReviewEndPoint = '/api/review/analysis_result/';
 
 // Criar instância do Axios
 const nepcorteServer = axios.create({
-    baseURL: 'http://192.168.1.100:8000',  // Use a variável `server` para maior flexibilidade
+    baseURL: 'http://192.168.1.117:8000',  // Use a variável `server` para maior flexibilidade
 });
 
 // Função para obter o token de acesso e refresh token do AsyncStorage

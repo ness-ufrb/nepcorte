@@ -1,5 +1,9 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image, StatusBar } from 'react-native';
+import { 
+  View, Text, StyleSheet, TouchableOpacity, 
+  SafeAreaView, Image, ScrollView,
+  Platform, KeyboardAvoidingView
+} from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Button } from '@rneui/themed';
 import { Context as AuthContext } from '../context/UserContext/Context';
@@ -17,100 +21,104 @@ export default function FakeLogin({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <View style={styles.logoForm}>
-          <Image source={icons.cow021} style={styles.cowImage} tintColor={COLORS.main}/>
-          <Image source={icons.TopCarne} style={styles.TopCarneimage} tintColor={COLORS.main}/>
-        
-          <View style={styles.containerText}>
-            <Text style={styles.title}>Acesso à Plataforma</Text>
-            <Text style={styles.description}>Informe seu e-mail e senha de acesso abaixo</Text>
-          </View>
-
-          <View style={styles.containerForm}>
-            <View style={styles.textInput}>
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                activeOutlineColor={COLORS.gray}
-                mode="outlined"
-                label="E-mail"
-                placeholder="Informe seu e-mail"
-                value={email}
-                onChangeText={SetEmail}
-                labelColor={COLORS.black}
-                outlineColor={COLORS.gray}
-                style={{
-                  backgroundColor: COLORS.screenBackgroungColor,
-                }}
-                outlineStyle={{
-                  borderRadius: 15,
-                }}
-              />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <View style={styles.logoForm}>
+            <Image source={icons.cow021} style={styles.cowImage} tintColor={COLORS.main}/>
+            <Image source={icons.TopCarne} style={styles.TopCarneimage} tintColor={COLORS.main}/>
+          
+            <View style={styles.containerText}>
+              <Text style={styles.title}>Acesso à Plataforma</Text>
+              <Text style={styles.description}>Informe seu e-mail e senha de acesso abaixo</Text>
             </View>
 
-            <View style={styles.textInput}>
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                activeOutlineColor={COLORS.gray}
-                mode="outlined"
-                label="Senha"
-                placeholder="Informe sua senha"
-                value={password}
-                onChangeText={SetPassword}
-                labelColor={COLORS.black}
-                outlineColor={COLORS.gray}
-                secureTextEntry={true}
-                style={{
-                  backgroundColor: COLORS.screenBackgroungColor,
-                }}
-                outlineStyle={{
-                  borderRadius: 15,
-                }}
-              />
-            </View>
-            
-            <Button
-              title="Entrar"
-              fontSize={20}
-              buttonStyle={{
-                backgroundColor: COLORS.main,
-                borderRadius: 10,
-                height: 60,
-                marginVertical: 10,
-              }}
-              titleStyle={{ fontSize: fontSizes.buttonTextSize, fontFamily: 'Inter-SemiBold' }}
-              containerStyle={{
-                width: '100%',
-              }}
-              onPress={signin}
-            />
+            <View style={styles.containerForm}>
+              <View style={styles.textInput}>
+                <TextInput
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  activeOutlineColor={COLORS.gray}
+                  mode="outlined"
+                  label="E-mail"
+                  placeholder="Informe seu e-mail"
+                  value={email}
+                  onChangeText={SetEmail}
+                  labelColor={COLORS.black}
+                  outlineColor={COLORS.gray}
+                  style={{
+                    backgroundColor: COLORS.screenBackgroungColor,
+                  }}
+                  outlineStyle={{
+                    borderRadius: 15,
+                  }}
+                />
+              </View>
 
-            <TouchableOpacity onPress={() => console.log('Gerar código identificador')}>
-            <Text style={styles.forgotPass}>Esqueci minha senha</Text>
-          </TouchableOpacity>
+              <View style={styles.textInput}>
+                <TextInput
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  activeOutlineColor={COLORS.gray}
+                  mode="outlined"
+                  label="Senha"
+                  placeholder="Informe sua senha"
+                  value={password}
+                  onChangeText={SetPassword}
+                  labelColor={COLORS.black}
+                  outlineColor={COLORS.gray}
+                  secureTextEntry={true}
+                  style={{
+                    backgroundColor: COLORS.screenBackgroungColor,
+                  }}
+                  outlineStyle={{
+                    borderRadius: 15,
+                  }}
+                />
+              </View>
+              
+              <Button
+                title="Entrar"
+                fontSize={20}
+                buttonStyle={{
+                  backgroundColor: COLORS.main,
+                  borderRadius: 10,
+                  height: 60,
+                  marginVertical: 10,
+                }}
+                titleStyle={{ fontSize: fontSizes.buttonTextSize, fontFamily: 'Inter-SemiBold' }}
+                containerStyle={{
+                  width: '100%',
+                }}
+                onPress={signin}
+              />
+
+              <TouchableOpacity onPress={() => console.log('Gerar código identificador')}>
+              <Text style={styles.forgotPass}>Esqueci minha senha</Text>
+            </TouchableOpacity>
+            </View>
           </View>
+          
+          <Button
+                title="Criar uma conta"
+                fontSize={20}
+                buttonStyle={{
+                  backgroundColor: COLORS.backgroundColor,
+                  borderRadius: 10,
+                  borderWidth:1,
+                  borderColor:COLORS.main,
+                  height: 60,
+                  marginVertical: 10,
+                }}
+                titleStyle={{ fontSize: fontSizes.buttonTextSize, fontFamily: 'Inter-Light', color:COLORS.main }}
+                containerStyle={{
+                  width: '100%',
+                }}
+                onPress={()=>console.log('mudanca de estado...')}
+              />
         </View>
         
-        <Button
-              title="Criar uma conta"
-              fontSize={20}
-              buttonStyle={{
-                backgroundColor: COLORS.backgroundColor,
-                borderRadius: 10,
-                borderWidth:1,
-                borderColor:COLORS.main,
-                height: 60,
-                marginVertical: 10,
-              }}
-              titleStyle={{ fontSize: fontSizes.buttonTextSize, fontFamily: 'Inter-Light', color:COLORS.main }}
-              containerStyle={{
-                width: '100%',
-              }}
-              onPress={()=>console.log('mudanca de estado...')}
-            />
-      </View>
+      </ScrollView>
+      
     </SafeAreaView>
   );
 }
@@ -119,7 +127,6 @@ const styles = StyleSheet.create({
   safeArea:{
     backgroundColor: COLORS.screenBackgroungColor, 
     flex: 1,
-    
   },
   container: {
     flex: 1,
@@ -128,7 +135,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     width:'80%',
     paddingBottom:'3%',
-    paddingTop:'7%',
+    paddingTop:'3%',
   },
   containerText: {
     width: '100%',

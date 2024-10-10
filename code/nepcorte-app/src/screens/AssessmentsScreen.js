@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
 import { TextInput } from 'react-native-paper';
@@ -17,7 +17,6 @@ const AssessmentsScreen = ({ navigation }) => {
     const { state, GetAnimals, SetReviewSearchTerm, SetLoadingMore, SetLoading } = useContext(AnimalContext);
     const { loading, loadingMore, page, reviewSearchTerm, analysis_result, hasMore, refreshing } = state;
 
-    console.log('ANALYSIS RESULT: ', analysis_result)
     // Função que faz a busca ao abrir a tela e ao digitar na barra de pesquisa
     useFocusEffect(
         React.useCallback(() => {
@@ -25,7 +24,6 @@ const AssessmentsScreen = ({ navigation }) => {
                 SetLoading(true)
                 await GetAnimals(reviewSearchTerm, ReviewEndPoint, 1, true);
                 SetLoading(false)
-                console.log(analysis_result)
             };
             fetchInitialAnimals();
         }, [reviewSearchTerm, navigation]) 

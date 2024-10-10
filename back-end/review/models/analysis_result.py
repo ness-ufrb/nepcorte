@@ -13,7 +13,7 @@ class AnalysisResult(UserIndexedModel):
     marbling_level   = models.CharField(max_length=75, default='Em análise')
     fat_distribution = models.CharField(max_length=75, default='Em análise')
     result           = models.TextField(default='')
-    status           = models.CharField(max_length=30, choices=CustomerStatus.choices(), default=CustomerStatus.WAITING)
+    status           = models.CharField(max_length=30, choices=CustomerStatus.choices(), default=CustomerStatus.PROCESSING.value)
     animal_id        = models.ForeignKey(Animal, related_name='analysis_results', on_delete=models.CASCADE)
     
     objects = AnalysisResult()

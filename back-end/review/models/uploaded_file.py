@@ -1,8 +1,8 @@
 from django.db import models
-from animal.models import Animal
+from review.models.analysis_result import AnalysisResult
 
 class UploadedFile(models.Model):
-    animal_id   = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    analysis_id = models.ForeignKey(AnalysisResult, on_delete=models.CASCADE)
     file        = models.FileField()
     uploaded_on = models.DateTimeField(auto_now_add=True)
     

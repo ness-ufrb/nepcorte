@@ -1,12 +1,17 @@
 import nepcorteServer, { ReviewEndPoint } from "../../api/nepcorteServer";
 import { useContext } from "react";
 import { Context as AuthContext } from "../UserContext/Context";
-import { readAsStringAsync, EncodingType } from 'expo-file-system';
 
 // Funções para manipular o estado do contexto
 const SetAnimalId = dispatch => {
     return (animal_id) => {
         dispatch({ type: 'SET_ANIMAL_ID', payload: animal_id });
+    };
+};
+
+const SetAnalysisId = dispatch => {
+    return (analysis_id) => {
+        dispatch({ type: 'SET_ANALYSIS_ID', payload: analysis_id });
     };
 };
 
@@ -22,12 +27,10 @@ const SetFile = dispatch => {
     };
 };
 
-// Função principal CreateAssess
-const convertImageToBase64 = async (imageUri) => {
-    const base64 = await readAsStringAsync(imageUri, {
-        encoding: EncodingType.Base64,
-    });
-    return `data:image/png;base64,${base64}`; // Prefixo necessário para o backend reconhecer como imagem
+const SetAnimalCode = dispatch => {
+    return (animalCode) => {
+        dispatch({ type: 'SET_ANIMAL_CODE', payload: animalCode });
+    };
 };
 
 const CreateAssess = dispatch => {
@@ -38,17 +41,22 @@ const CreateAssess = dispatch => {
         try {
             const { animal_id, file, type_result } = assess;
 
-            // Create a FormData object to send the file and data
+            analysis = await nepcorteServer.post(
+                ReviewEndPoint,
+                { animal_id, type_result },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+    
             const formData = new FormData();
-            formData.append('animal_id', animal_id);
+            formData.append('analysis_id', analysis.data.id);
 
             // Certifique-se de que o arquivo seja um Blob ou File
             const fileBlob = {
-                uri: file.uri, // O caminho do arquivo no dispositivo
+                uri: file, // O caminho do arquivo no dispositivo
                 type: file.type || 'image/jpeg', // Certifique-se de especificar o tipo MIME
-                name: 'photo.jpg', // Dê um nome ao arquivo
+                name: `photo-${animal_id}-${parseInt(Math.random() * 100000)}.jpg`, // Dê um nome ao arquivo
             };
-
+            
             formData.append('file', fileBlob); // Adiciona o arquivo ao FormData
 
             // Enviar a imagem e o animal_id usando multipart/form-data
@@ -61,13 +69,6 @@ const CreateAssess = dispatch => {
                         'Content-Type': 'multipart/form-data', // Cabeçalho adequado para upload de arquivos
                     },
                 }
-            );
-
-            // Continue a lógica de envio de outros dados se necessário
-            await nepcorteServer.post(
-                ReviewEndPoint,
-                { animal_id, type_result },
-                { headers: { Authorization: `Bearer ${token}` } }
             );
 
             if (navigation) {
@@ -83,4 +84,4 @@ const CreateAssess = dispatch => {
     };
 };
 
-export { SetAnimalId, SetType, SetFile, CreateAssess };
+export { SetAnimalId, SetType, SetFile, CreateAssess, SetAnimalCode, SetAnalysisId };

@@ -38,7 +38,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     'api.nepcorte.ness.dev.br',
-    '192.168.1.100',
+    '192.168.1.108',
     '172.30.80.1', # URLs to test API
     '192.168.1.117',
 ]
@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'animal',
     'review',
     # test api
+    'django_q',
     'corsheaders',
 ]
 
@@ -187,4 +188,10 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Data analysis API for maintenance information insights at NepCorte app',
     'VERSION': '0.0.1',
     'COMPONENT_SPLIT_REQUEST': True,
+}
+
+Q_CLUSTER = {
+    'retry': 90,  # Aumente para um valor maior que timeout
+    'timeout': 60,  # O tempo máximo que uma tarefa pode levar
+    
 }

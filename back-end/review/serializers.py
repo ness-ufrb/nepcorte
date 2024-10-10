@@ -39,6 +39,6 @@ class FileUploadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UploadedFile
-        fields = ['id', 'animal_id', 'file', 'uploaded_on']
+        fields = ['id', 'analysis_id', 'file', 'uploaded_on']
         read_only_fields = ['id']
         
