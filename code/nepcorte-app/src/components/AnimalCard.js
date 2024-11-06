@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.main,
         borderRadius: 12,
         color: COLORS.white,
+        overflow: 'hidden',
         fontFamily: 'Inter-Bold',
         fontSize: fontSizes.descriptionTextSize,
         alignSelf: 'flex-start'

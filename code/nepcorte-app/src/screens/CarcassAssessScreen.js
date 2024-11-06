@@ -114,7 +114,7 @@ const CarcassAssessScreen = ({ navigation }) => {
                     mode="outlined"
                     label="Encontre o animal que deseja"
                     left={<TextInput.Icon name={() => <FontAwesome name="search" size={24} color={COLORS.grayLine} />} />}
-                    placeholder="..."
+                    placeholder="Código, Gênero, Espécie, Raça..."
                     placeholderTextColor={COLORS.grayLine}
                     value={animalSearchTerm}
                     onChangeText={(text) => { SetAnimalTerm(text) }}

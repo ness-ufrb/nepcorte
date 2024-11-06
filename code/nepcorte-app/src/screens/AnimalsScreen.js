@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, StyleSheet, ActivityIndicator, Text } from "react-native";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { TextInput } from 'react-native-paper';
 import { COLORS } from '../constant/colors';
 import { FlatList } from 'react-native';
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.screenBackgroungColor,
     },
     textInput: {
-        paddingBottom: '3%',
+        paddingBottom: '4%',
         alignSelf: 'center',
         paddingHorizontal: 10,
         width: '90%',

@@ -20,7 +20,9 @@ const ButtonSpeciesAnimals = ({ navigation, nextRoute, icon, title }) => {
             style={styles.buttonStyle}>
             {icon}
             <View style={styles.buttonIconSeparatorStyle} />
-            <Text style={styles.buttonTextStyle}>{title}</Text>
+            <View style={styles.textView}>
+                <Text style={styles.buttonTextStyle}>{title}</Text>
+            </View>
         </TouchableOpacity>
     );
 }
@@ -56,6 +58,11 @@ const styles = StyleSheet.create({
         height: 40,
         width: 135,
         fontSize: 22,
+    },
+    textView: {
+        width:'100%',
+        
+       
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
         color: COLORS.black,
@@ -68,9 +75,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.22,
         shadowRadius: 2,
         elevation: 2,
-
-    },
+    }
 });
-
 
 export default ButtonSpeciesAnimals;

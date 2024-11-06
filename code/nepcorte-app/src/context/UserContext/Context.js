@@ -1,18 +1,19 @@
 import createDataContext from '../createDataContext';
 import Reducer from './Reducer';
-import { SetEmail, SetPassword, Login, Logout, SetAuthenticated } from './Actions'; 
+import { SetEmail, Login, Logout, SetAuthenticated, Register, SendEmailToken, ChangePassword, GetUser } from './Actions'; 
 
 // Initial States from Sorting.
 const initialState = { 
     email: '',
-    password: '',
     token: '',
+    modalVisible: false,
+    loading: false,
     user:'',
     isAuthenticated: false,
 };
 
 export const { Context, Provider } = createDataContext(
     Reducer,
-    { SetEmail, SetPassword, Login, Logout, SetAuthenticated },
+    { SetEmail, Login, Logout, SetAuthenticated, Register, SendEmailToken, ChangePassword, GetUser },
     initialState
 );

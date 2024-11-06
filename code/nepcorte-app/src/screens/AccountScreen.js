@@ -1,66 +1,251 @@
-import React, {useContext} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import IconUnderConstruction from "../assets/icons/under-construction.svg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from '@react-navigation/native';
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
+import { TextInput } from "react-native-paper";
 import { COLORS } from "../constant/colors";
 import { fontSizes } from "../constant/fontSizes";
 import Header from "../components/Header";
+import { Formik } from 'formik';
 import { Context as AuthContext } from "../context/UserContext/Context";
+import * as yup from 'yup';
 
-const FeatureConstruction = ({ navigation }) => {
-    const { state, Logout } = useContext(AuthContext)
-    console.log("\n\n Token do usuário: ", state.token ,"\n\n" )
-    const handleLogout = () => {
-        Logout(navigation)
+
+const AccountScreen = ({ navigation }) => {
+    const [loading, setLoading] = useState(false)
+    const { state, Logout, GetUser } = useContext(AuthContext);
+    
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchUser = async () => {
+                setLoading(true)
+                await GetUser(); 
+                setLoading(false)  
+            };
+            fetchUser();
+        }, [navigation])
+    );
+
+    console.log('\n\nESTADO NA TELA', state.user)
+    initialValues = {
+        username: state.user.name ? state.user.name : 'seu nome', 
+        email: state.user.email ? state.user.email : 'example@example.com',
+        password: '',
+        confirmPassword: ''
     }
+
+    const codeValidationSchema = yup.object().shape({
+        username: yup
+            .string()
+            .required('O nome não pode estar em branco'),
+        email: yup
+            .string()
+            .email('Por favor, insira um e-mail válido')
+            .required('O email não pode estar em branco'),
+        password: yup
+            .string()
+            .min(8, ({ min }) => `A senha deve ter no mínimo ${min} caracteres`)
+            .matches(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
+            .matches(/[a-z]/, 'A senha deve conter pelo menos uma letra minúscula')
+            .matches(/[0-9]/, 'A senha deve conter pelo menos um número'), 
+        confirmPassword: yup
+            .string()
+            .oneOf([yup.ref('password')], 'As senhas não coincidem') 
+    });
+
+    const handleLogout = () => {
+        Logout(navigation);
+    };
+
+    const handlePress = (values) => {
+        console.log('Salvando o formulário com valores:', values);
+        // Aqui você pode integrar com a função de API para salvar as alterações
+    };
+
     return (
         <SafeAreaView style={styles.container}>
-            <Header code="Conta"  navigation={navigation} notHasReturn={true}/>
-            <View style={styles.form}>
-                <IconUnderConstruction width={200} height={200} fill={COLORS.black}/>
-                <Text style={styles.text}>Esta feature está em construção</Text>
+            <View>
+                <Header code="Minha Conta" navigation={navigation} notHasReturn={true} />
+                {loading ? <ActivityIndicator size={"large"} color={'black'} style={styles.loading}/> :
+                
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={codeValidationSchema}
+                    onSubmit={handlePress}
+                >
+                    {({ handleChange, handleSubmit, values, errors, touched }) => (
+                        <View style={styles.containerForm}>
+                            {/* Campo de Nome */}
+                            <View style={styles.textInput}>
+                                <TextInput
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    activeOutlineColor={COLORS.gray}
+                                    mode="outlined"
+                                    label="Nome"
+                                    placeholder="Digite seu novo nome"
+                                    value={values.username}
+                                    onChangeText={handleChange('username')}
+                                    outlineColor={errors.username && touched.username ? 'red' : COLORS.gray}
+                                    style={styles.inputStyle}
+                                    outlineStyle={styles.outlineStyle}
+                                />
+                            </View>
+                            {errors.username && touched.username && (
+                                <Text style={styles.errorText}>{errors.username}</Text>
+                            )}
+
+                            {/* Campo de E-mail */}
+                            <View style={styles.textInput}>
+                                <TextInput
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    activeOutlineColor={COLORS.gray}
+                                    mode="outlined"
+                                    keyboardType='email-address'
+                                    label="E-mail"
+                                    placeholder="Digite seu novo e-mail"
+                                    value={values.email}
+                                    onChangeText={handleChange('email')}
+                                    outlineColor={errors.email && touched.email ? 'red' : COLORS.gray}
+                                    style={styles.inputStyle}
+                                    outlineStyle={styles.outlineStyle}
+                                />
+                            </View>
+                            {errors.email && touched.email && (
+                                <Text style={styles.errorText}>{errors.email}</Text>
+                            )}
+                            
+                            {/* Campo de Senha */}
+                            <View style={styles.textInput}>
+                                <TextInput
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    activeOutlineColor={COLORS.gray}
+                                    mode="outlined"
+                                    label="Senha"
+                                    placeholder="Informe sua senha"
+                                    secureTextEntry={true}
+                                    value={values.password}
+                                    onChangeText={handleChange('password')}
+                                    outlineColor={errors.password && touched.password ? 'red' : COLORS.gray}
+                                    style={styles.inputStyle}
+                                    outlineStyle={styles.outlineStyle}
+                                />
+                            </View>
+                            {errors.password && touched.password && (
+                                <Text style={styles.errorText}>{errors.password}</Text>
+                            )}
+
+                            {/* Campo de Confirmação de Senha */}
+                            <View style={styles.textInput}>
+                                <TextInput
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    activeOutlineColor={COLORS.gray}
+                                    mode="outlined"
+                                    label="Confirmar Senha"
+                                    placeholder="Repita sua senha"
+                                    secureTextEntry={true}
+                                    value={values.confirmPassword}
+                                    onChangeText={handleChange('confirmPassword')}
+                                    outlineColor={errors.confirmPassword && touched.confirmPassword ? 'red' : COLORS.gray}
+                                    style={styles.inputStyle}
+                                    outlineStyle={styles.outlineStyle}
+                                />
+                            </View>
+                            {errors.confirmPassword && touched.confirmPassword && (
+                                <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+                            )}
+
+                            <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
+                                <Text style={styles.buttonText}>Salvar</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.textBox} onPress={handleLogout}>
+                                <Text style={styles.textButton}>Sair da conta</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                </Formik>
+                }
             </View>
-        {/* Botão de Deslogar */}
-            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-                <Text style={styles.logoutButtonText}>Deslogar</Text>
-            </TouchableOpacity>
-           
         </SafeAreaView>
     );
-}
+};
+
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.screenBackgroungColor,
         width: "100%",
         height: "100%",
+        justifyContent: 'space-between',
+    },
+    textBox: {
+        justifyContent:'center',
+        alignItems:'center',
+        marginTop:20
+    },
+    textButton: {
+        color:COLORS.main,
+        fontSize: fontSizes.codeTextSize
+    },
+    containerForm: {
+        width: '100%',
+        paddingHorizontal: 35,
+        paddingTop:30
+    },
+    textInput: {
+        paddingVertical: 10,
+        width: '100%',
+    },
+    inputStyle: {
+        backgroundColor: COLORS.screenBackgroungColor,
+    },
+    outlineStyle: {
+        borderRadius: 15,
+    },
+    errorText: {
+        paddingBottom: 2,
+        fontFamily: 'Inter-Bold',
+        fontSize: fontSizes.descriptionTextSize,
+        color: 'red',
+        alignSelf: 'flex-start',
+    },
+    loginButton: {
+        backgroundColor: COLORS.main,
+        borderRadius: 10,
+        height: 60,
         justifyContent: 'center',
         alignItems: 'center',
+        marginVertical: 10,
+        
     },
-    form: {
-        flexGrow: 1,
-        justifyContent: 'center',
-    },
-    text: {
-        fontSize: fontSizes.descriptionTextSize,
-        color: COLORS.black,
+    buttonText: {
+        fontSize: fontSizes.buttonTextSize,
         fontFamily: 'Inter-SemiBold',
-        textAlign: 'center',
-        paddingTop: 20,
+        color: COLORS.white,
     },
     logoutButton: {
         marginTop: 30,
-        backgroundColor: COLORS.main, // Cor do botão
+        backgroundColor: COLORS.main,
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
+        marginBottom: '10%',
     },
     logoutButtonText: {
         fontSize: fontSizes.buttonTextSize,
-        color: COLORS.white, // Cor do texto
+        color: COLORS.white,
         fontFamily: 'Inter-Bold',
         textAlign: 'center',
     },
+    loading:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    }
 });
 
-export default FeatureConstruction;
+export default AccountScreen;

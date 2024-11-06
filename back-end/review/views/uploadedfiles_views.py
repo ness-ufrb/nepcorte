@@ -27,7 +27,7 @@ results = [
 
 def simulate_ai_processing():
     """Função que simula a execução da IA com um tempo aleatório."""
-    random_time = random.randint(0, 15)  # Tempo aleatório entre 0 e 30 segundos
+    random_time = random.randint(0, 15)  # Tempo aleatório entre 0 e 15 segundos
     time.sleep(random_time)  # Simular o tempo de execução da IA
 
     # Retorna resultados bons ou ruins de forma aleatória
@@ -93,8 +93,7 @@ class ImageUploadAPIView(APIView):
             serializer = self.serializer_class(data=data)
 
             if serializer.is_valid():
-                uploaded_file = serializer.save()
-
+                serializer.save()
                 # Iniciar a tarefa de IA em segundo plano
                 async_task('review.views.execute_ai_task', analysis_id)
 
@@ -103,6 +102,8 @@ class ImageUploadAPIView(APIView):
                     status=status.HTTP_201_CREATED
                 )
 
+            # Excluir a análise criada
+            
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST

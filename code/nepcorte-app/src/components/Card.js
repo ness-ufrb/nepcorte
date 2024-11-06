@@ -20,7 +20,6 @@ const Card = ({ mainText, secText, icon, navigation, nextRoute, Press }) => {
             console.log('card pressed');
             navigation.navigate(nextRoute);
             console.log(mainText)
-
             Press(mainText);
         }}>
             <View style={styles.container}>

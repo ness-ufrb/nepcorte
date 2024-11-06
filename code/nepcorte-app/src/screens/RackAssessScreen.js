@@ -110,7 +110,7 @@ const RackAssessScreen = ({ navigation }) => {
                     autoCorrect={false}
                     activeOutlineColor={COLORS.grayLine}
                     mode="outlined"
-                    label="Encontre o animal que deseja"
+                    label="Código, Gênero, Espécie, Raça..."
                     left={<TextInput.Icon name={() => <FontAwesome name="search" size={24} color={COLORS.grayLine} />} />}
                     placeholder="..."
                     placeholderTextColor={COLORS.grayLine}

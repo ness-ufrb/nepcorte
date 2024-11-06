@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: 'Inter-Bold',
         fontSize: fontSizes.descriptionTextSize,
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        overflow: 'hidden',
     },
     statusBad: {
         paddingVertical: 5,
@@ -72,7 +73,8 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: 'Inter-Bold',
         fontSize: fontSizes.descriptionTextSize,
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        overflow: 'hidden',
     },
     statusAnalysis: {
         paddingVertical: 5,
@@ -82,7 +84,8 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: 'Inter-Bold',
         fontSize: fontSizes.descriptionTextSize,
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        overflow: 'hidden',
     },
     statusContainer: {
         marginBottom: 10,

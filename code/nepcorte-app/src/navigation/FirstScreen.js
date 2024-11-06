@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import MainApp from "./TabNavigator";
-import Login from "../screens/Login";
+import AuthStackScreens from "./AuthStack";
 import { getTokens } from "../api/nepcorteServer";
 import { Context as AuthContext } from "../context/UserContext/Context";
 import * as SplashScreenExpo from 'expo-splash-screen';
@@ -43,7 +43,7 @@ export default function FirstScreen() {
 
   return (
     <NavigationContainer>
-      {isAuthenticated ? <MainApp/> : <Login/>}
+      {isAuthenticated ? <MainApp/> : <AuthStackScreens/>}
     </NavigationContainer>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 // Screens
 import AnimalsScreen from '../screens/AnimalsScreen';
 import AssessmentsScreen from '../screens/AssessmentsScreen';
@@ -19,7 +20,12 @@ export default function MainApp() {
       <Tab.Navigator
         shifting={false}
         initialRouteName="Triagem"
-        barStyle={{ backgroundColor: COLORS.main }}
+        barStyle={{
+          backgroundColor: COLORS.main,
+          marginTop: 0,
+          paddingTop: 3,
+          marginTop: Platform.OS === 'ios' ? '-9%' : 0,
+        }}
       >
         <Tab.Screen name="Triagem" component={SortingStackScreens}
           options={{

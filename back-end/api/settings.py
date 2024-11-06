@@ -95,7 +95,9 @@ CORS_ALLOWED_ORIGINS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -191,7 +193,19 @@ SPECTACULAR_SETTINGS = {
 }
 
 Q_CLUSTER = {
-    'retry': 90,  # Aumente para um valor maior que timeout
-    'timeout': 60,  # O tempo máximo que uma tarefa pode levar
-    
+    'name': 'NepCorte_IA_Queue',
+    'retry': 210,  # Aumente para um valor maior que timeout
+    'timeout': 200,  # O tempo máximo que uma tarefa pode levar
+    'workers': 4, # Número de workers
+    'recycle': 500, # Recycle após 500 tarefas
+    'bulk': 10, # Tarefas processadas em lote
+    'queue_limit': 50,  # Limite da fila de tarefa
 }
+
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))  
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'  
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL') == 'True' 
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')

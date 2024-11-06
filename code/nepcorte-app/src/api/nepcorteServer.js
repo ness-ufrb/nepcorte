@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Endpoints
 const AnimalEndPoint = '/api/animal/';
 const ReviewEndPoint = '/api/review/analysis_result/';
+const UploadFileEndPoint = '/api/review/upload-file/';
 
 // Criar instância do Axios
 const nepcorteServer = axios.create({
@@ -14,8 +15,10 @@ const nepcorteServer = axios.create({
 const getTokens = async () => {
     const accessToken = await AsyncStorage.getItem('accessToken');
     const refreshToken = await AsyncStorage.getItem('refreshToken');
+    console.log("Tokens obtidos:", { accessToken, refreshToken }); 
     return { accessToken, refreshToken };
 };
+
 
 // Função para salvar os tokens no AsyncStorage
 const saveTokens = async (accessToken, refreshToken = null) => {
@@ -64,18 +67,19 @@ nepcorteServer.interceptors.request.use(async (config) => {
     return Promise.reject(error);
 });
 
-// Interceptor de resposta: Tenta fazer o refresh token ao receber um erro 401
 nepcorteServer.interceptors.response.use((response) => {
     return response; // Retorna a resposta se for bem-sucedida
 }, async (error) => {
     const originalRequest = error.config;
 
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;  // Define que a requisição já foi tentada
+
         if (!isRefreshing) {
             isRefreshing = true;
-            originalRequest._retry = true;  // Evita loops infinitos de retry
             try {
                 const newAccessToken = await refreshAccessToken();
+                console.log('Novo token obtido:', newAccessToken);
 
                 // Atualiza o header da requisição original com o novo token
                 originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
@@ -87,11 +91,9 @@ nepcorteServer.interceptors.response.use((response) => {
                         .catch((err) => reject(err));
                 });
 
-                // Limpa a fila de requisições pendentes
-                refreshAndRetryQueue.length = 0;
+                refreshAndRetryQueue.length = 0; // Limpa a fila de requisições pendentes
 
-                // Reenvia a requisição original
-                return nepcorteServer(originalRequest);
+                return nepcorteServer(originalRequest); // Reenvia a requisição original
             } catch (refreshError) {
                 console.error("Erro ao fazer refresh token", refreshError);
                 throw refreshError;
@@ -110,5 +112,6 @@ nepcorteServer.interceptors.response.use((response) => {
     return Promise.reject(error);
 });
 
+
 export default nepcorteServer;
-export { AnimalEndPoint, ReviewEndPoint, saveTokens, getTokens };
+export { AnimalEndPoint, ReviewEndPoint, UploadFileEndPoint, saveTokens, getTokens };

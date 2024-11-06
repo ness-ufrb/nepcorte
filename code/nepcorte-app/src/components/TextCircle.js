@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
 import { COLORS } from '../constant/colors';
 import { fontSizes } from "../constant/fontSizes";
 
@@ -24,7 +24,7 @@ const TextCircle = ({ navigation, nextRoute, number, label, isActive }) => {
                         fontSize: fontSizes.titleTextSize,
                         textAlign: "center",
                         marginRight: 5,
-                        marginTop: -35,
+                        marginTop: Platform.OS === 'android' ? -35 : -32,
                         fontFamily: 'Inter-SemiBold',
                         color: isActive == true ? COLORS.white : COLORS.grayStepLabel
                     }}> {number} 

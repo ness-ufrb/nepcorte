@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import DropdownComponent from '../components/Dropdown';
@@ -187,10 +187,9 @@ const styles = StyleSheet.create({
     },
     contentContainerScrollView: {
         width: '85%',
-        flexGrow: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
+        alignItems:'center',
+        alignSelf:Platform.OS === 'android' ? 'center' : '',
         paddingTop: 10,
     },
     container: {

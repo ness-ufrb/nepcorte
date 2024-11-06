@@ -106,7 +106,7 @@ const AssessmentsScreen = ({ navigation }) => {
                     mode="outlined"
                     label="Encontre o animal que deseja..."
                     left={<TextInput.Icon name={() => <FontAwesome name="search" size={24} color={COLORS.grayLine} />} />}
-                    placeholder="Código, Raça, Idade, Situação..."
+                    placeholder="Animal, Avaliação mais recente..."
                     placeholderTextColor={COLORS.grayLine}
                     value={reviewSearchTerm}
                     onChangeText={(text) => { SetReviewSearchTerm(text) }}

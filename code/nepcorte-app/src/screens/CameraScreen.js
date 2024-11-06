@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, Alert, Button, Linking } from "react-native";
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, Alert, Button, Linking, Platform } from "react-native";
 import { Camera, CameraType, FlashMode } from 'expo-camera/legacy';
 import { COLORS } from "../constant/colors";
 import { useCameraPermissions } from 'expo-camera'
@@ -70,6 +70,10 @@ const CameraScreen = ({ navigation, route }) => {
         setFlash(current => (current === FlashMode.off ? FlashMode.on : FlashMode.off));
     }
 
+    const handleExit = () => {
+        navigation.goBack();
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <Camera
@@ -78,8 +82,11 @@ const CameraScreen = ({ navigation, route }) => {
                 flashMode={flash}
                 ref={cameraRef} 
             >
+                <TouchableOpacity style={styles.exitButton} onPress={handleExit}>
+                    <Ionicons name="arrow-back-circle-sharp" size={45} color="white" />
+                </TouchableOpacity>
                 <View style={styles.controlContainer}>
-                    <TouchableOpacity style={styles.sideButton} onPress={toggleCameraFacing}>
+                    <TouchableOpacity style={[styles.sideButton, styles.shadow]} onPress={toggleCameraFacing}>
                         <Ionicons name="camera-reverse" size={35} color="white" />
                     </TouchableOpacity>
 
@@ -87,7 +94,7 @@ const CameraScreen = ({ navigation, route }) => {
                         <View style={styles.buttonCamera} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.sideButton} onPress={toggleFlash}>
+                    <TouchableOpacity style={[styles.sideButton, styles.shadow]} onPress={toggleFlash}>
                         {flash === FlashMode.on ? 
                         <Ionicons name="flash-off" size={32} color="white" /> : 
                         <Ionicons name="flash" size={32} color="white" />}
@@ -117,6 +124,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         paddingHorizontal: 30,
+        paddingBottom: Platform.OS === 'ios' ? '9%' : 0,
     },
     captureButton: {
         alignSelf: 'center',
@@ -129,14 +137,40 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         borderColor: COLORS.main,
         borderWidth: 3,
+        elevation: Platform.OS === 'android' ? 10 : 0, // Somente para Android
+        shadowColor: Platform.OS === 'ios' ? "#000" : 'transparent',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
     },
     sideButton: {
         padding: 5,
         borderRadius: 5,
+        elevation: Platform.OS === 'android' ? 10 : 0, 
+       
     },
     text: {
         color: 'white',
     },
+    exitButton: {
+        padding: "6%", 
+        flexDirection:'row',
+        alignItems:'center',
+        elevation: Platform.OS === 'android' ? 10 : 0, // Somente Android
+    },
+    shadow: {
+        shadowColor: Platform.OS === 'ios' ? "#000" : 'transparent',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: Platform.OS === 'android' ? 10 : 0, // Somente Android
+    }
 });
 
 export default CameraScreen;
