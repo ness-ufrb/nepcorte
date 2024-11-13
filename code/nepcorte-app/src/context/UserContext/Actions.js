@@ -1,24 +1,25 @@
-import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import nepcorteServer from "../../api/nepcorteServer";
 import Toast from "react-native-toast-message";
 
 
-const SetEmail = (dispatch) => {
-    return (email) => {
-        dispatch({ type: 'SET_EMAIL', payload: email });
-    };
-};
+
 
 const Register = () => {
     return async (username, email, password, navigation) => {
         try {
+
+            dispatch({type: 'SET_LOADING', payload: true}) 
+            // Requisição de registro de usuário
             const { data: user } = await nepcorteServer.post('/api/user/', {
                 name: username,
                 email: email,
                 password: password
             });
 
+            dispatch({type: 'SET_LOADING', payload: false}) 
+
+            // Alerta de sucesso
             Toast.show({
                 type: 'success',
                 text1: `Usuário ${user.name} cadastrado`,
@@ -26,21 +27,23 @@ const Register = () => {
                
             });
 
-           
+            // Navega pra tela de login em caso de sucesso
             if (navigation) {
                 navigation.navigate('Login');
             }
           
         } catch (error) {
+            // Verifica e avisa se o erro é relacionado ao e-mail já registrado 
             if (error.response && error.response.data.email) {
-              // Verifica se o erro é relacionado ao e-mail já registrado
+
               Toast.show({
                 type: 'error',
                 text1: 'Erro no cadastro',
                 text2: 'este e-mail ja foi cadastrado', 
               });
+        
             } else {
-              // Outro erro não relacionado ao e-mail
+              // Avisa outro erro não relacionado ao e-mail
               Toast.show({
                 type: 'error',
                 text1: 'Erro ao criar a conta',
@@ -55,27 +58,28 @@ const Register = () => {
 const Login = (dispatch) => {
     return async (email, password) => {
         try {
-
+            dispatch({type: 'SET_LOADING', payload: true}) 
+            //requisição para obter o token e refresh token apartir do email e senha
             const res = await nepcorteServer.post(`/api/user/token/`, {
                 email,
                 password,
             });
-            
+            dispatch({type: 'SET_LOADING', payload: false}) 
+            //colocando ambos no async storage
             await AsyncStorage.setItem('accessToken', res.data.access);
             await AsyncStorage.setItem('refreshToken', res.data.refresh);
 
+            //definindo que o usuario agora esta autenticado (sai da tela de login e entra no app)
             dispatch({ type: 'IS_AUTHENTICATED', payload: true });
 
         } catch (e) {
             
+            //avisa do erro na tentativa de login ao usuario
             Toast.show({
                 type: 'error',
                 text1: `Ocorreu um problema`,
                 text2: 'verifique os caracteres e tente novamente!',
-                
             });
-
-            console.log(e);
         }
     };
 };
@@ -83,23 +87,26 @@ const Login = (dispatch) => {
 const Logout = (dispatch) => {
     return async () => {
         try {
-            // Remover o token de autenticação do AsyncStorage
+            //remover o token de autenticação do AsyncStorage
             await AsyncStorage.removeItem('accessToken');
             await AsyncStorage.removeItem('refreshToken');
 
-            // Atualizar o estado global
+            //atualizamos o estado de autenticado (usuario vai para tela de login)
             dispatch({ type: 'IS_AUTHENTICATED', payload: false });
-            Toast.show({
-                type: 'success',
-                text1: `Logout realizado`,
-                text2: 'agora você pode entrar em outra conta...'
-            });
+            
         } catch (e) {
-            console.log("Erro ao tentar deslogar", e);
+            //avisamos de um possivel erro ao sair da conta
+            console.log("Erro ao tentar sair da conta", e);
+            Toast.show({
+                type: 'error',
+                text1: `Tivemos um problema`,
+                text2: 'tente novamente mais tarde.'
+            });
         }
     };
 };
 
+//action para settar se o usuario ta autenticado (importante pra "FirstScreen")
 const SetAuthenticated = (dispatch) => {
     return (auth) => {
         dispatch({ type: 'IS_AUTHENTICATED', payload: auth });
@@ -109,12 +116,14 @@ const SetAuthenticated = (dispatch) => {
 const SendEmailToken = dispatch => {
     return async (email, navigation) => {
         try{
-
+            //requisição pra envio de email
             await nepcorteServer.post('/api/user/send_email/', { email })
 
+            //caso o email esteja cadastrado passa pra proxima tela
             if(navigation){
                 navigation.navigate('ChangePassword')
             }
+            //aviso de sucesso ao enviar o email
             Toast.show({
                 type: 'success',
                 text1: `E-mail enviado.`,
@@ -122,7 +131,7 @@ const SendEmailToken = dispatch => {
             });
         }
         catch(e){
-         
+            //erro ao enviar o email
             Toast.show({
                 type: 'error',
                 text1: `E-mail não enviado.`,
@@ -135,7 +144,10 @@ const SendEmailToken = dispatch => {
 const ChangePassword = dispatch => {
     return async (token, new_password, confirm_password, navigation) => {
         try {
+            //requisiçao pra mudar de senha
             await nepcorteServer.post('/api/user/reset_password/', { token, new_password, confirm_password });
+            
+            //informa o sucesso e navega pra tela de login
             Toast.show({
                 type: 'success',
                 text1: 'Senha alterada com sucesso.',
@@ -144,9 +156,11 @@ const ChangePassword = dispatch => {
             if (navigation) {
                 navigation.navigate('Login');
             }
+
         } catch (e) {
+            //define se o erro é especifico ou generico e mostra ao usuário.
             const errorMessage = e.response?.data?.non_field_errors?.[0] || 'Tivemos um problema ao alterar sua senha';
-            console.log(e);
+            
             Toast.show({
                 type: 'error',
                 text1: 'Ocorreu um problema.',
@@ -159,29 +173,70 @@ const ChangePassword = dispatch => {
 const GetUser = dispatch => {
     return async () => {
         try {
+            //requisição pra obter as informações do usuario.
             const token = await AsyncStorage.getItem('accessToken');
             
+            // remove o usuário do contexto se não houver token
             if (!token) {
-                console.log("Token não encontrado, usuário precisa fazer login.");
-                dispatch({ type: 'SET_USER', payload: null }); // Remove o usuário do contexto se não houver token
+                dispatch({ type: 'SET_USER', payload: null }); 
                 return;
             }
-            console.log('TOKEN DO USUARIO NO ASYNCSTORAGE: ', token)
-            // Obtem as informações do usuário
+      
+            // obtem as informações do usuário
             const userRes = await nepcorteServer.get('/api/user/me/', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
-            // Define o usuário no contexto
+            // define o usuário no contexto
             dispatch({ type: 'SET_USER', payload: userRes.data });
 
         } catch (error) {
             console.error("Erro ao inicializar usuário:", error);
-            dispatch({ type: 'SET_USER', payload: null }); // Se houver erro, garante que o estado de usuário seja resetado
+            dispatch({ type: 'SET_USER', payload: null }); 
         }
     };
 }
 
-export { SetEmail, Login, Logout, SetAuthenticated, Register, SendEmailToken, ChangePassword, GetUser };
+const UserEdit = dispatch => {
+    return async (name, email, password, currentEmail) => {
+
+        // Envia para a requisição apenas as variaveis com valores
+        const newData = {};
+        if (name) newData.name = name;
+        if (email && email !== currentEmail) newData.email = email;
+        if (password) newData.password = password;
+
+        try{
+            const token = await AsyncStorage.getItem('accessToken');
+
+
+            const response = await nepcorteServer.patch('/api/user/me/', newData, {headers: {Authorization: `Bearer ${token}`}})  
+
+            dispatch({ type: 'SET_USER', payload: response.data });
+
+            // Atualiza o estado do usuário no contexto com os dados retornados
+            Toast.show({
+                type: 'success',
+                text1: 'Usuário atualizado.',
+                text2: 'suas credênciais foram alteradas!'
+            });
+
+        }catch(e){
+            console.log("Erro ao atualizar usuário:", e.response?.data || e.message);
+            console.log('mensagem ', e.message)
+            Toast.show({
+                type: 'error',
+                text1: 'Ocorreu um problema.',
+                text2: `${e.response.data.email ? 'este e-mail já está em uso' : 'verifique os caracteres e tente novamente'}`
+            });
+        }
+    }
+}
+
+export { 
+    Login, Logout, SetAuthenticated, 
+    Register, SendEmailToken, ChangePassword, 
+    GetUser, UserEdit
+};

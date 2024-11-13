@@ -10,7 +10,7 @@ class ResetPasswordToken(models.Model):
 
     def is_valid(self):
         # Verifica se o token ainda está válido após 1 hora da criação
-        return self.created_at >= timezone.now() - timedelta(hours=1)
+        return self.created_at >= timezone.now() - timedelta(hours=72)
 
     def __str__(self):
         return f'Token for {self.user.email}'

@@ -63,7 +63,7 @@ class ResetPasswordSerializer(serializers.Serializer):
         
         # Verificar se o token é válido e não expirou
         reset_token = ResetPasswordToken.objects.filter(token=data['token']).first()
-        if not reset_token or reset_token.created_at < timezone.now() - timedelta(hours=1):
+        if not reset_token or reset_token.created_at < timezone.now() - timedelta(hours=72):
             raise serializers.ValidationError("Token inválido ou expirado.")
         
         # Anexar o usuário ao validated_data para uso posterior

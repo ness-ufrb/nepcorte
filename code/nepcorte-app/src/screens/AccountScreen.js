@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from '@react-navigation/native';
-import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, ScrollView, ViewBase } from "react-native";
 import { TextInput } from "react-native-paper";
 import { COLORS } from "../constant/colors";
 import { fontSizes } from "../constant/fontSizes";
@@ -10,11 +9,12 @@ import Header from "../components/Header";
 import { Formik } from 'formik';
 import { Context as AuthContext } from "../context/UserContext/Context";
 import * as yup from 'yup';
-
+import Loading from './Loading'
 
 const AccountScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false)
-    const { state, Logout, GetUser } = useContext(AuthContext);
+    const [visible, setVisible] = useState(false)
+    const { state, Logout, GetUser, UserEdit } = useContext(AuthContext);
     
     useFocusEffect(
         React.useCallback(() => {
@@ -24,13 +24,13 @@ const AccountScreen = ({ navigation }) => {
                 setLoading(false)  
             };
             fetchUser();
-        }, [navigation])
+        }, [navigation, handlePress])
     );
 
     console.log('\n\nESTADO NA TELA', state.user)
     initialValues = {
-        username: state.user.name ? state.user.name : 'seu nome', 
-        email: state.user.email ? state.user.email : 'example@example.com',
+        username: state.user?.name || 'seu nome', 
+        email: state.user?.email || 'example@example.com',
         password: '',
         confirmPassword: ''
     }
@@ -38,17 +38,19 @@ const AccountScreen = ({ navigation }) => {
     const codeValidationSchema = yup.object().shape({
         username: yup
             .string()
+            .max(255, ({max})=> `O nome deve ter no máximo ${max} caracteres`)
             .required('O nome não pode estar em branco'),
         email: yup
             .string()
             .email('Por favor, insira um e-mail válido')
+            .max(255, ({max})=> `O e-mail deve ter no máximo ${max} caracteres`)
             .required('O email não pode estar em branco'),
         password: yup
             .string()
             .min(8, ({ min }) => `A senha deve ter no mínimo ${min} caracteres`)
             .matches(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
             .matches(/[a-z]/, 'A senha deve conter pelo menos uma letra minúscula')
-            .matches(/[0-9]/, 'A senha deve conter pelo menos um número'), 
+            .matches(/[0-9]/, 'A senha deve conter pelo menos um número'),
         confirmPassword: yup
             .string()
             .oneOf([yup.ref('password')], 'As senhas não coincidem') 
@@ -58,13 +60,16 @@ const AccountScreen = ({ navigation }) => {
         Logout(navigation);
     };
 
-    const handlePress = (values) => {
+    const handlePress = async (values) => {
         console.log('Salvando o formulário com valores:', values);
-        // Aqui você pode integrar com a função de API para salvar as alterações
+        setVisible(true)
+        await UserEdit(values.username, values.email, values.password, initialValues.email)
+        setVisible(false)
     };
 
     return (
         <SafeAreaView style={styles.container}>
+        {visible && <Loading/>}
             <View>
                 <Header code="Minha Conta" navigation={navigation} notHasReturn={true} />
                 {loading ? <ActivityIndicator size={"large"} color={'black'} style={styles.loading}/> :
@@ -180,7 +185,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.screenBackgroungColor,
         width: "100%",
         height: "100%",
-        justifyContent: 'space-between',
+        
     },
     textBox: {
         justifyContent:'center',
@@ -242,9 +247,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     loading:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center'
+        position:'absolute',
+        left:'50%',
+        top:'200%'
     }
 });
 

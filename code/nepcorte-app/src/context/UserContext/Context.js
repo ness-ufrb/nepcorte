@@ -1,6 +1,10 @@
 import createDataContext from '../createDataContext';
 import Reducer from './Reducer';
-import { SetEmail, Login, Logout, SetAuthenticated, Register, SendEmailToken, ChangePassword, GetUser } from './Actions'; 
+import { 
+    Login, Logout, SetAuthenticated, 
+    Register, SendEmailToken, ChangePassword, 
+    GetUser, UserEdit 
+} from './Actions'; 
 
 // Initial States from Sorting.
 const initialState = { 
@@ -14,6 +18,10 @@ const initialState = {
 
 export const { Context, Provider } = createDataContext(
     Reducer,
-    { SetEmail, Login, Logout, SetAuthenticated, Register, SendEmailToken, ChangePassword, GetUser },
+    { 
+        Login, Logout, SetAuthenticated, 
+        Register, SendEmailToken, ChangePassword, 
+        GetUser, UserEdit
+    },
     initialState
 );

@@ -2,6 +2,8 @@ export default function Reducer(state, action){
     switch(action.type){
         case 'SET_EMAIL':
             return {...state, email: action.payload}
+        case 'SET_LOADING':
+            return {...state, loading: action.payload}
         case 'SET_TOKEN':
             return {...state, token: action.payload}
         case 'SET_USER':

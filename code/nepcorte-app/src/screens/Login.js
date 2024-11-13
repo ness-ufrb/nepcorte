@@ -16,8 +16,11 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Login({navigation}) {
-  const { Login } = useContext(AuthContext);
+  const { state, Login } = useContext(AuthContext);
+  const [ loading ] = state
   const [visible, setVisible] = useState(false)
+
+  console.log(loading)
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -38,7 +41,7 @@ export default function Login({navigation}) {
   return (
     <SafeAreaView style={styles.safeArea}>
     
-      {visible ? <Loading/> : null}
+      {visible && <Loading/>}
       
       <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}

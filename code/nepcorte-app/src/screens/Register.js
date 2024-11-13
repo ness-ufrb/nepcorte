@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { 
-  View, Text, StyleSheet, TouchableOpacity, 
-  SafeAreaView, Image, ScrollView,
+  View, Text, StyleSheet,
+  SafeAreaView, Image, 
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Button } from '@rneui/themed';
@@ -12,7 +12,6 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import Loading from './Loading';
 import { Context as authContext} from '../context/UserContext/Context';
-import { KeyboardAvoidingView, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Register({navigation}) {
@@ -22,10 +21,12 @@ export default function Register({navigation}) {
   const registerValidationSchema = yup.object().shape({
     username: yup
       .string()
+      .max(255, ({max})=> `O nome deve ter no máximo ${max} caracteres`)
       .required('O campo usuário está em branco'),
     email: yup
       .string()
       .email('Por favor, insira um e-mail válido')
+      .max(255, ({max})=> `O e-mail deve ter no máximo ${max} caracteres`)
       .required('O campo e-mail está em branco'),
     password: yup
       .string()
@@ -49,7 +50,7 @@ export default function Register({navigation}) {
   return (
     <SafeAreaView style={styles.safeArea}>
       
-      {visible ? <Loading /> : null}
+      {visible && <Loading/>}
       <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ flexGrow: 1 }}

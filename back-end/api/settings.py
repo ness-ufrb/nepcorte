@@ -202,10 +202,8 @@ Q_CLUSTER = {
     'queue_limit': 50,  # Limite da fila de tarefa
 }
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT'))  
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'  
-EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL') == 'True' 
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+DEFAULT_FROM_EMAIL = 'NESS <nao-responder@ness.dev.br>'
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_ECHO_TO_STDOUT = True
+
