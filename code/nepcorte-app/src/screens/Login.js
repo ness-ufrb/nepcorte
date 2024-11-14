@@ -12,16 +12,12 @@ import { icons } from '../constant/icons';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import Loading from './Loading';
-import { KeyboardAvoidingView, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Login({navigation}) {
   const { state, Login } = useContext(AuthContext);
-  const [ loading ] = state
-  const [visible, setVisible] = useState(false)
-
-  console.log(loading)
-
+  const { loading } = state
+ 
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -32,16 +28,15 @@ export default function Login({navigation}) {
       .required('O campo senha está em branco'),
   });
 
+  //ativa a action
   const signin = async (values) => {
-    setVisible(true)
     await Login(values.email, values.password);
-    setVisible(false)
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
     
-      {visible && <Loading/>}
+      {loading && <Loading/>}
       
       <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}

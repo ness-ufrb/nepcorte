@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "name": "nep-corte",
     "slug": "nep-corte",
     "version": "1.0.0",

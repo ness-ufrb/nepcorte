@@ -11,12 +11,12 @@ import { icons } from '../constant/icons';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import Loading from './Loading';
-import { Context as authContext} from '../context/UserContext/Context';
+import { Context as AuthContext} from '../context/UserContext/Context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Register({navigation}) {
-  const [visible, setVisible] = useState(false);
-  const { Register } = useContext(authContext)
+  const { state, Register } = useContext(AuthContext);
+  const { loading } = state
 
   const registerValidationSchema = yup.object().shape({
     username: yup
@@ -41,16 +41,15 @@ export default function Register({navigation}) {
       .required('Confirme sua senha'),
   });
 
+  //requisição do registro
   const handleRegister = async (values) => {
-    setVisible(true);
     await Register(values.username, values.email, values.password, navigation)
-    setVisible(false);
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       
-      {visible && <Loading/>}
+      {loading && <Loading/>}
       <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ flexGrow: 1 }}

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import { SafeAreaView, StyleSheet, View, TouchableOpacity, Text, Alert, Button, Linking, Platform } from "react-native";
-import { Camera, CameraType, FlashMode } from 'expo-camera/legacy';
+import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { COLORS } from "../constant/colors";
 import { useCameraPermissions } from 'expo-camera'
 import { Context as AssessmentsContext } from "../context/AssessContext/Context";

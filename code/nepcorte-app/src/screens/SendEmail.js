@@ -12,29 +12,29 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 import Loading from './Loading';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Context as authContext} from '../context/UserContext/Context';
+import { Context as AuthContext} from '../context/UserContext/Context';
 
 export default function SendEmail({navigation}) {
  
-  const [visible, setVisible] = useState(false)
-  const { SendEmailToken } = useContext(authContext)
+  const { state, SendEmailToken } = useContext(AuthContext);
+  const { loading } = state
+
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
       .email('Por favor, insira um e-mail válido')
       .required('O campo e-mail está em branco')
   });
-
+  
+  //requisição para o envio de email
   const sendEmail = async (values) => {
-    setVisible(true)
     await SendEmailToken(values.email, navigation)
-    setVisible(false)
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
     
-      {visible ? <Loading/> : null}
+      {loading ? <Loading/> : null}
       
       <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}

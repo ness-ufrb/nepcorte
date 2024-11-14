@@ -15,12 +15,12 @@ import Loading from './Loading';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Clipboard from 'expo-clipboard';
-import { Context as authContext} from '../context/UserContext/Context';
+import { Context as AuthContext} from '../context/UserContext/Context';
 
 export default function ChangePassword({navigation}) {
   
-  const [visible, setVisible] = useState(false);
-  const { ChangePassword } = useContext(authContext)
+  const { state, ChangePassword } = useContext(AuthContext);
+  const { loading } = state
 
   const codeValidationSchema = yup.object().shape({
     token: yup
@@ -38,11 +38,10 @@ export default function ChangePassword({navigation}) {
       .oneOf([yup.ref('password')], 'As senhas não coincidem')
       .required('Confirme sua senha'),
   });
-
+  
+  //requisição pra mudança de senha
   const signin = async (values) => {
-    setVisible(true);
     await ChangePassword(values.token, values.password, values.confirmPassword, navigation)
-    setVisible(false);
   };
 
   const fetchCopiedText = async (setFieldValue) => {
@@ -53,7 +52,7 @@ export default function ChangePassword({navigation}) {
   return (
     <SafeAreaView style={styles.safeArea}>
     
-      {visible ? <Loading/> : null}  
+      {loading ? <Loading/> : null}  
       
       <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
