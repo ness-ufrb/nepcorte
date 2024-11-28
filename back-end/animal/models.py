@@ -15,7 +15,7 @@ class Animal(UserIndexedModel):
     reproductiveSituation = models.CharField(max_length=10, choices=reproductive_situation.CustomerReprodutiveSituation.choices())
     situation             = models.CharField(max_length=26, choices=situation.CustomerSituation.choices())
     race                  = models.CharField(max_length=125)
-    age                   = models.IntegerField(verbose_name='animal age', validators=[MinValueValidator(1), MaxValueValidator(2400)])
+    age                   = models.IntegerField(verbose_name='animal age', validators=[MinValueValidator(1), MaxValueValidator(2400)], blank=True, null=True)
     description           = models.TextField(default='')
     teeth                 = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(44)], blank=True, null=True)
     species               = models.CharField(

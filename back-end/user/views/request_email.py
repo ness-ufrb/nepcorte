@@ -28,7 +28,8 @@ class RequestEmailView(APIView):
             subject = f"{token} É o seu Token de Redefinição de Senha"
             try:
                 # Envio do email.
-                send_email_with_token(email=email, token=token, subject=subject)
+                
+                send_email_with_token(email=email, token=token, subject=subject, html_local='token.html')
 
                 return Response({'message': 'Token enviado com sucesso.'}, status=status.HTTP_200_OK)
             except Exception as e:
