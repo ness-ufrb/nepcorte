@@ -67,9 +67,12 @@ const AccountScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             {loading && 
-                <>
-                    <Loading /> 
-                </>
+                <View>
+                    <ActivityIndicator size={'small'}/> 
+                    <TouchableOpacity style={styles.logoutTextContainer} onPress={handleLogout}>
+                        <Text style={styles.logoutText}>Sair da conta</Text>
+                    </TouchableOpacity>
+                </View>
             }
             <View>
                 <Header code="Minha Conta" navigation={navigation} notHasReturn={true} />
