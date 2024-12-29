@@ -69,9 +69,6 @@ const AccountScreen = ({ navigation }) => {
             {loading && 
                 <View>
                     <ActivityIndicator size={'small'}/> 
-                    <TouchableOpacity style={styles.logoutTextContainer} onPress={handleLogout}>
-                        <Text style={styles.logoutText}>Sair da conta</Text>
-                    </TouchableOpacity>
                 </View>
             }
             <View>
@@ -167,14 +164,15 @@ const AccountScreen = ({ navigation }) => {
                             <TouchableOpacity style={styles.saveButton} onPress={handleSubmit}>
                                 <Text style={styles.buttonText}>Salvar</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.logoutTextContainer} onPress={handleLogout}>
-                                <Text style={styles.logoutText}>Sair da conta</Text>
-                            </TouchableOpacity>
+                            
                         </View>
                     )}
                 </Formik>
                 }
             </View>
+            <TouchableOpacity style={styles.logoutTextContainer} onPress={handleLogout}>
+                <Text style={styles.logoutText}>Sair da conta</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };

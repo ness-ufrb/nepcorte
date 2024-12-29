@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { 
   View, Text, StyleSheet,
   SafeAreaView, Image, 
@@ -13,6 +13,7 @@ import { Formik } from 'formik';
 import Loading from './Loading';
 import { Context as AuthContext} from '../context/UserContext/Context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import PasswordStrengthMeterBar from '../components/PasswordStrengthMeterBar';
 
 export default function Register({navigation}) {
   const { state, Register } = useContext(AuthContext);
@@ -129,6 +130,7 @@ export default function Register({navigation}) {
                     {errors.password && touched.password && (
                       <Text style={styles.errorText}>{errors.password}</Text>
                     )}
+                    <PasswordStrengthMeterBar password={values.password}/>
                   </View>
 
                   <View style={styles.textInput}>
