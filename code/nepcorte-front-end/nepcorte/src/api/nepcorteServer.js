@@ -2,13 +2,18 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Endpoints
-const AnimalEndPoint = '/api/animal/';
-const ReviewEndPoint = '/api/review/analysis_result/';
-const UploadFileEndPoint = '/api/review/upload-file/';
+const AnimalEndPoint = process.env.EXPO_PUBLIC_ANIMAL_ENDPOINT;
+const ReviewEndPoint = process.env.EXPO_PUBLIC_REVIEW_ENDPOINT;
+const UploadFileEndPoint = process.env.EXPO_PUBLIC_UPLOAD_FILE_ENDPOINT;
+const RegisterEndPoint = process.env.EXPO_PUBLIC_REGISTER_ENDPOINT;
+const ApiUserTokenEndPoint = process.env.EXPO_PUBLIC_API_USER_TOKEN;
+const SendEmailEndPoint = process.env.EXPO_PUBLIC_RESET_PASSWORD_ENDPOINT;
+const ResetPasswordEndPoint = process.env.EXPO_PUBLIC_RESET_PASSWORD_ENDPOINT;
+const UserEndpoint = process.env.EXPO_PUBLIC_USER_ENDPOINT;
 
-// Criar instância do Axios
+//BASE URL
 const nepcorteServer = axios.create({
-    baseURL: 'http://192.168.1.117:8000',  // Use a variável `server` para maior flexibilidade
+    baseURL: process.env.EXPO_PUBLIC_BASE_URL,
 });
 
 // Função para obter o token de acesso e refresh token do AsyncStorage
@@ -114,4 +119,9 @@ nepcorteServer.interceptors.response.use((response) => {
 
 
 export default nepcorteServer;
-export { AnimalEndPoint, ReviewEndPoint, UploadFileEndPoint, saveTokens, getTokens };
+export { 
+    AnimalEndPoint, ReviewEndPoint, UploadFileEndPoint,
+    saveTokens, getTokens, RegisterEndPoint, ApiUserTokenEndPoint,
+    SendEmailEndPoint, ResetPasswordEndPoint, UserEndpoint
+
+};

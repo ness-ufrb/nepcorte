@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import nepcorteServer from "../../api/nepcorteServer";
 import Toast from "react-native-toast-message";
-
+import { RegisterEndPoint, ApiUserTokenEndPoint, SendEmailEndPoint, ResetPasswordEndPoint, UserEndpoint } from "../../api/nepcorteServer";
 
 const Register = (dispatch) => {
     return async (username, email, password, navigation) => {
@@ -9,7 +9,7 @@ const Register = (dispatch) => {
 
             dispatch({type: 'SET_LOADING', payload: true}) 
             // Requisição de registro de usuário
-            const { data: user } = await nepcorteServer.post('/api/user/', {
+            const { data: user } = await nepcorteServer.post(RegisterEndPoint, {
                 name: username,
                 email: email,
                 password: password
@@ -22,7 +22,6 @@ const Register = (dispatch) => {
                 type: 'success',
                 text1: `Usuário ${user.name} cadastrado`,
                 text2: 'Você já pode entrar na sua conta!',
-               
             });
 
             // Navega pra tela de login em caso de sucesso
@@ -60,7 +59,7 @@ const Login = (dispatch) => {
         try {
             //requisição para obter o token e refresh token apartir do email e senha
             dispatch({type: 'SET_LOADING', payload: true}) 
-            const res = await nepcorteServer.post(`/api/user/token/`, {
+            const res = await nepcorteServer.post(ApiUserTokenEndPoint, {
                 email,
                 password,
             });
@@ -119,7 +118,7 @@ const SendEmailToken = dispatch => {
         try{
             //requisição pra envio de email
             dispatch({type: 'SET_LOADING', payload: true}) 
-            await nepcorteServer.post('/api/user/send_email/', { email })
+            await nepcorteServer.post(SendEmailEndPoint, { email })
             dispatch({type: 'SET_LOADING', payload: false}) 
 
             //caso o email esteja cadastrado passa pra proxima tela
@@ -150,7 +149,7 @@ const ChangePassword = dispatch => {
         try {
             //requisiçao pra mudar de senha
             dispatch({type: 'SET_LOADING', payload: true}) 
-            await nepcorteServer.post('/api/user/reset_password/', { token, new_password, confirm_password });
+            await nepcorteServer.post(ResetPasswordEndPoint, { token, new_password, confirm_password });
             dispatch({type: 'SET_LOADING', payload: false}) 
 
             //informa o sucesso e navega pra tela de login
@@ -190,7 +189,7 @@ const GetUser = dispatch => {
             }
             
             // obtem as informações do usuário
-            const userRes = await nepcorteServer.get('/api/user/me/', {
+            const userRes = await nepcorteServer.get(UserEndpoint, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

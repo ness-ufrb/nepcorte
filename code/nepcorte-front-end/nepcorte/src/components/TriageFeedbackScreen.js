@@ -25,9 +25,9 @@ const TriageFeedbackScreen = ({ navigation, nextRoute, icon, text }) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.buttonExitStyle}
-                onPress={() => {console.log("End!")}}
+                onPress={()=>navigation.navigate('Animais')}
             >
-                <Text style={styles.textButtonExitStyle}>Sair</Text>
+                <Text style={styles.textButtonExitStyle}>Ir à lista de animais</Text>
             </TouchableOpacity>
         </>
     )
