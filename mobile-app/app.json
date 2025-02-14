@@ -1,8 +1,6 @@
 {
   "expo": {
-    "newArchEnabled": true,
-    "owner": "andre_luis",
-    "name": "nep-corte",
+    "name": "TopCarne",
     "slug": "nepcorte",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,50 +20,24 @@
     "ios": {
       "bundleIdentifier": "br.dev.ness.nepcorte",
       "buildNumber": "1.0.0",
-      "supportsTablet": true,
-      "googleServicesFile": "./google-services.json",
-      "entitlements": {
-        "aps-environment": "production"
-      }
+      "supportsTablet": true
     },
     "android": {
       "package": "br.dev.ness.nepcorte",
-      "googleServicesFile": "./google-services.json",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#EC441E"
-      },
-      "permissions": [
-        "CAMERA"
-      ]
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "ab899fe7-fb70-4030-a3f0-290b5861abfe"
+        "projectId": "f053fe41-379f-45f5-96bb-9298d86862b1"
       }
     },
-    "plugins": [
-      "@react-native-firebase/app",
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Dar ao NepCorte o acesso a câmera",
-          "microphonePermission": "Dar ao NepCorte o acesso ao microfone",
-          "recordAudioAndroid": true
-        }
-      ]
-    ]
+    "owner": "ness-ufrb"
   }
 }
