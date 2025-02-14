@@ -153,3 +153,6 @@ db.sqlite3
 media
 
 yarn.lock
+
+android/
+ios/
