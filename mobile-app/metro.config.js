@@ -1,7 +1,7 @@
-const { getDefaultConfig: getDefaultExpoConfig } = require("@expo/metro-config");
+const { getDefaultConfig } = require("@expo/metro-config");
 
-const metroConfig = (() => {
-  const config = getDefaultExpoConfig(__dirname);
+module.exports = (async () => {
+  const config = await getDefaultConfig(__dirname);
 
   const { transformer, resolver } = config;
 
@@ -17,5 +17,3 @@ const metroConfig = (() => {
 
   return config;
 })();
-
-module.exports = metroConfig;
