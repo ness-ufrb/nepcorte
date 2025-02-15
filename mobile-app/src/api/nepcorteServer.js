@@ -7,11 +7,11 @@ const ReviewEndPoint = process.env.EXPO_PUBLIC_REVIEW_ENDPOINT;
 const UploadFileEndPoint = process.env.EXPO_PUBLIC_UPLOAD_FILE_ENDPOINT;
 const RegisterEndPoint = process.env.EXPO_PUBLIC_REGISTER_ENDPOINT;
 const ApiUserTokenEndPoint = process.env.EXPO_PUBLIC_API_USER_TOKEN;
-const SendEmailEndPoint = process.env.EXPO_PUBLIC_RESET_PASSWORD_ENDPOINT;
+const SendEmailEndPoint = process.env.EXPO_PUBLIC_SEND_EMAIL_ENDPOINT;
 const ResetPasswordEndPoint = process.env.EXPO_PUBLIC_RESET_PASSWORD_ENDPOINT;
 const UserEndpoint = process.env.EXPO_PUBLIC_USER_ENDPOINT;
 
-//BASE URL
+// Base URL
 const nepcorteServer = axios.create({
     baseURL: process.env.EXPO_PUBLIC_BASE_URL,
 });

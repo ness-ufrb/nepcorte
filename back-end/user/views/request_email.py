@@ -13,6 +13,7 @@ class RequestEmailView(APIView):
     @extend_schema(request=RequestEmailSerializer)
     def post(self, request):
         serializer = RequestEmailSerializer(data=request.data)
+       
         if serializer.is_valid():
             email = serializer.validated_data['email']
             user = User.objects.filter(email=email).first()

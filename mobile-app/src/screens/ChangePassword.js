@@ -16,6 +16,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Clipboard from 'expo-clipboard';
 import { Context as AuthContext} from '../context/UserContext/Context';
+import PasswordStrengthMeterBar from '../components/PasswordStrengthMeterBar';
 
 export default function ChangePassword({navigation}) {
   
@@ -125,6 +126,7 @@ export default function ChangePassword({navigation}) {
                       style={styles.inputStyle}
                       outlineStyle={styles.outlineStyle}
                     />
+                  <PasswordStrengthMeterBar password={values.password}/>
                     
                   </View>
                   {errors.password && touched.password && (

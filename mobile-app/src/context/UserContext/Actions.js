@@ -135,10 +135,12 @@ const SendEmailToken = dispatch => {
         catch(e){
             dispatch({type: 'SET_LOADING', payload: false}) 
             //erro ao enviar o email
+            console.log('REPONSE DATA: ', e.response?.data)
+            const erro = e.response?.data?.email || 'Tivemos um problema'
             Toast.show({
                 type: 'error',
                 text1: `E-mail não enviado.`,
-                text2: `${email} ainda não foi cadastrado`
+                text2: `${erro}`
             });
         }
     }
