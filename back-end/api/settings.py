@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
     '192.168.1.108',
     '172.30.80.1', # URLs to test API
     '192.168.1.117',
+    '192.168.1.104'
 ]
 
 # Application definition

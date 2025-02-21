@@ -1886,7 +1886,7 @@
         "kind": 5,
         "importPath": "back-end.api.settings",
         "description": "back-end.api.settings",
-        "peekOfCode": "SECRET_KEY = 'django-insecure-xgli_zazq_l+1@2*)u+!(ds74(*3%@1y)#2#^v-%7dw)o8im4z'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = [\n    'localhost',\n    'api.nepcorte.ness.dev.br',\n    '192.168.1.108',\n    '172.30.80.1', # URLs to test API\n    '192.168.1.117',\n]",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-xgli_zazq_l+1@2*)u+!(ds74(*3%@1y)#2#^v-%7dw)o8im4z'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = [\n    'localhost',\n    'api.nepcorte.ness.dev.br',\n    '192.168.1.108',\n    '172.30.80.1', # URLs to test API\n    '192.168.1.117',\n    '192.168.1.104'",
         "detail": "back-end.api.settings",
         "documentation": {}
     },
@@ -1895,7 +1895,7 @@
         "kind": 5,
         "importPath": "back-end.api.settings",
         "description": "back-end.api.settings",
-        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = [\n    'localhost',\n    'api.nepcorte.ness.dev.br',\n    '192.168.1.108',\n    '172.30.80.1', # URLs to test API\n    '192.168.1.117',\n]\n# Application definition\nINSTALLED_APPS = [",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = [\n    'localhost',\n    'api.nepcorte.ness.dev.br',\n    '192.168.1.108',\n    '172.30.80.1', # URLs to test API\n    '192.168.1.117',\n    '192.168.1.104'\n]\n# Application definition",
         "detail": "back-end.api.settings",
         "documentation": {}
     },
@@ -1904,7 +1904,7 @@
         "kind": 5,
         "importPath": "back-end.api.settings",
         "description": "back-end.api.settings",
-        "peekOfCode": "ALLOWED_HOSTS = [\n    'localhost',\n    'api.nepcorte.ness.dev.br',\n    '192.168.1.108',\n    '172.30.80.1', # URLs to test API\n    '192.168.1.117',\n]\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',",
+        "peekOfCode": "ALLOWED_HOSTS = [\n    'localhost',\n    'api.nepcorte.ness.dev.br',\n    '192.168.1.108',\n    '172.30.80.1', # URLs to test API\n    '192.168.1.117',\n    '192.168.1.104'\n]\n# Application definition\nINSTALLED_APPS = [",
         "detail": "back-end.api.settings",
         "documentation": {}
     },
@@ -2525,7 +2525,7 @@
         "kind": 2,
         "importPath": "back-end.review.views.uploadedfiles_views",
         "description": "back-end.review.views.uploadedfiles_views",
-        "peekOfCode": "def simulate_ai_processing():\n    \"\"\"Função que simula a execução da IA com um tempo aleatório.\"\"\"\n    random_time = random.randint(0, 15)  # Tempo aleatório entre 0 e 15 segundos\n    time.sleep(random_time)  # Simular o tempo de execução da IA\n    # Retorna resultados bons ou ruins de forma aleatória\n    ai_results = {\n        'marbling_level': random.choice(results),\n        'fat_distribution': random.choice(results),\n    }\n    return ai_results",
+        "peekOfCode": "def simulate_ai_processing():\n    \"\"\"Função que simula a execução da IA com um tempo aleatório.\"\"\"\n    random_time = random.randint(0, 3)  # Tempo aleatório entre 0 e 3 segundos\n    time.sleep(random_time)  # Simular o tempo de execução da IA\n    # Retorna resultados usando as novas categorias\n    ai_results = {\n        'marbling_level': random.choice(marbling_levels),\n        'fat_distribution': random.choice(fat_distribution),\n    }\n    return ai_results",
         "detail": "back-end.review.views.uploadedfiles_views",
         "documentation": {}
     },
@@ -2539,11 +2539,20 @@
         "documentation": {}
     },
     {
-        "label": "results",
+        "label": "marbling_levels",
         "kind": 5,
         "importPath": "back-end.review.views.uploadedfiles_views",
         "description": "back-end.review.views.uploadedfiles_views",
-        "peekOfCode": "results = [\n    'moderada', 'abundante', 'muito bom',\n    'boa', 'muita gordura', 'melhor que tem',\n    'muito boa', 'brabo', 'menos músculo', 'escassa', 'ausente', 'ruim'\n]\ndef simulate_ai_processing():\n    \"\"\"Função que simula a execução da IA com um tempo aleatório.\"\"\"\n    random_time = random.randint(0, 15)  # Tempo aleatório entre 0 e 15 segundos\n    time.sleep(random_time)  # Simular o tempo de execução da IA\n    # Retorna resultados bons ou ruins de forma aleatória",
+        "peekOfCode": "marbling_levels = [\n    'ausente',          # Sem marmoreio visível\n    'leve',             # Pequenas manchas de gordura\n    'moderado',         # Quantidade média de gordura intramuscular\n    'abundante',        # Grande quantidade de gordura bem distribuída\n    'excessivo'         # Quantidade muito alta de gordura intramuscular\n]\nfat_distribution = [\n    'insuficiente',     # Cobertura de gordura muito fina\n    'escassa',          # Cobertura de gordura abaixo do ideal",
+        "detail": "back-end.review.views.uploadedfiles_views",
+        "documentation": {}
+    },
+    {
+        "label": "fat_distribution",
+        "kind": 5,
+        "importPath": "back-end.review.views.uploadedfiles_views",
+        "description": "back-end.review.views.uploadedfiles_views",
+        "peekOfCode": "fat_distribution = [\n    'insuficiente',     # Cobertura de gordura muito fina\n    'escassa',          # Cobertura de gordura abaixo do ideal\n    'adequada',         # Cobertura de gordura uniforme e ideal\n    'moderada',         # Cobertura de gordura acima do ideal\n    'excessiva'         # Cobertura de gordura muito espessa\n]\ndef simulate_ai_processing():\n    \"\"\"Função que simula a execução da IA com um tempo aleatório.\"\"\"\n    random_time = random.randint(0, 3)  # Tempo aleatório entre 0 e 3 segundos",
         "detail": "back-end.review.views.uploadedfiles_views",
         "documentation": {}
     },

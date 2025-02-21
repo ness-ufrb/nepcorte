@@ -20,9 +20,9 @@ const ProblemAnalysis = ({ navigation, nextRoute, title }) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.buttonExitStyle}
-                onPress={() => {navigation.navigate("Assess")}}
+                onPress={() => {navigation.navigate("Avaliações")}}
             >
-                <Text style={styles.textButtonExitStyle}>Finalizar</Text>
+                <Text style={styles.textButtonExitStyle}>Ir à lista de avaliações</Text>
             </TouchableOpacity>
         </>
     )

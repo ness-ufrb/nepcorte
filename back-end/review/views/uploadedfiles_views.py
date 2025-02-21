@@ -19,21 +19,31 @@ from django_q.tasks import async_task
 from review.models.analysis_result import AnalysisResult
 
 # Valores de resultados
-results = [
-    'moderada', 'abundante', 'muito bom',
-    'boa', 'muita gordura', 'melhor que tem',
-    'muito boa', 'brabo', 'menos músculo', 'escassa', 'ausente', 'ruim'
+marbling_levels = [
+    'ausente',          # Sem marmoreio visível
+    'leve',             # Pequenas manchas de gordura
+    'moderado',         # Quantidade média de gordura intramuscular
+    'abundante',        # Grande quantidade de gordura bem distribuída
+    'excessivo'         # Quantidade muito alta de gordura intramuscular
+]
+
+fat_distribution = [
+    'insuficiente',     # Cobertura de gordura muito fina
+    'escassa',          # Cobertura de gordura abaixo do ideal
+    'adequada',         # Cobertura de gordura uniforme e ideal
+    'moderada',         # Cobertura de gordura acima do ideal
+    'excessiva'         # Cobertura de gordura muito espessa
 ]
 
 def simulate_ai_processing():
     """Função que simula a execução da IA com um tempo aleatório."""
-    random_time = random.randint(0, 15)  # Tempo aleatório entre 0 e 15 segundos
+    random_time = random.randint(0, 3)  # Tempo aleatório entre 0 e 3 segundos
     time.sleep(random_time)  # Simular o tempo de execução da IA
 
-    # Retorna resultados bons ou ruins de forma aleatória
+    # Retorna resultados usando as novas categorias
     ai_results = {
-        'marbling_level': random.choice(results),
-        'fat_distribution': random.choice(results),
+        'marbling_level': random.choice(marbling_levels),
+        'fat_distribution': random.choice(fat_distribution),
     }
     
     return ai_results

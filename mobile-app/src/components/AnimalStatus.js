@@ -5,12 +5,20 @@ import { fontSizes } from '../constant/fontSizes';
 
 const AnimalStatus = ({ trimLevel, fatDeposition }) => {
     const goodResults = [
-        'moderada', 'abundante', 'muito bom',
-        'boa', 'muita gordura', 'melhor que tem',
-        'muito boa', 'brabo'
+        'moderado',      // Marmoreio ideal
+        'abundante',     // Marmoreio excelente
+        'adequada',      // Distribuição de gordura ideal
+        'moderada'       // Distribuição de gordura boa
     ];
     
-    const badResults = ['menos músculo', 'escassa', 'ausente', 'ruim'];
+    const badResults = [
+        'ausente',       // Marmoreio insuficiente
+        'leve',          // Marmoreio baixo
+        'excessivo',     // Marmoreio muito alto
+        'insuficiente',  // Gordura muito baixa
+        'escassa',       // Gordura baixa
+        'excessiva'      // Gordura muito alta
+    ];
 
     const getStatus = (value) => {
         if (!value) return 'analysis';
